@@ -3,6 +3,22 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary-color: #d11717;
+    --bg-color: #FFF;
+    --title-primary-color: #2C3E50
+}
+
 .container {
-    max-width: 1366px;
+    max-width: 1920px;
+}
+
+h1, h2, h3 {
+    font-size: 4rem;
+    color: var(--title-primary-color)
+}
+
+.section-wrapper {
+    width: 100%;
+    margin: 3rem 0 1rem;
 }
