@@ -1,12 +1,15 @@
 * {
     margin: 0 auto;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 :root {
     --primary-color: #d11717;
-    --bg-color: #FFF;
-    --title-primary-color: #2C3E50
+    --primary-bg-color: #FFF;
+    --secudary-bg-color: #2b2b2b;
+    --title-primary-color: #2C3E50;
+    --title-secudary-color: #FFF;
 }
 
 .container {
@@ -14,11 +17,13 @@
 }
 
 h1, h2, h3 {
-    font-size: 4rem;
+    font-size: 3.6rem;
     color: var(--title-primary-color)
 }
 
 .section-wrapper {
     width: 100%;
     margin: 3rem 0 1rem;
+    padding: 0 20px;
+    min-height: 100vh;
 }
