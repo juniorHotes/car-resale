@@ -3,6 +3,7 @@ import React from 'react'
 import './styles.css'
 
 import NavBar from '../../components/NavBar'
+import Footer from '../../components/Footer'
 import banner from '../../assets/img/banner.png'
 
 
@@ -25,6 +26,8 @@ export default function Home() {
                     </div>
                 </section>
             </div>
+
+            <Footer />
         </>
     )
 }
