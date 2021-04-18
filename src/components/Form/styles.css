@@ -1,0 +1,10 @@
+.input-block {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-block input {
+    padding: 12px;
+    border: 1px solid var(--secudary-bg-color);
+    border-radius: 8px;
+}

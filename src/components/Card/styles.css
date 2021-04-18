@@ -1,0 +1,63 @@
+.card-container {
+    width: 95%;
+    background-color: var(--primary-bg-color);
+    border: 1px solid #cccc;
+    border-radius: 8px;
+    color: var(--title-primary-color);
+}
+
+.card-header img {
+    width: 100%;
+    margin-bottom: 26px;
+    min-height: 186px;
+    object-fit: cover;
+}
+
+.car-price {
+    font-size: 2rem;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+.card-wrapper {
+    padding: 12px;
+    margin-top: -30px;
+}
+
+.card-section {
+    margin-bottom: 20px;
+}
+
+.card-section div h4 {
+    padding: 0 0 8px 0;
+    font-size: 1.5rem;
+}
+
+.card-car-yar {
+    display: block;
+    width: fit-content;
+    margin: 0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: var(--title-secudary-color);
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.card-info {
+    padding: 22px 0;
+    font-size: 1.5rem;
+}
+
+.grid-3 {
+    display: flex;
+    margin-bottom: 90px;
+}
+
+.section-wrapper.grid-3 a {
+    margin: 0;
+}
+
+.grid-3 .card-large {
+    width: 34%;
+}

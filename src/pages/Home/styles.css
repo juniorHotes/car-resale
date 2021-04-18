@@ -1,8 +1,51 @@
+.section-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
 .banner-wrapper {
     width: 100%;
+}
+
+.banner-wrapper .slick-dots {
+    bottom: 32px;
 }
 
 .banner-wrapper img {
     width: 100%;
 }
 
+.title-container {
+    display: block;
+    margin-bottom: 40px;
+}
+
+.draft-wrapper {
+    margin-bottom: 80px;
+}
+
+.slick-prev:before, .slick-next:before {
+    font-size: 80px;
+    color: var(--primary-color);
+}
+
+.slick-next {
+    right: 35px;
+}
+
+.slick-prev {
+    left: -25px;
+    z-index: 2;
+}
+
+.slick-next, .slick-prev {
+    top: 47%;
+}
+
+.slick-dots li button:before {
+    font-size: 20px;
+}
+
+.slick-dots {
+    bottom: -45px;
+}
