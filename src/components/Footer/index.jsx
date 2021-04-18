@@ -1,4 +1,6 @@
 import React from 'react'
+import  { Link } from 'react-router-dom'
+
 import './styles.css'
 
 import logoIcon from '../../assets/img/icons/logo.png'
@@ -6,7 +8,7 @@ import logoIcon from '../../assets/img/icons/logo.png'
 export default function Footer() {
     return (
         <div className='footer-container'>
-            <div className='container footer-wrapper'>
+            <div className='wrapper footer-wrapper'>
                 <div className='footer-icon-wrapper'>
                     <img src={logoIcon} alt="Incone Shop Auto" />
                 </div>
@@ -15,34 +17,31 @@ export default function Footer() {
                 </div>
                 <div className='menu-footer-container'>
                     <ul>
-                        <li><a href='' >Politicas</a></li>
-                        <li><a href='' >Fale Conosco</a></li>
-                        <li><a href='' >Sobre Nós</a></li>
-                        <li><a href='' >FAQ</a></li>
+                        <li><Link to='' >Politicas</Link></li>
+                        <li><Link to='' >Fale Conosco</Link></li>
+                        <li><Link to='' >Sobre Nós</Link></li>
+                        <li><Link to='' >FAQ</Link></li>
                     </ul>
                 </div>
                 <div className='populated-wrapper'>
                     <div>
-                        <a href="#" id="tel" title='Telefone'>+55 (98) 91234-5678</a>
+                        <Link to="#" id="tel" title='Telefone'>+55 (98) 91234-5678</Link>
                     </div>
                     <div>
-                        <a href="#" id='email' title='Email'>email@email.com.br</a>
+                        <Link to="#" id='email' title='Email'>email@email.com.br</Link>
                     </div>
                     <div className="addres-wrapper">
                         <div>
-                            <a href="#" id='addres' title='Endereço'>
+                            <Link to="#" id='addres' title='Endereço'>
                                 <span>
                                     RUA CICLANA 255
                                     CEP: 12345-123
                                     PARNAÍBA
                                 </span>
-                            </a>
+                            </Link>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
     )
