@@ -4,6 +4,7 @@ import  { Link } from 'react-router-dom'
 import './styles.css'
 
 import logoIcon from '../../assets/img/icons/logo.png'
+import whatsapp from '../../assets/img/icons/whatsapp.svg'
 
 export default function Footer() {
     return (
@@ -24,8 +25,15 @@ export default function Footer() {
                     </ul>
                 </div>
                 <div className='populated-wrapper'>
-                    <div>
-                        <Link to="#" id="tel" title='Telefone'>+55 (98) 91234-5678</Link>
+                    <div className="phone-wrapper">
+                        <a href="https://web.whatsapp.com/send?phone=555384696515" target="_blanck" id="tel" title='Telefone'>
+                            <div>
+                                <div>
+                                   <span>+55 (98) 91234-5678</span>
+                                </div>
+                                <img width="50" src={whatsapp} title="Whatsapp" rel="Whatsapp"/>
+                            </div>
+                        </a>
                     </div>
                     <div>
                         <Link to="#" id='email' title='Email'>email@email.com.br</Link>
