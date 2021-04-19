@@ -9,15 +9,15 @@ export default function NavBar() {
         <nav className='nav-container'>
             <div className='wrapper nav__wrapper'>
                 <div className='logo-wrapper'>
-                    <Link to="#">
+                    <Link to="/">
                         <img src={logoIcon} alt="logo" />
                     </Link>
                 </div>
                 <div className='nav-wrapper'>
                     <ul>
-                        <li><Link to="http://">Anunciar</Link></li>
-                        <li><Link to="http://">Cadastrar-se</Link></li>
-                        <li><Link to="http://">Entrar</Link></li>
+                        <li><Link to="announce">Anunciar</Link></li>
+                        <li><Link to="newuser">Cadastrar-se</Link></li>
+                        <li><Link to="Login">Entrar</Link></li>
                     </ul>
                 </div>
             </div>

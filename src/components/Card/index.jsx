@@ -7,7 +7,7 @@ import exemple from '../../assets/img/1-335x186.jpg'
 export default function Card(props) {
     const { title, price, yar, info } = props
     return (
-        <Link to="http://" className={props.className}>
+        <Link to="details" className={props.className}>
             <div className="card-container">
                 <header className="card-header">
                     <div>
