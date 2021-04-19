@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import './styles.css'
+import { useField } from '@unform/core'
 
-export default function Input({ size, label, inputType, name, validate, ...rest }) {
-    console.log(size)
+const Input = ({ label, name, size, ...rest }) => {
+    const inputRef = useRef()
+    const { fieldName, defaultValue, registerField, error } = useField(name)
+
+    useEffect(() => {
+        registerField({
+            name: fieldName,
+            ref: inputRef.current,
+            path: 'value'
+        })
+    }, [fieldName, registerField])
+
     return (
-        <div className="input-block" style={{width: `${size}`}}>
+        <div className="input-block" style={{ width: `${size}` }}>
             <label htmlFor={name}>{label}</label>
-            <input className={validate?.[0]} type={inputType} id={name} {...rest} />
-            <span className={`${validate?.[0]}-span`}>{validate?.[1]}</span>
+
+            <input name={name}
+                ref={inputRef}
+                {...rest}
+            />
+
+            <span className="input-error">{error}</span>
         </div>)
 }
+
+export default Input

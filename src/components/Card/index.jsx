@@ -1,5 +1,5 @@
 import React from 'react'
-import  { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './styles.css'
 
 import exemple from '../../assets/img/1-335x186.jpg'
@@ -16,16 +16,22 @@ export default function Card(props) {
                 </header>
                 <div className="card-wrapper">
                     <section className="card-section">
-                        <div>
-                            <h4>{title}</h4>
-                        </div>
+
+                        {title &&
+                            <div>
+                                <h4>{title}</h4>
+                            </div>
+                        }
                         <span className="car-price">{price}</span>
                     </section>
                     <div className="card-footer">
-                        <span className="card-car-yar">{yar}</span>
-                        <div className="card-info">
-                         {info}
-                        </div>
+                        {yar &&
+                            <span className="card-car-yar">{yar}</span>
+                        }
+
+                        {info &&
+                            <div className="card-info">{info}</div>
+                        }
                     </div>
                 </div>
             </div>

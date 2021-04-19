@@ -17,8 +17,8 @@ export default function Home() {
 
     const settingsBanner = {
         autoplay: true,
-        arrows: false,
-        dots: true,
+        arrows: true,
+        dots: false,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
@@ -29,32 +29,32 @@ export default function Home() {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 5,
+        slidesToScroll: 5,
         responsive: [
             {
-              breakpoint: 1300,
-              settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
-              }
+                breakpoint: 1300,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                }
             },
             {
-              breakpoint: 965,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
-              }
+                breakpoint: 965,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
             },
             {
-              breakpoint: 760,
-              settings: {
-                arrows: false,
-                slidesToShow: 1,
-                slidesToScroll: 1
-              }
+                breakpoint: 760,
+                settings: {
+                    arrows: false,
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
             }
-          ]
+        ]
     };
 
     return (
@@ -77,26 +77,35 @@ export default function Home() {
 
                 <HomeSearch />
 
+
+
                 <section className='section-wrapper'>
-                    <div className='title-container'>
+                    <div className='title-section'>
                         <h1>Destaques</h1>
                     </div>
-                    <div className='draft-wrapper'>
-                        <Slider {...settingsCard}>
-                            <Card title="Título do Anúcio 1s dsds dsd" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                            <Card title="Título do Anúcio 2" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                            <Card title="Título do Anúcio 3" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                            <Card title="Título do Anúcio 4 " price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                            <Card title="Título do Anúcio 5" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                            <Card title="Título do Anúcio 6" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                            <Card title="Título do Anúcio 7" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                        </Slider>
+
+                    <div className="wrapper-inner grid-3">
+                        <Card className="card-large" title="Título do Anúcio 1s dsds dsd" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
+                        <Card className="card-large" title="Título do Anúcio 2" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
+                        <Card className="card-large" title="Título do Anúcio 3" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
                     </div>
                 </section>
-                <section className='section-wrapper grid-3'>
-                    <Card className="card-large" title="Título do Anúcio 1s dsds dsd" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                    <Card className="card-large" title="Título do Anúcio 2" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                    <Card className="card-large" title="Título do Anúcio 3" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
+
+                <section className='section-wrapper'>
+                    <div className='title-section'>
+                        <h1>Últimos Anúncios Realizados</h1>
+                    </div>
+                    <div className='wrapper-inner'>
+                        <Slider {...settingsCard}>
+                            <Card className="card-small" price="R$ 10.000,00" />
+                            <Card className="card-small" price="R$ 10.000,00" />
+                            <Card className="card-small" price="R$ 10.000,00" />
+                            <Card className="card-small" price="R$ 10.000,00" />
+                            <Card className="card-small" price="R$ 10.000,00" />
+                            <Card className="card-small" price="R$ 10.000,00" />
+                            <Card className="card-small" price="R$ 10.000,00" />
+                        </Slider>
+                    </div>
                 </section>
             </div>
 
