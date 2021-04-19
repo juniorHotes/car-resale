@@ -57,6 +57,7 @@
 }
 
 .grid-3 {
+    width: 95%;
     display: flex;
     margin-bottom: 90px;
 }
@@ -68,6 +69,19 @@
 .grid-3 .card-large {
     width: 34%;
 }
+
+.card-small .card-header img {
+    min-height: unset;
+}
+
+.card-small .card-section {
+    margin-bottom: 0!important;
+}
+
+.card-small .car-price {
+    font-size: 1.5rem!important;
+}
+
 
 @media screen and (max-width: 945px) {
     .grid-3 {

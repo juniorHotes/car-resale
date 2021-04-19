@@ -1,0 +1,14 @@
+.form-content {
+    width: 40%;
+    min-width: 200px;
+    margin-top: 80px;
+    padding: 20px;
+}
+
+.form-title {
+    padding-bottom: 40px;
+}
+
+.form-title h3 {
+    font-size: 2.6rem;
+}

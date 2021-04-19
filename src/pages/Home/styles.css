@@ -16,37 +16,66 @@
     width: 100%;
 }
 
-.title-container {
+.title-section h1 {
     display: block;
     margin-bottom: 40px;
+    font-size: 3rem!important;
 }
 
-.draft-wrapper {
-    margin-bottom: 80px;
+/* BANNER SLIDER */
+.banner-wrapper .slick-prev:before, 
+.banner-wrapper .slick-next:before {
+    font-size: 40px;
+    /* color: var(--primary-color); */
 }
 
-.slick-prev:before, .slick-next:before {
+.banner-wrapper .slick-next {
+    right: 30px;
+}
+
+.banner-wrapper .slick-prev {
+    left: 10px;
+    z-index: 2;
+}
+
+.banner-wrapper .slick-next, 
+.banner-wrapper .slick-prev {
+    top: 47%;
+}
+
+.banner-wrapper .slick-dots li button:before {
+    font-size: 20px;
+}
+
+.banner-wrapper .slick-dots {
+    bottom: -45px;
+}
+
+/* CAR SLIDER */
+.section-wrapper .slick-prev:before, 
+.section-wrapper .slick-next:before {
     font-size: 80px;
     color: var(--primary-color);
 }
 
-.slick-next {
+.section-wrapper .slick-next {
     right: 35px;
 }
 
-.slick-prev {
+.section-wrapper .slick-prev {
     left: -25px;
     z-index: 2;
 }
 
-.slick-next, .slick-prev {
+.section-wrapper .slick-next, 
+.section-wrapper .slick-prev {
     top: 47%;
 }
 
-.slick-dots li button:before {
+.section-wrapper .slick-dots li button:before {
     font-size: 20px;
 }
 
-.slick-dots {
+.section-wrapper .slick-dots {
     bottom: -45px;
 }

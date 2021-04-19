@@ -10,7 +10,7 @@
     padding: 20px;
     display: grid;
     gap: 16px;
-    grid-template-columns: .5fr 1fr 1fr 1fr;
+    grid-template-columns: .5fr 1fr .5fr 1fr;
 }
 
 .footer-icon-wrapper {
@@ -74,6 +74,18 @@
     color: var(--title-secundary-color);
 }
 
+.phone-wrapper div:nth-child(1){
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+
+.phone-wrapper div:nth-child(1) div{
+    margin: 0 8px;
+}
+
+
 #tel {
     font-size: 2.2rem;
 }
@@ -101,5 +113,9 @@
         padding: 0 20px;
         text-align: start;
     }
-    
+
+    .phone-wrapper div:nth-child(1){
+        max-width: 400px;
+        margin-left: 0;    
+    }       
 }

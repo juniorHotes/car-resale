@@ -1,8 +1,10 @@
 .input-block {
     width: 100%;
-    margin: 0 3px;
-    display: flex;
-    flex-direction: row;
+    margin: 30px 3px;
+}
+
+.input-block label {
+    font-size: 1.5rem;
 }
 
 .input-block input {
@@ -36,4 +38,10 @@
 
 .input-block input[bgColor="secundary"] {
     background-color: var(--secundary-bg-color);
+}
+
+.input-error {
+    padding: 4px 0;
+    font-size: 1.2rem;
+    color: red;
 }
