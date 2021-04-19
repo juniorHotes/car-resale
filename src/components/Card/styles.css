@@ -6,11 +6,18 @@
     color: var(--title-primary-color);
 }
 
+.card-container:hover {
+    border: 1px solid var(--primary-color);
+    box-shadow: 0px 5px 20px 0px rgba(255, 0, 0, 0.5);
+    transition: .5s;
+}
+
 .card-header img {
     width: 100%;
     margin-bottom: 26px;
     min-height: 186px;
     object-fit: cover;
+    border-radius: 8px 8px 0 0;
 }
 
 .car-price {
@@ -39,7 +46,7 @@
     padding: 8px 12px;
     border-radius: 4px;
     background-color: var(--primary-color);
-    color: var(--title-secudary-color);
+    color: var(--title-secundary-color);
     font-weight: bold;
     font-size: 1.5rem;
 }
@@ -60,4 +67,16 @@
 
 .grid-3 .card-large {
     width: 34%;
+}
+
+@media screen and (max-width: 945px) {
+    .grid-3 {
+        display: unset;
+        margin-bottom: 90px;
+    }  
+    
+    .grid-3 .card-container {
+        width: 85%;
+        margin: 20px auto;
+    }
 }

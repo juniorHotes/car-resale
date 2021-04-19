@@ -9,10 +9,11 @@
 
 :root {
     --primary-color: #d11717;
+    --secundary-color: #2ECC71;
     --primary-bg-color: #FFF;
-    --secudary-bg-color: #2b2b2b;
+    --secundary-bg-color: #2b2b2b;
     --title-primary-color: #2C3E50;
-    --title-secudary-color: #FFF;
+    --title-secundary-color: #FFF;
 }
 
 .container {

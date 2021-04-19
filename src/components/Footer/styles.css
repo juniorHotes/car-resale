@@ -1,7 +1,8 @@
 .footer-container {
     width: 100%;
+    margin-top: 300px;
     min-height: 300px;
-    background-color: var(--secudary-bg-color);
+    background-color: var(--secundary-bg-color);
     clear: both;
 }   
 
@@ -28,7 +29,7 @@
 
 .about-wrapper h3 {
     font-size: 1.5rem;
-    color: var(--title-secudary-color);
+    color: var(--title-secundary-color);
 }
 
 .nav-container ul {
@@ -47,12 +48,12 @@
 
 ::marker {
     font-size: 1.8rem;
-    color: var(--title-secudary-color);
+    color: var(--title-secundary-color);
 }
 
 .menu-footer-container ul li a {
     font-size: 1.5rem;
-    color: var(--title-secudary-color);
+    color: var(--title-secundary-color);
 }
 
 .menu-footer-container ul li a:hover {
@@ -70,7 +71,7 @@
 }
 
 .populated-wrapper a {
-    color: var(--title-secudary-color);
+    color: var(--title-secundary-color);
 }
 
 #tel {
