@@ -1,8 +1,7 @@
 .search-wrapper {
     position: relative;
     width: 100%;
-    height: 200px;
-    margin: 0 auto 50px auto;
+    height: 100px;
     display: flex;
     justify-content: center;
 }
@@ -24,6 +23,29 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+input[inputSearch="search"] {
+    width: 80px;
+    background-image: url('../../assets/img/icons/magnifier.svg');
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition: .5s;
+}
+
+input[inputSearch="search"]:hover {
+    background-size: 60%;
+}
+
+
+input[bgColor="primary"] {
+    background-color: var(--primary-color);
+}
+
+input[bgColor="secundary"] {
+    background-color: var(--secundary-bg-color);
 }
 
 @media screen and (max-width: 711px) {

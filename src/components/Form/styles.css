@@ -9,35 +9,12 @@
 
 .input-block input {
     width: 100%;
-    padding: 18px;
     font-size: 1.2rem;
     font-weight: bold;
     color: var(--title-primary-color);
     border: 1px solid var(--secundary-bg-color);
     border-radius: 8px;
-}
-
-.input-block input[inputSearch="search"] {
-    width: 80px;
-    background-image: url('../../assets/img/icons/magnifier.svg');
-    background-position: center;
-    background-size: 50%;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    transition: .5s;
-}
-
-.input-block input[inputSearch="search"]:hover {
-    background-size: 60%;
-}
-
-
-.input-block input[bgColor="primary"] {
-    background-color: var(--primary-color);
-}
-
-.input-block input[bgColor="secundary"] {
-    background-color: var(--secundary-bg-color);
+    background-color: var(--primary-bg-color)!important;
 }
 
 .input-error {

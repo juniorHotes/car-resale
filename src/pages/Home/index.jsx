@@ -60,6 +60,7 @@ export default function Home() {
     return (
         <>
             <NavBar />
+            
             <div className='container'>
                 <header className='banner-wrapper'>
                     <Slider {...settingsBanner}>
@@ -76,8 +77,6 @@ export default function Home() {
                 </header>
 
                 <HomeSearch />
-
-
 
                 <section className='section-wrapper'>
                     <div className='title-section'>

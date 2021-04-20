@@ -68,7 +68,7 @@ export default function Login() {
                         />
 
                         <button
-                            className="btn btn-secundary"
+                            className="btn btn-large btn-100"
                             type="submit"
                             style={{float: 'right'}}
                         >

@@ -30,13 +30,11 @@ export default function HomeSearch(props) {
                             placeholder="Preço"
                         />
 
-                        <Input
-                            name="submit"
-                            size="200px"
-                            type="submit"
-                            bgColor="secundary"
-                            value=""
+                        <input
+                            className="btn btn-large"
                             inputSearch="search"
+                            type="submit"
+                            value=""
                         />
                     </Form>
                 </div>

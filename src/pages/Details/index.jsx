@@ -1,25 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './styles.css'
 
 import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import profileIcon from '../../assets/img/icons/default_user.svg'
-import exemple from '../../assets/img/1-335x186.jpg'
+import whatsapp from '../../assets/img/icons/whatsapp.svg'
+
+import exemple1 from '../../assets/img/exemple_details-1.jpg'
+import exemple2 from '../../assets/img/exemple_details-2.jpg'
+import exemple3 from '../../assets/img/exemple_details-3.jpg'
+
+// Import Materialize
+import M from "materialize-css";
+import 'materialize-css/dist/css/materialize.min.css';
 
 export default function Details() {
+
+    useEffect(() => {
+        const elems = document.querySelectorAll('.carousel');
+        M.Carousel.init(elems);
+
+    })
+
     return (
         <>
             <NavBar />
+
             <div className='container'>
-                <div className="container-images">
-                    <div className="img-wrapper">
-                        <img src={exemple} alt="" />
-                    </div>
-                    <div className="img-wrapper">
-                        <img src={exemple} alt="" />
-                    </div>
-                    <div className="img-wrapper">
-                        <img src={exemple} alt="" />
+                <div className="container-carousel">
+                    <div class="carousel">
+                        <a class="carousel-item" href="#one!"><img src={exemple1} /></a>
+                        <a class="carousel-item" href="#two!"><img src={exemple2} /></a>
+                        <a class="carousel-item" href="#three!"><img src={exemple3} /></a>
                     </div>
                 </div>
 
@@ -65,12 +77,20 @@ export default function Details() {
                                 <h3>Arnaldo Junior</h3>
                             </div>
                             <div className="profile-contact">
+
                                 <div>
                                     <span>email@email.com</span>
                                 </div>
-                                <div>
-                                    <span>(98) 91234-5678</span>
-                                </div>
+
+                                <a href="https://web.whatsapp.com/send?phone=555384696515" target="_blanck" id="tel" title='Telefone'>
+                                    <div className="profile-phone-wrapper"> 
+                                        <div className="profile-phone">
+                                            <span>(98) 91234-5678</span>
+                                        </div>
+                                        <img width="50" src={whatsapp} title="Whatsapp" rel="Whatsapp" />
+                                    </div>
+                                </a>
+
                             </div>
                         </div>
                     </div>
@@ -81,7 +101,13 @@ export default function Details() {
                                 <h3>R$ 10.000,00</h3>
                             </div>
                             <div className="sheet-list-wrapper">
-
+                                <ul className="sheet-item">
+                                    <li>Opcional 1</li>
+                                    <li>Opcional 2</li>
+                                    <li>Opcional 3</li>
+                                    <li>Opcional 4</li>
+                                    <li>Opcional 5</li>
+                                </ul>
                             </div>
                         </div>
                     </div>

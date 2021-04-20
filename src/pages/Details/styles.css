@@ -1,19 +1,22 @@
-.container-images {
-    display: flex;
-    flex-direction: row;
-}
-
-.img-wrapper {
-    width: 34%;
-}
-
-.img-wrapper:nth-child(2) {
-    width: 40%;
-    margin: 0 6px;
-}
-
-.img-wrapper img {
+.container-carousel {
     width: 100%;
+    height: 414px;
+}
+
+.carousel {
+    height: 200%!important;
+    perspective: 800px!important;
+    bottom: 200px;
+}
+
+.carousel .carousel-item {
+    width: 532px!important;
+    height: 414px!important;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, .5);
+}
+
+.carousel .carousel-item>img {
+    width: unset!important;
 }
 
 .info-container {
@@ -92,7 +95,7 @@
 
 .sheet-wrapper {
     width: 450px;
-    height: 950px;
+    height: 150vh;
     padding: 30px;
     background-color: var(--secundary-bg-color);
     position: absolute;
@@ -100,7 +103,38 @@
     right: 0;
 }
 
+.profile-phone-wrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-phone {
+   margin: 0;
+   padding: 0!important;
+}
+
+.profile-phone-wrapper img[title="Whatsapp"] {
+    width: 44px;
+    margin: 0 10px;
+ } 
+
+
 .car-price h3 {
+    text-align: center;
+    margin: 0;
     font-size: 3rem;
     color: var(--title-secundary-color);
+}
+
+.sheet-list-wrapper {
+    padding: 40px;
+    font-size: 2rem;
+    color: var(--title-secundary-color);
+}
+
+.sheet-item li {
+    padding: 10px;
+    list-style-type: disc!important;
 }

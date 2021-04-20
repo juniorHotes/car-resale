@@ -9,7 +9,6 @@
 
 :root {
     --primary-color: #d11717;
-    --secundary-color: #2ECC71;
     --primary-bg-color: #FFF;
     --secundary-bg-color: #2b2b2b;
     --title-primary-color: #2C3E50;
@@ -17,12 +16,13 @@
 }
 
 .container {
-    max-width: 1366px;
+    width: 100%;
+    max-width: 1466px;
     min-height: 100vh;
 }
 
 .wrapper {
-    max-width: 1366px;
+    max-width: 1466px;
 }
 
 h1, h2, h3 {
@@ -41,25 +41,9 @@ h1, h2, h3 {
 }
 
 .btn {
-    margin: 20px 0;
-    font-size: 1.5rem;
-    font-weight: bold;
-    padding: 12px 18px;
-    cursor: pointer;
-    border: 0;
-    transition: .5s;
-}
-
-.btn:hover {
-    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.5);
-}
-
-.btn.btn-primary {
-    background-color: var(--primary-bg-color);
-    color: var(--title-primary-color);
-}
-
-.btn.btn-secundary {
     background-color: var(--secundary-bg-color);
-    color: var(--title-secundary-color);
+}
+
+.btn-100 {
+    width: 100%;
 }

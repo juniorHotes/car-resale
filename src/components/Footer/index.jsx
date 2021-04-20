@@ -4,7 +4,6 @@ import  { Link } from 'react-router-dom'
 import './styles.css'
 
 import logoIcon from '../../assets/img/icons/logo.png'
-import whatsapp from '../../assets/img/icons/whatsapp.svg'
 
 export default function Footer() {
     return (
@@ -31,7 +30,6 @@ export default function Footer() {
                                 <div>
                                    <span>+55 (98) 91234-5678</span>
                                 </div>
-                                <img width="50" src={whatsapp} title="Whatsapp" rel="Whatsapp"/>
                             </div>
                         </a>
                     </div>

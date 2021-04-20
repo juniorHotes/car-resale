@@ -32,21 +32,20 @@
     color: var(--title-secundary-color);
 }
 
-.nav-container ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0; 
-}
-
 .menu-footer-container {
     margin: 0;
 }
 
-.menu-footer-container ul li {
-    padding: 16px 0;
+.menu-footer-container ul {
+    margin-left: 40px;
 }
 
-::marker {
+.menu-footer-container ul li {
+    padding: 16px 0;
+    list-style-type: disc!important;
+}
+
+.menu-footer-container ul li::marker {
     font-size: 1.8rem;
     color: var(--title-secundary-color);
 }
@@ -64,6 +63,7 @@
 .populated-wrapper {
     padding: 16px 0;
     text-align: end;
+    z-index: 1;
 }
 
 .populated-wrapper div {
@@ -73,18 +73,6 @@
 .populated-wrapper a {
     color: var(--title-secundary-color);
 }
-
-.phone-wrapper div:nth-child(1){
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-}
-
-
-.phone-wrapper div:nth-child(1) div{
-    margin: 0 8px;
-}
-
 
 #tel {
     font-size: 2.2rem;
@@ -113,9 +101,5 @@
         padding: 0 20px;
         text-align: start;
     }
-
-    .phone-wrapper div:nth-child(1){
-        max-width: 400px;
-        margin-left: 0;    
-    }       
+    
 }
