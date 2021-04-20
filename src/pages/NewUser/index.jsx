@@ -50,6 +50,7 @@ export default function NewUser() {
                 <div className="form-content">
                     <div className="form-title">
                         <h3>Faça seu cadastro</h3>
+                        <span>Campos com * são obrigatórios</span>
                     </div>
 
                     <Form onSubmit={handleSubmit} ref={formRef}>

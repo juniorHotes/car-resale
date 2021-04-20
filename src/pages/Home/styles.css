@@ -54,12 +54,12 @@
 /* CAR SLIDER */
 .section-wrapper .slick-prev:before, 
 .section-wrapper .slick-next:before {
-    font-size: 80px;
+    font-size: 60px;
     color: var(--primary-color);
 }
 
 .section-wrapper .slick-next {
-    right: 35px;
+    right: 15px;
 }
 
 .section-wrapper .slick-prev {

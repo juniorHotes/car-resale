@@ -15,16 +15,20 @@ export default function HomeSearch(props) {
                 <div className="search-container">
                     <Form>
                         <Input
+                            inputSearch="search-input"
+                            input
                             type="text"
                             name="marca"
                             placeholder="Marca"
                         />
                         <Input
+                            inputSearch="search-input"
                             type="text"
                             name="modelo"
                             placeholder="Modelo"
                         />
                         <Input
+                            inputSearch="search-input"
                             type="text"
                             name="preço"
                             placeholder="Preço"
@@ -32,7 +36,7 @@ export default function HomeSearch(props) {
 
                         <input
                             className="btn btn-large"
-                            inputSearch="search"
+                            inputSearch="search-button"
                             type="submit"
                             value=""
                         />
