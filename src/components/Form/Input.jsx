@@ -19,6 +19,7 @@ const Input = ({ label, name, size, ...rest }) => {
             <label htmlFor={name}>{label}</label>
 
             <input name={name}
+                defaultValue={defaultValue}
                 ref={inputRef}
                 {...rest}
             />

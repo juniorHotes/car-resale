@@ -11,6 +11,7 @@ import Input from '../../components/Form/Input'
 
 export default function Login() {
     const formRef = useRef(null);
+    const [sigin, setSigin] = useState({})
 
     async function handleSubmit(data, { reset }) {
         try {
@@ -30,7 +31,12 @@ export default function Login() {
 
             reset()
 
-            console.log(data)
+            setSigin(data)
+
+            const promise = await api.post('/api/authorize', sigin) 
+            const { token } = promise.data
+
+            token && sessionStorage.setItem('token', token)  
 
         } catch (err) {
             const validationErrors = {};
@@ -51,7 +57,7 @@ export default function Login() {
                     <div className="form-title">
                         <h3>Entre com seu usuário</h3>
                     </div>
-
+                    {console.log(sigin)}
                     <Form onSubmit={handleSubmit} ref={formRef}>
 
                         <Input
@@ -70,10 +76,7 @@ export default function Login() {
                         <button
                             className="btn btn-large btn-100"
                             type="submit"
-                            style={{float: 'right'}}
-                        >
-                            Entrar
-                        </button>
+                        >Entrar</button>
                     </Form>
 
                 </div>
