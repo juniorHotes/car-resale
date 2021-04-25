@@ -20,8 +20,8 @@
 }
 
 .info-container {
-    position: relative;
     margin: 12px 80px;
+    display: flex;
 }
 
 .info-header {
@@ -43,6 +43,7 @@
 }
 
 .infor-wrapper .info h3 {
+    margin: 4px 0;
     font-size: 1.5rem!important;
 }
 
@@ -51,14 +52,14 @@
 }
 
 .description-wrapper {
-    width: 50%;
+    width: 95%;
     margin: 90px 0;
     font-size: 1.6rem;
     opacity: .6;
 }
 
 .profile-container {
-    width: 65%;
+    width: 100%;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -96,11 +97,9 @@
 .sheet-wrapper {
     width: 450px;
     height: 150vh;
+    margin-top: 30px;
     padding: 30px;
     background-color: var(--secundary-bg-color);
-    position: absolute;
-    top: -80px;
-    right: 0;
 }
 
 .profile-phone-wrapper {

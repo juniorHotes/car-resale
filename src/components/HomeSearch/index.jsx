@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Form } from '@unform/web'
 import api from '../../services/api'
@@ -12,22 +12,28 @@ import 'materialize-css/dist/css/materialize.min.css';
 
 export default function HomeSearch(props) {
     const searchContainer = useRef(null)
+    const elemSelect = useRef(null)
+
+    const [changeText, setFilter] = useState(false)
+    const [selectValues, setSelectValues] = useState([])
 
     useEffect(() => {
-        const elems = document.querySelectorAll('select');
-        M.FormSelect.init(elems);
+        M.FormSelect.init(elemSelect.current);
+        setSelectValues(elemSelect.current)
     })
 
-    useEffect(() => {
-        console.log(searchContainer)
-    }, [])
+    function handleSubmit(data) {
+        const optional = selectValues.M_FormSelect.getSelectedValues().join()
+        console.log({ ...data, optional })
+    }
 
     return (
         <div className="wrapper">
             <div className="search-wrapper">
                 <div className="search-container" ref={searchContainer}>
                     <div className="basic-search-wrapper">
-                        <Form>
+
+                        <Form onSubmit={handleSubmit}>
                             <Input
                                 inputSearch="search-input"
                                 input
@@ -42,20 +48,23 @@ export default function HomeSearch(props) {
                                 type="submit"
                                 value=""
                             />
-
                         </Form>
 
                     </div>
                     <div className="advanced-button-wrapper">
-                        <button className="waves-effect waves-teal btn-flat"
-                            onClick={e => searchContainer.current.classList.toggle('drop_down')}
+                        <button className="btn-flat"
+                            onClick={() => {
+                                setFilter(!changeText)
+                                return searchContainer.current.classList.toggle('drop_down')
+                            }}
                         >
-                            Filtros Avançados
+                            {changeText ? 'Filtro Básico' : 'Filtros Avançados'}
+
                             <i className="material-icons arrow_drop_down">arrow_drop_down</i>
                         </button>
                     </div>
                     <div className="advaced-search-wrapper">
-                        <Form>
+                        <Form onSubmit={handleSubmit}>
                             <div id="advaced-search-g1">
                                 <Input
                                     inputSearch="search-input"
@@ -112,21 +121,12 @@ export default function HomeSearch(props) {
                             </div>
                             <div id="advaced-search-g3">
                                 <div className="input-field col s12">
-                                    <select multiple>
-                                        <option value="" disabled selected>Choose your option</option>
-                                        <option value="1">Option 1</option>
-                                        <option value="2">Option 2</option>
-                                        <option value="3">Option 3</option>
+                                    <select multiple ref={elemSelect}>
+                                        <option selected disabled>Opcionais</option>
+                                        <option >Option 1</option>
+                                        <option >Option 2</option>
+                                        <option >Option 3</option>
                                     </select>
-                                    <label>Materialize Multiple Select</label>
-                                </div>
-                                <div>
-                                    <Input
-                                        inputSearch="search-input"
-                                        type="text"
-                                        name="preco-max"
-                                        placeholder="Opcionais"
-                                    />
                                 </div>
                             </div>
 
