@@ -139,7 +139,7 @@ export default function Search() {
                                 <div className="input-field col s12">
                                     <select multiple ref={elemSelect}>
                                         <option value="" selected disabled>Opcionais</option>
-                                        {optional.map(e => <option value={e.id}>{e.name}</option>)}
+                                        {optional.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
                                     </select>
                                 </div>
                             </div>

@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
@@ -11,7 +12,6 @@ import Input from '../../components/Form/Input'
 
 export default function Login() {
     const formRef = useRef(null);
-    const [sigin, setSigin] = useState({})
 
     async function handleSubmit(data, { reset }) {
         try {
@@ -31,9 +31,7 @@ export default function Login() {
 
             reset()
 
-            // setSigin(data)
-
-            const promise = await api.post('/api/authorize', data)
+            const promise = await api.post('/api/authorize', data).then(e => e.json()).catch(err => console.log(err))
             const { token } = promise.data
             console.log(token)
             if(token) {
@@ -79,6 +77,10 @@ export default function Login() {
                             type="submit"
                         >Entrar</button>
                     </Form>
+                    <div id="footer-form">
+                        <p>Não tem cadastro? </p>
+                        <Link to="newuser">Faça seu cadastro aqui</Link>
+                    </div>
 
                 </div>
             </div>

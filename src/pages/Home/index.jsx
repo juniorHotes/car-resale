@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './styles.css'
+import api from '../../services/api'
 
 import Slider from "react-slick";
 
@@ -9,11 +10,14 @@ import Footer from '../../components/Footer'
 import Card from '../../components/Card'
 import Search from '../../components/Search'
 
-import banner1 from '../../assets/img/banner-1.png'
-import banner2 from '../../assets/img/banner-2.png'
-import banner3 from '../../assets/img/banner-3.png'
-
 export default function Home() {
+    const [banners, setBanners] = useState([])
+
+    useEffect(async () => {
+        const request = await api.get('/api/home/banners')
+        setBanners(request.data)
+        console.log(request)
+    }, [])
 
     const settingsBanner = {
         autoplay: true,
@@ -60,19 +64,15 @@ export default function Home() {
     return (
         <>
             <NavBar />
-            
+
             <div className='container'>
                 <header className='banner-wrapper'>
                     <Slider {...settingsBanner}>
-                        <div>
-                            <img src={banner1} alt="Banner" />
-                        </div>
-                        <div>
-                            <img src={banner2} alt="Banner" />
-                        </div>
-                        <div>
-                            <img src={banner3} alt="Banner" />
-                        </div>
+                        {banners.map(banner =>
+                            <div>
+                                <img src={banner} alt="Banner" />
+                            </div>)
+                        }
                     </Slider>
                 </header>
 
