@@ -31,12 +31,14 @@ export default function Login() {
 
             reset()
 
-            setSigin(data)
+            // setSigin(data)
 
-            const promise = await api.post('/api/authorize', sigin) 
+            const promise = await api.post('/api/authorize', data)
             const { token } = promise.data
-
-            token && sessionStorage.setItem('token', token)  
+            console.log(token)
+            if(token) {
+                sessionStorage.setItem('token', token)  
+            }
 
         } catch (err) {
             const validationErrors = {};
@@ -57,7 +59,6 @@ export default function Login() {
                     <div className="form-title">
                         <h3>Entre com seu usuário</h3>
                     </div>
-                    {console.log(sigin)}
                     <Form onSubmit={handleSubmit} ref={formRef}>
 
                         <Input

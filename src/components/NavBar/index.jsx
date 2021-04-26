@@ -15,9 +15,9 @@ export default function NavBar() {
                 </div>
                 <div className='nav-wrapper'>
                     <ul>
-                        <li><Link to="announce">Anunciar</Link></li>
-                        <li><Link to="newuser">Cadastrar-se</Link></li>
-                        <li><Link to="Login">Entrar</Link></li>
+                        <li><Link to="/announce">Anunciar</Link></li>
+                        <li><Link to="/newuser">Cadastrar-se</Link></li>
+                        <li><Link to="/Login">Entrar</Link></li>
                     </ul>
                 </div>
             </div>

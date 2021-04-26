@@ -6,6 +6,7 @@ import Details from './pages/Details';
 import NewUser from './pages/NewUser';
 import Login from './pages/Login';
 import Announce from './pages/Announce';
+import Results from './pages/Results';
 
 export default function Routes() {
     return (
@@ -15,6 +16,7 @@ export default function Routes() {
             <Route path="/newuser" component={NewUser} />
             <Route path="/login" component={Login} />
             <Route path="/announce" component={Announce} />
+            <Route path="/api/advertisement/filter" component={Results} />
         </BrowserRouter>
     );
 }

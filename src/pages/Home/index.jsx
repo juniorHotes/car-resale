@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import Card from '../../components/Card'
-import HomeSearch from '../../components/HomeSearch'
+import Search from '../../components/Search'
 
 import banner1 from '../../assets/img/banner-1.png'
 import banner2 from '../../assets/img/banner-2.png'
@@ -76,7 +76,7 @@ export default function Home() {
                     </Slider>
                 </header>
 
-                <HomeSearch />
+                <Search />
 
                 <section className='section-wrapper'>
                     <div className='title-section'>
