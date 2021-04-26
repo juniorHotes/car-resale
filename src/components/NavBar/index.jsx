@@ -2,18 +2,19 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './styles.css'
 
-import logoIcon from '../../assets/img/icons/CarangaVazado.svg'
+import logoIcon from '../../assets/img/icons/Vazado.png'
 
 export default function NavBar() {
     return (
         <nav className='nav-container'>
-            <div className='wrapper'>
-                <div className='nav-wrapper'>
-                    <Link to="/" className="left brand-logo">
-                        <img height="190px" src={logoIcon} alt="Logo" />
+            <div className='wrapper nav__wrapper'>
+                <div className='logo-wrapper'>
+                    <Link to="/">
+                        <img width="200px" src={logoIcon} alt="logo" />
                     </Link>
-
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
+                </div>
+                <div className='nav-wrapper'>
+                    <ul>
                         <li><Link to="/announce">Anunciar</Link></li>
                         <li><Link to="/newuser">Cadastrar-se</Link></li>
                         <li><Link to="/Login">Entrar</Link></li>
@@ -21,6 +22,5 @@ export default function NavBar() {
                 </div>
             </div>
         </nav>
-
     )
 }

@@ -6,6 +6,8 @@
 
 .banner-wrapper {
     width: 100%;
+    min-height: 400px;
+    background-color: darkgray
 }
 
 .banner-wrapper .slick-dots {

@@ -33,7 +33,7 @@ export default function Login() {
 
             const promise = await api.post('/api/authorize', data).then(e => e.json()).catch(err => console.log(err))
             const { token } = promise.data
-            console.log(token)
+            
             if(token) {
                 sessionStorage.setItem('token', token)  
             }

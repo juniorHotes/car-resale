@@ -30,17 +30,27 @@ export default function Search() {
         setSelectValues(elemSelect.current)
     }, [optional])
 
-    function handleSubmit(data) {
+    async function handleSubmit(data) {
         const basicSearch = data.filter
 
-        if (basicSearch != undefined || basicSearch == '') {
-            console.log(data)
-            history.push('/api/advertisement/filter?searchType=basic', data)
-        } else {
-            const optional = selectValues.M_FormSelect.getSelectedValues()
-            console.log({ ...data, optional })
-            history.push('/api/advertisement/filter?searchType=complete', { ...data, optional })
-        }
+        // const request = await api.get("/api/advertisement/filter", {
+        //     data: {
+        //         "filter": "",
+        //         "brand": "vw",
+        //         "model": "jetta",
+        //         "minPrice": 0,
+        //         "maxPrice": 50000,
+        //         "maxKm": 100000,
+        //         "minYear": 2010,
+        //         "maxYear": 2021,
+        //         "optional": [
+        //             "c44eccb8-a1eb-42f8-8e03-48f0701ea3a8",
+        //             "86110546-f27f-4d9b-9d4f-559eaa962adb",
+        //             "2c4d1a7c-075f-4692-ac9f-1bd6756ed8f4"
+        //         ],
+        //         "searchType": "complete"
+        //     }
+        // }).then(e => e.json())
     }
 
     return (

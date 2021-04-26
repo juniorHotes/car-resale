@@ -12,11 +12,20 @@ export default function Results(props) {
     useEffect(async () => {
         console.log(props)
 
-        await api.get("/api/advertisement/filter?searchType=basic")
-            .then(e => e.json())
-            .then(req => {
-                console.log(req)
-            }).catch(err => err) 
+        await api.get("/api/advertisement/filter", {
+            "filter": "JETTA",
+            "brand": "",
+            "model": "",
+            "minPrice": 0,
+            "maxPrice": 0,
+            "maxKm": 0,
+            "minYear": 0,
+            "maxYear": 0,
+            "optional": [],
+            "searchType": "basic"
+        }).then(e => e.json()).then(req => {
+            console.log(req)
+        }).catch(err => err)
 
     }, [])
     return (
