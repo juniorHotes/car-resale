@@ -94,8 +94,6 @@ export default function Details() {
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                     <div>
                         <div className="card-optional">
@@ -114,10 +112,11 @@ export default function Details() {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </section>
+
             </div>
+
             <Footer />
         </>
     )

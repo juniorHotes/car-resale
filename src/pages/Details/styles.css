@@ -36,7 +36,7 @@
 
 .card-optional {
     width: 100%;
-    position: absolute;
+    height: 100%;
 }
 
 .info-header {
@@ -113,7 +113,7 @@
 
 .sheet-wrapper {
     width: 450px;
-    height: 150vh;
+    min-height: 100%;
     margin-top: 30px;
     padding: 30px;
     background-color: var(--secundary-bg-color);

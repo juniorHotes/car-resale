@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
+import SkyLight from 'react-skylight'
 
 import './styles.css'
 
@@ -11,15 +12,15 @@ import Input from '../../components/Form/Input'
 
 export default function NewUser() {
     const formRef = useRef(null);
+    const skyLightRef = useRef(null);
 
     const [uf, setUF] = useState('')
     const [city, setCity] = useState('')
     const [street, setStreet] = useState('')
     const [region, setRegion] = useState('')
     const [ibgenumber, setIbgenumber] = useState('')
-
     const [phone, setPhone] = useState('')
-
+    const [showInput, setShowInput] = useState('')
 
     async function getAddres(cep) {
         formRef.current.setFieldError('cep', '')
@@ -28,7 +29,11 @@ export default function NewUser() {
             const addres = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(e => e.json()).catch(err => err)
             const cepNotFound = addres.erro
 
-            cepNotFound && formRef.current.setFieldError("cep", "CEP não encontrado")
+            if (cepNotFound) {
+                return formRef.current.setFieldError("cep", "CEP não encontrado")
+            }
+
+            setShowInput('show-input')
 
             setUF(addres.uf)
             setCity(addres.localidade)
@@ -36,13 +41,20 @@ export default function NewUser() {
             setRegion(addres.bairro)
             setIbgenumber(addres.ibge)
 
-            console.log(addres)
+        } else {
+            setShowInput('')
+
+            setUF('')
+            setCity('')
+            setStreet('')
+            setRegion('')
+            setIbgenumber('')
         }
     }
 
     async function handleSubmit(data, { reset }) {
-        if (data.password != data.passwordrepeat) {
-            formRef.current.setFieldError('passwordrepeat', 'As senhas não são iguais')
+        if(data.password != data.passwordrepeat) {
+            return formRef.current.setFieldError('passwordrepeat', "A senha é diferente")
         }
 
         try {
@@ -57,18 +69,35 @@ export default function NewUser() {
 
                 password: Yup.string()
                     .min(6, "Sua senha deve ser maio que 6 caracteres")
-                    .required("Forneça sua senha por favor")
+                    .required("Forneça sua senha por favor"),
+
+                cep: Yup.string()
+                    .min(8, "CEP não encontrado")
+                    .required("Forneça seu CEP para preencher seu endereço"),
+
+                phone: Yup.string()
+                    .min(15, "Revise o número")
+                    .required("Forneça seu número de telefone para contato"),
+
+
             })
 
             await schema.validate(data, {
                 abortEarly: false
             })
 
-            formRef.current.setErrors({})
+            console.log(data)
+
+            await api.post('/api/user', data).then(() => {
+                // skyLightRef.current.props.title = "Cadastro realizado com sucesso!"
+                skyLightRef.current.show()
+                formRef.current.setErrors({})
+            }).catch(err => {
+                // skyLightRef.current.props.title = "Erro ao realizar cadastro!"
+                skyLightRef.current.show()
+            })
 
             reset()
-
-            console.log(data)
 
         } catch (err) {
             const validationErrors = {};
@@ -81,17 +110,18 @@ export default function NewUser() {
         }
     }
 
-    function formatPhoneNumber(value) {
-        if (!value) return value;
-        const phoneNumber = value.replace(/[^\d]/g, "");
-        const phoneNumberLength = phoneNumber.length;
-        
-        if (phoneNumberLength < 4) return phoneNumber;
-        if (phoneNumberLength < 7) {
-            return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
-        }
-        return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 9)}`;
-    }
+    let formatPhoneNumber = (str) => {
+
+        let cleaned = ('' + str).replace(/\D/g, '');
+
+        let match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+
+        if (match) {
+            return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+        };
+
+        return null
+    };
 
     function phoneNumberFormatter(value) {
         const formattedInputValue = formatPhoneNumber(value);
@@ -100,6 +130,9 @@ export default function NewUser() {
 
     return (
         <>
+            <SkyLight hideOnOverlayClicked ref={skyLightRef} title="">
+            </SkyLight>
+
             <NavBar />
             <div className='container'>
                 <div className="form-content">
@@ -141,57 +174,59 @@ export default function NewUser() {
                         <Input
                             onChange={(e) => getAddres(e.target.value)}
                             label="CEP"
-                            type="text"
+                            type="number"
                             name="cep"
-                            placeholder="Ex: 12345789"
+                            placeholder="Ex: 12345678"
                         />
 
-                        <Input
-                            label="Estado"
-                            type="text"
-                            name="state"
-                            value={uf}
-                            placeholder=""
-                        />
+                        <div className={`hide-input ${showInput}`}>
+                            <Input
+                                label="Estado"
+                                type="text"
+                                name="state"
+                                value={uf}
+                                placeholder=""
+                            />
 
-                        <Input
-                            label="Cidade"
-                            type="text"
-                            name="city"
-                            value={city}
-                            placeholder=""
-                        />
+                            <Input
+                                label="Cidade"
+                                type="text"
+                                name="city"
+                                value={city}
+                                placeholder=""
+                            />
 
-                        <Input
-                            label="Região"
-                            type="text"
-                            name="region"
-                            value={region}
-                            placeholder=""
-                        />
+                            <Input
+                                label="Região"
+                                type="text"
+                                name="region"
+                                value={region}
+                                placeholder=""
+                            />
 
-                        <Input
-                            label="Rua"
-                            type="text"
-                            name="street"
-                            value={street}
-                            placeholder=""
-                        />
+                            <Input
+                                label="Rua"
+                                type="text"
+                                name="street"
+                                value={street}
+                                placeholder=""
+                            />
 
-                        <Input
-                            label="Número"
-                            type="text"
-                            name="number"
-                            placeholder=""
-                        />
+                            <Input
+                                label="Número"
+                                type="text"
+                                name="number"
+                                placeholder=""
+                            />
 
-                        <Input
-                            label="Codigo IBGE "
-                            type="text"
-                            name="ibgenumber"
-                            value={ibgenumber}
-                            placeholder=""
-                        />
+                            <Input
+                                label="Codigo IBGE "
+                                type="number"
+                                name="ibgenumber"
+                                value={ibgenumber}
+                                placeholder=""
+                            />
+                        </div>
 
                         <Input
                             onChange={(e) => phoneNumberFormatter(e.target.value)}
