@@ -116,11 +116,11 @@ export default function NewUser() {
         }
     }
 
-    let formatPhoneNumber = (str) => {
+    const formatPhoneNumber = (str) => {
 
-        let cleaned = ('' + str).replace(/\D/g, '');
+        const cleaned = ('' + str).replace(/\D/g, '');
 
-        let match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+        const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
 
         if (match) {
             return '(' + match[1] + ') ' + match[2] + '-' + match[3]
@@ -138,12 +138,14 @@ export default function NewUser() {
         <>
             <SkyLight ref={skyLightRef}
                 dialogStyles={{
+                    minHeight: '260px',
                     display: 'flex',
                     flexDirection: 'column',
                     flexWrap: 'nowrap',
                     justifyContent: 'flex-start',
                     alignItems: 'center',
                     textAlign: 'center',
+                    fontSize: '2rem'
                 }}
                 title={dialogMsg[0]} >
                 {dialogMsg[1]}

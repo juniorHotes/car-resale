@@ -142,8 +142,6 @@ export default function Search() {
                             <div id="advaced-search-g3">
                                 <div className="input-field col s12">
                                     <select multiple ref={elemSelect} defaultValue={[]}>
-                                        <option value="" >Selecione </option>
-                                        <option value="" >Selecione </option>
                                         {optional.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
                                     </select>
                                 </div>

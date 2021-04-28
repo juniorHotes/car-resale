@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
@@ -15,10 +15,6 @@ export default function Login() {
     const history = useHistory()
     const formRef = useRef(null);
     const skyLightRef = useRef(null);
-
-    useEffect(() => {
-        console.log(skyLightRef)
-    }, [])
 
     const [preload, setPreload] = useState(false)
     const [dialogMsg, setDialogMsg] = useState(['', ''])
@@ -73,14 +69,16 @@ export default function Login() {
     return (
         <>
             <SkyLight ref={skyLightRef}
-                afterClose={() => history.push('/')}
+                afterClose={() => dialogMsg[1] == "" && history.push('/')}
                 dialogStyles={{
+                    minHeight: '260px',
                     display: 'flex',
                     flexDirection: 'column',
                     flexWrap: 'nowrap',
                     justifyContent: 'flex-start',
                     alignItems: 'center',
                     textAlign: 'center',
+                    fontSize: '2rem'
                 }}
                 title={dialogMsg[0]} >
                 {dialogMsg[1]}

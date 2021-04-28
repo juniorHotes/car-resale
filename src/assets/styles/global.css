@@ -47,3 +47,7 @@ h1, h2, h3 {
 .btn-100 {
     width: 100%;
 }
+
+.skylight-dialog h2 {
+    font-size: 3rem!important;
+}
