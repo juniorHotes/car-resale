@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
@@ -13,6 +13,9 @@ import Input from '../../components/Form/Input'
 export default function NewUser() {
     const formRef = useRef(null);
     const skyLightRef = useRef(null);
+
+    const [preload, setPreload] = useState(false)
+    const [dialogMsg, setDialogMsg] = useState(['', ''])
 
     const [uf, setUF] = useState('')
     const [city, setCity] = useState('')
@@ -53,7 +56,10 @@ export default function NewUser() {
     }
 
     async function handleSubmit(data, { reset }) {
-        if(data.password != data.passwordrepeat) {
+
+        formRef.current.setErrors({})
+
+        if (data.password != data.passwordrepeat) {
             return formRef.current.setFieldError('passwordrepeat', "A senha é diferente")
         }
 
@@ -78,26 +84,26 @@ export default function NewUser() {
                 phone: Yup.string()
                     .min(15, "Revise o número")
                     .required("Forneça seu número de telefone para contato"),
-
-
             })
 
             await schema.validate(data, {
                 abortEarly: false
             })
 
-            console.log(data)
+            setPreload(true)
 
-            await api.post('/api/user', data).then(() => {
-                // skyLightRef.current.props.title = "Cadastro realizado com sucesso!"
-                skyLightRef.current.show()
-                formRef.current.setErrors({})
-            }).catch(err => {
-                // skyLightRef.current.props.title = "Erro ao realizar cadastro!"
-                skyLightRef.current.show()
-            })
-
-            reset()
+            await api.post('/api/user', { ...data, ibgenumber: Number(data.ibgenumber) })
+                .then(() => {
+                    reset()
+                    setPhone('')
+                    setPreload(false)
+                    setDialogMsg(['Cadastrado com sucesso', ''])
+                    skyLightRef.current.show()
+                }).catch(err => {
+                    setPreload(false)
+                    setDialogMsg(['Erro ao fazer cadastro', 'Erro na requisição'])
+                    skyLightRef.current.show()
+                })
 
         } catch (err) {
             const validationErrors = {};
@@ -130,7 +136,17 @@ export default function NewUser() {
 
     return (
         <>
-            <SkyLight hideOnOverlayClicked ref={skyLightRef} title="">
+            <SkyLight ref={skyLightRef}
+                dialogStyles={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexWrap: 'nowrap',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                }}
+                title={dialogMsg[0]} >
+                {dialogMsg[1]}
             </SkyLight>
 
             <NavBar />
@@ -184,7 +200,7 @@ export default function NewUser() {
                                 label="Estado"
                                 type="text"
                                 name="state"
-                                value={uf}
+                                defaultValue={uf}
                                 placeholder=""
                             />
 
@@ -192,7 +208,7 @@ export default function NewUser() {
                                 label="Cidade"
                                 type="text"
                                 name="city"
-                                value={city}
+                                defaultValue={city}
                                 placeholder=""
                             />
 
@@ -200,7 +216,7 @@ export default function NewUser() {
                                 label="Região"
                                 type="text"
                                 name="region"
-                                value={region}
+                                defaultValue={region}
                                 placeholder=""
                             />
 
@@ -208,7 +224,7 @@ export default function NewUser() {
                                 label="Rua"
                                 type="text"
                                 name="street"
-                                value={street}
+                                defaultValue={street}
                                 placeholder=""
                             />
 
@@ -223,7 +239,7 @@ export default function NewUser() {
                                 label="Codigo IBGE "
                                 type="number"
                                 name="ibgenumber"
-                                value={ibgenumber}
+                                defaultValue={ibgenumber}
                                 placeholder=""
                             />
                         </div>
@@ -234,13 +250,22 @@ export default function NewUser() {
                             type="tel"
                             name="phone"
                             value={phone}
-                            placeholder=""
+                            placeholder="Ex: (00) 12345-6789"
                         />
 
-                        <button
-                            className="btn btn-large btn-100"
-                            type="submit"
-                        >Cadastrar</button>
+                        <div className="preload">
+                            {preload &&
+                                <div className="progress">
+                                    <div className="indeterminate"></div>
+                                </div>
+                            }
+                            <button disabled={preload}
+                                className="btn btn-large btn-100"
+                                type="submit"
+                            >
+                                Cadastrar
+                            </button>
+                        </div>
                     </Form>
 
                 </div>

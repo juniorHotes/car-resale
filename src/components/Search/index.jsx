@@ -27,6 +27,7 @@ export default function Search() {
 
     useEffect(() => {
         M.FormSelect.init(elemSelect.current);
+        elemSelect.current.M_FormSelect.input.placeholder = "Selecione um ou mais opcionais"
         setSelectValues(elemSelect.current)
     }, [optional])
 
@@ -42,8 +43,7 @@ export default function Search() {
 
                         <Form onSubmit={handleSubmit}>
                             <Input
-                                inputSearch="search-input"
-                                input
+                                inputsearch="search-input"
                                 type="text"
                                 name="filter"
                                 placeholder="Pesquise por marca, modelo ou preço"
@@ -51,7 +51,7 @@ export default function Search() {
 
                             <input
                                 className="btn btn-large"
-                                inputSearch="search-button"
+                                inputsearch="search-button"
                                 type="submit"
                                 value=""
                             />
@@ -74,20 +74,19 @@ export default function Search() {
                         <Form onSubmit={handleSubmit}>
                             <div id="advaced-search-g1">
                                 <Input
-                                    inputSearch="search-input"
-                                    input
+                                    inputsearch="search-input"
                                     type="text"
                                     name="brand"
                                     placeholder="Marca"
                                 />
                                 <Input
-                                    inputSearch="search-input"
+                                    inputsearch="search-input"
                                     type="text"
                                     name="model"
                                     placeholder="Modelo"
                                 />
                                 <Input
-                                    inputSearch="search-input"
+                                    inputsearch="search-input"
                                     type="text"
                                     name="potencia"
                                     placeholder="Potencia"
@@ -97,29 +96,43 @@ export default function Search() {
                             <div id="advaced-search-g2">
                                 <div>
                                     <Input
-                                        inputSearch="search-input"
-                                        input
-                                        type="text"
+                                        inputsearch="search-input"
+                                        type="number"
                                         name="minYear"
                                         placeholder="Ano mínimo"
+                                        min="1950"
+                                        onChange={(e) => {
+                                            const currentYear = new Date().getUTCFullYear()
+                                            if (e.target.value.length > 3 && e.target.value < 1950)
+                                                return e.target.value = 1950
+                                            else if (e.target.value > currentYear)
+                                                return e.target.value = currentYear
+                                            else return e.target.value
+                                        }}
                                     />
                                     <Input
-                                        inputSearch="search-input"
-                                        type="text"
+                                        inputsearch="search-input"
+                                        type="number"
                                         name="maxYear"
                                         placeholder="Ano máximo"
+                                        max={new Date().getUTCFullYear()}
+                                        onChange={(e) => {
+                                            const currentYear = new Date().getUTCFullYear()
+                                            if (e.target.value.length > 3 && e.target.value > currentYear)
+                                                return e.target.value = currentYear
+                                            else return e.target.value
+                                        }}
                                     />
                                 </div>
                                 <div>
                                     <Input
-                                        inputSearch="search-input"
-                                        input
+                                        inputsearch="search-input"
                                         type="text"
                                         name="minPrice"
                                         placeholder="Preço mínimo"
                                     />
                                     <Input
-                                        inputSearch="search-input"
+                                        inputsearch="search-input"
                                         type="text"
                                         name="maxPrice"
                                         placeholder="Preço máximo"
@@ -128,8 +141,9 @@ export default function Search() {
                             </div>
                             <div id="advaced-search-g3">
                                 <div className="input-field col s12">
-                                    <select multiple ref={elemSelect} defaultValue="">
-                                        <option value="" selected disabled>Opcionais</option>
+                                    <select multiple ref={elemSelect} defaultValue={[]}>
+                                        <option value="" >Selecione </option>
+                                        <option value="" >Selecione </option>
                                         {optional.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
                                     </select>
                                 </div>

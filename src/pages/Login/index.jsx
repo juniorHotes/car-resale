@@ -1,8 +1,9 @@
-import React, { useRef } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
+import SkyLight from 'react-skylight'
 
 import './styles.css'
 
@@ -11,9 +12,19 @@ import Footer from '../../components/Footer'
 import Input from '../../components/Form/Input'
 
 export default function Login() {
+    const history = useHistory()
     const formRef = useRef(null);
+    const skyLightRef = useRef(null);
+
+    useEffect(() => {
+        console.log(skyLightRef)
+    }, [])
+
+    const [preload, setPreload] = useState(false)
+    const [dialogMsg, setDialogMsg] = useState(['', ''])
 
     async function handleSubmit(data, { reset }) {
+        formRef.current.setErrors({})
         try {
             const schema = Yup.object().shape({
                 email: Yup.string()
@@ -27,16 +38,26 @@ export default function Login() {
                 abortEarly: false
             })
 
-            formRef.current.setErrors({})
+            setPreload(true)
 
-            reset()
+            await api.post('/api/authorize', data)
+                .then((promise) => {
+                    reset()
+                    setPreload(false)
+                    setDialogMsg(['Você está logado', ''])
+                    skyLightRef.current.show()
 
-            const promise = await api.post('/api/authorize', data).then(e => e.json()).catch(err => console.log(err))
-            const { token } = promise.data
-            
-            if(token) {
-                sessionStorage.setItem('token', token)  
-            }
+
+                    const { token } = promise.data
+                    if (token) {
+                        sessionStorage.setItem('token', token)
+                    }
+
+                }).catch(err => {
+                    setPreload(false)
+                    setDialogMsg(['Erro ao fazer login', 'Erro ao entrar em contato com o servidor'])
+                    skyLightRef.current.show()
+                })
 
         } catch (err) {
             const validationErrors = {};
@@ -51,6 +72,20 @@ export default function Login() {
 
     return (
         <>
+            <SkyLight ref={skyLightRef}
+                afterClose={() => history.push('/')}
+                dialogStyles={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexWrap: 'nowrap',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                }}
+                title={dialogMsg[0]} >
+                {dialogMsg[1]}
+            </SkyLight>
+
             <NavBar />
             <div className='container'>
                 <div className="form-content">
@@ -71,11 +106,20 @@ export default function Login() {
                             name="password"
                             placeholder="********"
                         />
+                        <div className="preload">
+                            {preload &&
+                                <div className="progress">
+                                    <div className="indeterminate"></div>
+                                </div>
+                            }
+                            <button disabled={preload}
+                                className="btn btn-large btn-100"
+                                type="submit"
+                            >
+                                Entrar
+                            </button>
+                        </div>
 
-                        <button
-                            className="btn btn-large btn-100"
-                            type="submit"
-                        >Entrar</button>
                     </Form>
                     <div id="footer-form">
                         <p>Não tem cadastro? </p>

@@ -44,12 +44,12 @@
     grid-template-columns: 20fr .5fr;
 }
 
-.search-container input[inputSearch="search-input"] {
+.search-container input[inputsearch="search-input"] {
     padding: 4px 8px!important;
     border-radius: 8px!important;
 }
 
-.search-container input[inputSearch="search-button"] {
+.search-container input[inputsearch="search-button"] {
     height: 45px;
     border-radius: 10px;
     background-image: url('../../assets/img/icons/magnifier.svg');
@@ -60,7 +60,7 @@
     transition: .5s;
 }
 
-.search-container input[inputSearch="search-button"]:hover {
+.search-container input[inputsearch="search-button"]:hover {
     background-size: 60%;
 }
 
@@ -227,7 +227,7 @@
         margin-bottom: 20px;
     }  
 
-    .input-block input[inputSearch="search"] {
+    .input-block input[inputsearch="search"] {
         width: 100%!important;
         margin-bottom: 0;
         background-size: 12%!important;
