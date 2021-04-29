@@ -38,7 +38,7 @@
     align-self: center;
 }
 
-.basic-search-wrapper form {
+.basic-search-wrapper #form-basic {
     display: grid;
     gap: 12px;
     grid-template-columns: 20fr .5fr;
@@ -65,7 +65,7 @@
 }
 
 .advanced-button-wrapper {
-    align-self: flex-end;
+    text-align: -webkit-center;
 }
 
 .advanced-button-wrapper .btn-flat {
@@ -85,10 +85,11 @@
 
 .material-icons.arrow_drop_down {
     font-size: 2.5rem;
+    margin: 0;
     transition: .5s;
 }
 
-.advaced-search-wrapper form {
+.advaced-search-wrapper #form-complete {
     display: grid;
     gap: 12px;
     grid-template-rows: 50px 50px 50px 40px;

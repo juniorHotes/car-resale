@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Form } from '@unform/web'
 import api from '../../services/api'
+import useMoneyFormat from '../../hooks/useMoneyFormat'
 
 import './styles.css'
 
@@ -17,7 +18,8 @@ export default function Search() {
     const elemSelect = useRef(null)
 
     const [changeText, setFilter] = useState(false)
-    const [selectValues, setSelectValues] = useState([])
+    const [searchType, setSearchType] = useState('basic')
+
     const [optional, setOptional] = useState([])
 
     useEffect(async () => {
@@ -28,127 +30,142 @@ export default function Search() {
     useEffect(() => {
         M.FormSelect.init(elemSelect.current);
         elemSelect.current.M_FormSelect.input.placeholder = "Selecione um ou mais opcionais"
-        setSelectValues(elemSelect.current)
     }, [optional])
 
-    async function handleSubmit() {
+    async function handleSubmit(data) {
+        const minPrice = data.minPrice.split(".")
+        console.log(minPrice)
+        console.log({ 
+            ...data, 
 
+            searchType: searchType,
+            optional: elemSelect.current.M_FormSelect.getSelectedValues() })
+
+        // history.push('/api/advertisement/filter', { 
+        //     ...data, 
+        //     searchType: searchType,
+        //     optional: elemSelect.current.M_FormSelect.getSelectedValues() })
     }
 
     return (
         <div className="wrapper">
             <div className="search-wrapper">
                 <div className="search-container" ref={searchContainer}>
-                    <div className="basic-search-wrapper">
+                    <Form onSubmit={handleSubmit}>
+                        <div className="basic-search-wrapper">
 
-                        <Form onSubmit={handleSubmit}>
-                            <Input
-                                inputsearch="search-input"
-                                type="text"
-                                name="filter"
-                                placeholder="Pesquise por marca, modelo ou preço"
-                            />
-
-                            <input
-                                className="btn btn-large"
-                                inputsearch="search-button"
-                                type="submit"
-                                value=""
-                            />
-                        </Form>
-
-                    </div>
-                    <div className="advanced-button-wrapper">
-                        <button className="btn-flat"
-                            onClick={() => {
-                                setFilter(!changeText)
-                                return searchContainer.current.classList.toggle('drop_down')
-                            }}
-                        >
-                            {changeText ? 'Filtro Básico' : 'Filtros Avançados'}
-
-                            <i className="material-icons arrow_drop_down">arrow_drop_down</i>
-                        </button>
-                    </div>
-                    <div className="advaced-search-wrapper">
-                        <Form onSubmit={handleSubmit}>
-                            <div id="advaced-search-g1">
+                            <div id="form-basic">
                                 <Input
                                     inputsearch="search-input"
                                     type="text"
-                                    name="brand"
-                                    placeholder="Marca"
-                                />
-                                <Input
-                                    inputsearch="search-input"
-                                    type="text"
-                                    name="model"
-                                    placeholder="Modelo"
-                                />
-                                <Input
-                                    inputsearch="search-input"
-                                    type="text"
-                                    name="potencia"
-                                    placeholder="Potencia"
+                                    name="filter"
+                                    placeholder="Pesquise por marca, modelo ou preço"
                                 />
 
+                                <input
+                                    onClick={() => setSearchType('basic')}
+                                    className="btn btn-large"
+                                    inputsearch="search-button"
+                                    type="submit"
+                                    value=""
+                                />
                             </div>
-                            <div id="advaced-search-g2">
-                                <div>
-                                    <Input
-                                        inputsearch="search-input"
-                                        type="number"
-                                        name="minYear"
-                                        placeholder="Ano mínimo"
-                                        min="1950"
-                                        onChange={(e) => {
-                                            const currentYear = new Date().getUTCFullYear()
-                                            if (e.target.value.length > 3 && e.target.value < 1950)
-                                                return e.target.value = 1950
-                                            else if (e.target.value > currentYear)
-                                                return e.target.value = currentYear
-                                            else return e.target.value
-                                        }}
-                                    />
-                                    <Input
-                                        inputsearch="search-input"
-                                        type="number"
-                                        name="maxYear"
-                                        placeholder="Ano máximo"
-                                        max={new Date().getUTCFullYear()}
-                                        onChange={(e) => {
-                                            const currentYear = new Date().getUTCFullYear()
-                                            if (e.target.value.length > 3 && e.target.value > currentYear)
-                                                return e.target.value = currentYear
-                                            else return e.target.value
-                                        }}
-                                    />
-                                </div>
-                                <div>
+
+                        </div>
+                        <div className="advanced-button-wrapper">
+                            <a className="btn-flat"
+                                onClick={() => {
+                                    setFilter(!changeText)
+                                    return searchContainer.current.classList.toggle('drop_down')
+                                }}
+                            >
+                                {changeText ? 'Filtro Básico' : 'Filtros Avançados'}
+
+                                <i className="material-icons arrow_drop_down">arrow_drop_down</i>
+                            </a>
+                        </div>
+                        <div className="advaced-search-wrapper">
+                            <div id="form-complete">
+                                <div id="advaced-search-g1">
                                     <Input
                                         inputsearch="search-input"
                                         type="text"
-                                        name="minPrice"
-                                        placeholder="Preço mínimo"
+                                        name="brand"
+                                        placeholder="Marca"
                                     />
                                     <Input
                                         inputsearch="search-input"
                                         type="text"
-                                        name="maxPrice"
-                                        placeholder="Preço máximo"
+                                        name="model"
+                                        placeholder="Modelo"
                                     />
+                                    <Input
+                                        inputsearch="search-input"
+                                        type="text"
+                                        name="potencia"
+                                        placeholder="Potencia"
+                                    />
+
                                 </div>
-                            </div>
-                            <div id="advaced-search-g3">
-                                <div className="input-field col s12">
-                                    <select multiple ref={elemSelect} defaultValue={[]}>
-                                        {optional.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
-                                    </select>
+                                <div id="advaced-search-g2">
+                                    <div>
+                                        <Input
+                                            inputsearch="search-input"
+                                            type="number"
+                                            name="minYear"
+                                            placeholder="Ano mínimo"
+                                            min="1950"
+                                            onChange={(e) => {
+                                                const currentYear = new Date().getUTCFullYear()
+                                                if (e.target.value.length > 3 && e.target.value < 1950)
+                                                    return e.target.value = 1950
+                                                else if (e.target.value > currentYear)
+                                                    return e.target.value = currentYear
+                                                else return e.target.value
+                                            }}
+                                        />
+                                        <Input
+                                            inputsearch="search-input"
+                                            type="number"
+                                            name="maxYear"
+                                            placeholder="Ano máximo"
+                                            max={new Date().getUTCFullYear()}
+                                            onChange={(e) => {
+                                                const currentYear = new Date().getUTCFullYear()
+                                                if (e.target.value.length > 3 && e.target.value > currentYear)
+                                                    return e.target.value = currentYear
+                                                else return e.target.value
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <Input
+                                            inputsearch="search-input"
+                                            type="text"
+                                            name="minPrice"
+                                            placeholder="Preço mínimo"
+                                            onChange={useMoneyFormat}
+                                        />
+                                        <Input
+                                            inputsearch="search-input"
+                                            type="text"
+                                            name="maxPrice"
+                                            placeholder="Preço máximo"
+                                            onChange={useMoneyFormat}
+                                        />
+                                    </div>
                                 </div>
+                                <div id="advaced-search-g3">
+                                    <div className="input-field col s12">
+                                        <select multiple ref={elemSelect} defaultValue={[]}>
+                                            {optional.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
+                                        </select>
+                                    </div>
+                                </div>
+                                <button onClick={() => setSearchType('complete')} type="submit" id="btn-advaced-search" className="btn btn-big">Pesquisar</button>
                             </div>
-                            <button type="submit" id="btn-advaced-search" className="btn btn-big">Pesquisar</button>
-                        </Form>
-                    </div>
+                        </div>
+                    </Form>
                 </div>
             </div>
 

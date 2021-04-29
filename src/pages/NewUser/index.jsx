@@ -137,16 +137,6 @@ export default function NewUser() {
     return (
         <>
             <SkyLight ref={skyLightRef}
-                dialogStyles={{
-                    minHeight: '260px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flexWrap: 'nowrap',
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    fontSize: '2rem'
-                }}
                 title={dialogMsg[0]} >
                 {dialogMsg[1]}
             </SkyLight>
@@ -156,13 +146,13 @@ export default function NewUser() {
                 <div className="form-content">
                     <div className="form-title">
                         <h3>Faça seu cadastro</h3>
-                        <span>Todos os campos são obrigatórios</span>
+                        <span>Todos os campos com * são obrigatórios</span>
                     </div>
 
                     <Form onSubmit={handleSubmit} ref={formRef}>
 
                         <Input
-                            label="E-mail"
+                            label="E-mail*"
                             type="text"
                             name="email"
                             placeholder="Ex: email@email.com"
@@ -170,7 +160,7 @@ export default function NewUser() {
                         />
 
                         <Input
-                            label="Nome"
+                            label="Nome*"
                             type="text"
                             name="name"
                             placeholder="Ex: jhon Doe"
@@ -178,7 +168,7 @@ export default function NewUser() {
                         />
 
                         <Input
-                            label="Senha"
+                            label="Senha*"
                             type="password"
                             name="password"
                             placeholder="********"
@@ -186,7 +176,7 @@ export default function NewUser() {
                         />
 
                         <Input
-                            label="Repita a senha"
+                            label="Repita a senha*"
                             type="password"
                             name="passwordrepeat"
                             placeholder="********"
@@ -195,7 +185,7 @@ export default function NewUser() {
 
                         <Input
                             onChange={(e) => getAddres(e.target.value)}
-                            label="CEP"
+                            label="CEP*"
                             type="number"
                             name="cep"
                             placeholder="Ex: 12345678"
@@ -259,7 +249,7 @@ export default function NewUser() {
 
                         <Input
                             onChange={(e) => phoneNumberFormatter(e.target.value)}
-                            label="Telefone com DDD"
+                            label="Telefone com DDD*"
                             type="tel"
                             name="phone"
                             value={phone}

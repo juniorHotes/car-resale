@@ -6,7 +6,7 @@
 
 .banner-wrapper {
     width: 100%;
-    min-height: 200px;
+    min-height: 100px;
 }
 
 .banner-wrapper .slick-dots {
@@ -27,7 +27,6 @@
 .banner-wrapper .slick-prev:before, 
 .banner-wrapper .slick-next:before {
     font-size: 40px;
-    /* color: var(--primary-color); */
 }
 
 .banner-wrapper .slick-next {

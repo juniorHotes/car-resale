@@ -4,11 +4,12 @@ import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
 import SkyLight from 'react-skylight'
-import axios from "axios";
+import useMoneyFormat from '../../hooks/useMoneyFormat'
 
 import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import Input from '../../components/Form/Input'
+import InputTextarea from '../../components/Form/InputTextarea'
 
 import M from "materialize-css";
 import 'materialize-css/dist/css/materialize.min.css';
@@ -16,19 +17,26 @@ import 'materialize-css/dist/css/materialize.min.css';
 export default function Announce() {
     const formRef = useRef(null);
     const skyLightRef = useRef(null);
-    const textareaRef = useRef(null);
 
     const [preload, setPreload] = useState(false)
     const [dialogMsg, setDialogMsg] = useState(['', ''])
 
     const elemSelect = useRef(null)
-    const [selectValues, setSelectValues] = useState([])
     const [optional, setOptional] = useState([])
 
-    const [selectedFile, setSelectedFile] = useState();
+    const [selectedFile, setSelectedFile] = useState([]);
 
     const changeHandler = (event) => {
-        setSelectedFile(event.target.files);
+        if (event.target.files.length > 10) {
+            event.target.value = ""
+
+            setDialogMsg(['Limite de imagens excedido!', 'Você pode enviar até 10 imagens'])
+            skyLightRef.current.show()
+
+            return
+        } else {
+            setSelectedFile(event.target.files);
+        }
     };
 
     useEffect(async () => {
@@ -38,112 +46,134 @@ export default function Announce() {
 
     useEffect(() => {
 
-        M.CharacterCounter.init(textareaRef.current)
+        M.CharacterCounter.init(formRef.current.getFieldRef('Title'))
+        M.CharacterCounter.init(formRef.current.getFieldRef('Description'))
         M.FormSelect.init(elemSelect.current);
         elemSelect.current.M_FormSelect.input.placeholder = "Selecione um ou mais opcionais"
-        setSelectValues(elemSelect.current)
 
     }, [optional])
 
     async function handleSubmit(data, { reset }) {
-        console.log(elemSelect.current.M_FormSelect.getSelectedValues())
-        console.log({ ...data, Optionals: elemSelect.current.M_FormSelect.getSelectedValues() })
+        const getDataForm = {
+            ...data,
+            Optionals: elemSelect.current.M_FormSelect.getSelectedValues()
+        }
 
-        setPreload(true)
+        if (selectedFile.length == 0) {
+            setDialogMsg(['Selecione pelo menos uma imagem!', 'Você pode enviar até 10 imagens'])
+            skyLightRef.current.show()
 
-        setTimeout(() => {
-            setPreload(false)
-        }, 5000)
-        // formRef.current.setErrors({})
-        // try {
-        //     const schema = Yup.object().shape({
-        //         email: Yup.string()
-        //             .email("Digite um e-mail válido")
-        //             .required("O e-mail é obrigatório"),
+            return
+        }
 
-        //         password: Yup.string().required("Forneça sua senha por favor")
-        //     })
+        console.log(getDataForm)
+        formRef.current.setErrors({})
 
-        //     await schema.validate(data, {
-        //         abortEarly: false
-        //     })
+        try {
 
-        //     setPreload(true)
+            const schema = Yup.object().shape({
+                Title: Yup.string().required("Campo obrigatório").max(150, "Limite de caracteres excedido"),
+                Description: Yup.string().required("Campo obrigatório").max(520, "Limite de caracteres excedido"),
+                Brand: Yup.string().required("Campo obrigatório"),
+                Model: Yup.string().required("Campo obrigatório"),
+                Km: Yup.string().required("Campo obrigatório"),
+                Potence: Yup.string().required("Campo obrigatório"),
+                Price: Yup.string().required("Campo obrigatório"),
+                Year: Yup.string().required("Campo obrigatório"),
+                CityName: Yup.string().required("Campo obrigatório"),
+                CityIbge: Yup.string().required("Campo obrigatório"),
+            })
 
-        //     const fromData = new FormData();
+            await schema.validate(getDataForm, {
+                abortEarly: false
+            })
 
-        //     fromData.append("json", JSON.stringify({...data}));
+            setPreload(true)
 
-        //     for (let i = 0; i < selectedFile.length; i++) {
-        //         fromData.append("image", selectedFile[i]);
-        //     }
+            const formData = new FormData();
 
-        //     const token = sessionStorage.getItem('token')
 
-        //     const options = {
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
-        //             Authorization: 'Bearer ' + token
-        //         },
-        //     };
+            formData.append("json", JSON.stringify(getDataForm));
 
-        //     await api.post('/api/advertisement', fromData, options)
-        //         .then(() => {
-        //             reset()
-        //             setPreload(false)
-        //             setDialogMsg(['Cadastro realizado com sucesso', ''])
-        //             skyLightRef.current.show()
-        //         }).catch(err => {
-        //             setPreload(false)
-        //             setDialogMsg(['Erro inesperado', 'Erro ao entrar em contato com o servidor'])
-        //             skyLightRef.current.show()
-        //         })
+            for (let i = 0; i < selectedFile.length; i++) {
+                formData.append("image", selectedFile[i]);
+            }
 
-        // } catch (err) {
-        //     const validationErrors = {};
-        //     if (err instanceof Yup.ValidationError) {
-        //         err.inner.forEach(error => {
-        //             validationErrors[error.path] = error.message;
-        //         });
-        //         formRef.current.setErrors(validationErrors);
-        //     }
-        // }
+            const token = sessionStorage.getItem('token')
+
+            const options = {
+                headers: {
+                    'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                    Authorization: 'Bearer ' + token
+                },
+            };
+
+            await api.post('/api/advertisement', formData, options)
+                .then(() => {
+                    reset()
+                    setPreload(false)
+                    setDialogMsg(['Cadastro realizado com sucesso', ''])
+                    skyLightRef.current.show()
+                }).catch(err => {
+                    setPreload(false)
+                    setDialogMsg(['Erro inesperado', 'Erro ao entrar em contato com o servidor'])
+                    skyLightRef.current.show()
+                })
+
+        } catch (err) {
+            const validationErrors = {};
+            if (err instanceof Yup.ValidationError) {
+                err.inner.forEach(error => {
+                    validationErrors[error.path] = error.message;
+                });
+                formRef.current.setErrors(validationErrors);
+            }
+        }
     }
 
     return (
         <>
+            <SkyLight ref={skyLightRef}
+                title={dialogMsg[0]} >
+                {dialogMsg[1]}
+            </SkyLight>
+
             <NavBar />
             <div className='container'>
                 <div className="announce-container form-content">
                     <div className="form-title">
                         <h3>Crie um Anúncio</h3>
-                        <span>Todos os campos são obrigatórios</span>
+                        <span>Todos os campos com * são obrigatórios</span>
                     </div>
                     <div>
                         <Form onSubmit={handleSubmit} ref={formRef}>
                             <div>
-                                <Input
-                                    label="Título"
-                                    type="text"
-                                    name="Title"
-                                    placeholder="Ex: Jetta Impecável"
-                                    disabled={preload}
-                                />
 
-                                <div class="row">
-                                    <label htmlFor="description">Descrição</label>
-                                    <textarea disabled={preload} ref={textareaRef}
-                                        placeholder="Adicione uma breve descrição"
+                                <div className="row">
+                                    <Input
+                                        label="Título*"
+                                        type="text"
+                                        name="Title"
+                                        placeholder="Ex: Jetta Impecável"
+                                        disabled={preload}
+                                        data-length="50"
+                                    />
+                                </div>
+
+                                <div className="row">
+                                    <InputTextarea
+                                        label="Descrição*"
                                         name="Description"
                                         id="description"
                                         className="materialize-textarea"
-                                        rows="3"
+                                        placeholder="Adicione uma breve descrição"
+                                        disabled={preload}
                                         data-length="520">
-                                    </textarea>
+                                    </InputTextarea>
                                 </div>
 
                                 <Input
-                                    label="Marca"
+                                    label="Marca*"
                                     type="text"
                                     name="Brand"
                                     placeholder="Ex: VW"
@@ -151,7 +181,7 @@ export default function Announce() {
                                 />
 
                                 <Input
-                                    label="Modelo"
+                                    label="Modelo*"
                                     type="text"
                                     name="Model"
                                     placeholder="Ex: Jetta"
@@ -159,7 +189,7 @@ export default function Announce() {
                                 />
 
                                 <Input
-                                    label="Km"
+                                    label="Km*"
                                     type="text"
                                     name="Km"
                                     placeholder="Ex: 123456"
@@ -167,7 +197,7 @@ export default function Announce() {
                                 />
 
                                 <Input
-                                    label="Potência"
+                                    label="Potência*"
                                     type="text"
                                     name="Potence"
                                     placeholder="Ex: 2.0"
@@ -175,7 +205,7 @@ export default function Announce() {
                                 />
 
                                 <Input
-                                    label="Ano"
+                                    label="Ano*"
                                     type="text"
                                     name="Year"
                                     placeholder="Ex: 2021"
@@ -183,15 +213,16 @@ export default function Announce() {
                                 />
 
                                 <Input
-                                    label="Preço"
+                                    label="Preço*"
                                     type="text"
                                     name="Price"
                                     placeholder=""
+                                    onChange={useMoneyFormat}
                                     disabled={preload}
                                 />
 
                                 <Input
-                                    label="Cidade"
+                                    label="Cidade*"
                                     type="text"
                                     name="CityName"
                                     placeholder=""
@@ -199,7 +230,7 @@ export default function Announce() {
                                 />
 
                                 <Input
-                                    label="Número do IBGE"
+                                    label="Número do IBGE*"
                                     type="text"
                                     name="CityIbge"
                                     placeholder=""
@@ -221,7 +252,7 @@ export default function Announce() {
                                         <input disabled={preload} onChange={changeHandler} accept="image/*" type="file" name="file-image" className="file" multiple />
                                     </div>
                                     <div className="file-path-wrapper">
-                                        <input disabled={preload} name="image" className="file-path validate" type="text" placeholder="Selecione as imagens para upload" />
+                                        <input disabled={preload} onChange={changeHandler} name="imageName" className="file-path validate" type="text" placeholder="Selecione no máximo 10 imagens" />
                                     </div>
                                 </div>
 

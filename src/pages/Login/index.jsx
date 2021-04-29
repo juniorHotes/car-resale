@@ -70,16 +70,6 @@ export default function Login() {
         <>
             <SkyLight ref={skyLightRef}
                 afterClose={() => dialogMsg[1] == "" && history.push('/')}
-                dialogStyles={{
-                    minHeight: '260px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flexWrap: 'nowrap',
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    fontSize: '2rem'
-                }}
                 title={dialogMsg[0]} >
                 {dialogMsg[1]}
             </SkyLight>
