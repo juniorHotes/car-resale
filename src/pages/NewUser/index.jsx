@@ -166,6 +166,7 @@ export default function NewUser() {
                             type="text"
                             name="email"
                             placeholder="Ex: email@email.com"
+                            disabled={preload}
                         />
 
                         <Input
@@ -173,6 +174,7 @@ export default function NewUser() {
                             type="text"
                             name="name"
                             placeholder="Ex: jhon Doe"
+                            disabled={preload}
                         />
 
                         <Input
@@ -180,6 +182,7 @@ export default function NewUser() {
                             type="password"
                             name="password"
                             placeholder="********"
+                            disabled={preload}
                         />
 
                         <Input
@@ -187,6 +190,7 @@ export default function NewUser() {
                             type="password"
                             name="passwordrepeat"
                             placeholder="********"
+                            disabled={preload}
                         />
 
                         <Input
@@ -195,6 +199,7 @@ export default function NewUser() {
                             type="number"
                             name="cep"
                             placeholder="Ex: 12345678"
+                            disabled={preload}
                         />
 
                         <div className={`hide-input ${showInput}`}>
@@ -204,6 +209,7 @@ export default function NewUser() {
                                 name="state"
                                 defaultValue={uf}
                                 placeholder=""
+                                disabled={preload}
                             />
 
                             <Input
@@ -212,6 +218,7 @@ export default function NewUser() {
                                 name="city"
                                 defaultValue={city}
                                 placeholder=""
+                                disabled={preload}
                             />
 
                             <Input
@@ -220,6 +227,7 @@ export default function NewUser() {
                                 name="region"
                                 defaultValue={region}
                                 placeholder=""
+                                disabled={preload}
                             />
 
                             <Input
@@ -228,6 +236,7 @@ export default function NewUser() {
                                 name="street"
                                 defaultValue={street}
                                 placeholder=""
+                                disabled={preload}
                             />
 
                             <Input
@@ -235,6 +244,7 @@ export default function NewUser() {
                                 type="text"
                                 name="number"
                                 placeholder=""
+                                disabled={preload}
                             />
 
                             <Input
@@ -243,6 +253,7 @@ export default function NewUser() {
                                 name="ibgenumber"
                                 defaultValue={ibgenumber}
                                 placeholder=""
+                                disabled={preload}
                             />
                         </div>
 
@@ -253,6 +264,7 @@ export default function NewUser() {
                             name="phone"
                             value={phone}
                             placeholder="Ex: (00) 12345-6789"
+                            disabled={preload}
                         />
 
                         <div className="preload">

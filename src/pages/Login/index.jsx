@@ -97,12 +97,14 @@ export default function Login() {
                             type="text"
                             name="email"
                             placeholder="Ex: email@email.com"
+                            disabled={preload}
                         />
                         <Input
                             label="Senha"
                             type="password"
                             name="password"
                             placeholder="********"
+                            disabled={preload}
                         />
                         <div className="preload">
                             {preload &&

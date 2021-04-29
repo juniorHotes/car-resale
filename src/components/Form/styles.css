@@ -1,16 +1,15 @@
 .input-block {
     width: 100%;
-    margin: 30px 3px;
+    margin: 30px 0px;
 }
 
 .input-block label {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .input-block input {
     width: 100%;
     font-size: 1.2rem;
-    font-weight: bold;
     color: var(--title-primary-color);
     border: 1px solid var(--secundary-bg-color);
     border-radius: 8px;

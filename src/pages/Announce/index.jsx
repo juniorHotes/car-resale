@@ -4,6 +4,7 @@ import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
 import SkyLight from 'react-skylight'
+import axios from "axios";
 
 import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
@@ -24,6 +25,12 @@ export default function Announce() {
     const [selectValues, setSelectValues] = useState([])
     const [optional, setOptional] = useState([])
 
+    const [selectedFile, setSelectedFile] = useState();
+
+    const changeHandler = (event) => {
+        setSelectedFile(event.target.files);
+    };
+
     useEffect(async () => {
         const request = await api('/api/optional')
         setOptional(request.data)
@@ -39,7 +46,14 @@ export default function Announce() {
     }, [optional])
 
     async function handleSubmit(data, { reset }) {
-        console.log(data)
+        console.log(elemSelect.current.M_FormSelect.getSelectedValues())
+        console.log({ ...data, Optionals: elemSelect.current.M_FormSelect.getSelectedValues() })
+
+        setPreload(true)
+
+        setTimeout(() => {
+            setPreload(false)
+        }, 5000)
         // formRef.current.setErrors({})
         // try {
         //     const schema = Yup.object().shape({
@@ -56,22 +70,32 @@ export default function Announce() {
 
         //     setPreload(true)
 
-        //     await api.post('/api/authorize', data)
-        //         .then((promise) => {
+        //     const fromData = new FormData();
+
+        //     fromData.append("json", JSON.stringify({...data}));
+
+        //     for (let i = 0; i < selectedFile.length; i++) {
+        //         fromData.append("image", selectedFile[i]);
+        //     }
+
+        //     const token = sessionStorage.getItem('token')
+
+        //     const options = {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+        //             Authorization: 'Bearer ' + token
+        //         },
+        //     };
+
+        //     await api.post('/api/advertisement', fromData, options)
+        //         .then(() => {
         //             reset()
         //             setPreload(false)
-        //             setDialogMsg(['Você está logado', ''])
+        //             setDialogMsg(['Cadastro realizado com sucesso', ''])
         //             skyLightRef.current.show()
-
-
-        //             const { token } = promise.data
-        //             if (token) {
-        //                 sessionStorage.setItem('token', token)
-        //             }
-
         //         }).catch(err => {
         //             setPreload(false)
-        //             setDialogMsg(['Erro ao fazer login', 'Erro ao entrar em contato com o servidor'])
+        //             setDialogMsg(['Erro inesperado', 'Erro ao entrar em contato com o servidor'])
         //             skyLightRef.current.show()
         //         })
 
@@ -90,9 +114,9 @@ export default function Announce() {
         <>
             <NavBar />
             <div className='container'>
-                <div className="announce-container">
-                    <div>
-                        <h2>Crie um Anúncio</h2>
+                <div className="announce-container form-content">
+                    <div className="form-title">
+                        <h3>Crie um Anúncio</h3>
                         <span>Todos os campos são obrigatórios</span>
                     </div>
                     <div>
@@ -103,11 +127,12 @@ export default function Announce() {
                                     type="text"
                                     name="Title"
                                     placeholder="Ex: Jetta Impecável"
+                                    disabled={preload}
                                 />
 
                                 <div class="row">
                                     <label htmlFor="description">Descrição</label>
-                                    <textarea ref={textareaRef}
+                                    <textarea disabled={preload} ref={textareaRef}
                                         placeholder="Adicione uma breve descrição"
                                         name="Description"
                                         id="description"
@@ -122,6 +147,7 @@ export default function Announce() {
                                     type="text"
                                     name="Brand"
                                     placeholder="Ex: VW"
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -129,6 +155,7 @@ export default function Announce() {
                                     type="text"
                                     name="Model"
                                     placeholder="Ex: Jetta"
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -136,6 +163,7 @@ export default function Announce() {
                                     type="text"
                                     name="Km"
                                     placeholder="Ex: 123456"
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -143,6 +171,7 @@ export default function Announce() {
                                     type="text"
                                     name="Potence"
                                     placeholder="Ex: 2.0"
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -150,6 +179,7 @@ export default function Announce() {
                                     type="text"
                                     name="Year"
                                     placeholder="Ex: 2021"
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -157,12 +187,30 @@ export default function Announce() {
                                     type="text"
                                     name="Price"
                                     placeholder=""
+                                    disabled={preload}
+                                />
+
+                                <Input
+                                    label="Cidade"
+                                    type="text"
+                                    name="CityName"
+                                    placeholder=""
+                                    disabled={preload}
+                                />
+
+                                <Input
+                                    label="Número do IBGE"
+                                    type="text"
+                                    name="CityIbge"
+                                    placeholder=""
+                                    disabled={preload}
                                 />
 
                                 <div className="input-field col s12">
-                                    <select multiple ref={elemSelect} defaultValue={[]}>
+                                    <select disabled={preload} multiple ref={elemSelect} defaultValue={[]}>
                                         {optional.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
                                     </select>
+                                    <label style={{ left: "unset", top: "-37px" }} >Opcionais</label>
                                 </div>
                             </div>
 
@@ -170,10 +218,10 @@ export default function Announce() {
                                 <div className="file-field input-field">
                                     <div className="btn">
                                         <span>Adicionar Imagens</span>
-                                        <input type="file" name="file-image" className="file" multiple />
+                                        <input disabled={preload} onChange={changeHandler} accept="image/*" type="file" name="file-image" className="file" multiple />
                                     </div>
                                     <div className="file-path-wrapper">
-                                        <input name="image" className="file-path validate" type="text" placeholder="Selecione as imagens para upload" />
+                                        <input disabled={preload} name="image" className="file-path validate" type="text" placeholder="Selecione as imagens para upload" />
                                     </div>
                                 </div>
 
