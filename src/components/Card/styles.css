@@ -69,3 +69,23 @@
 .card-small .car-price {
     font-size: 1.5rem!important;
 }
+
+
+@media screen and (max-width:900px) {
+    .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width:660px) {
+    .grid-3 {
+        display: unset;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .card-container.card-small .car-price {
+        font-size: 1rem!important;
+    }
+}

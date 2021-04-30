@@ -19,6 +19,7 @@
 
 .logo-wrapper {
     margin: 20px 0 0 0;
+    align-self: center;
     z-index: 10;
 }
 
@@ -47,4 +48,31 @@
 .nav-container ul li a:hover {
     color: var(--primary-color);
     transition: .5s;
+}
+
+#mobile-button {
+    display: none;
+    margin: 30px;
+}
+
+#mobile-button i {
+    font-size: 4rem;
+}
+
+@media screen and (max-width:708px) {
+    #mobile-button {
+        display: block;
+    }
+
+    #web-list {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width:470px) {
+    .logo-wrapper img {
+        width: 150px;
+        transition: .5s;
+    }
 }

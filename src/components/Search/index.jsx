@@ -11,7 +11,7 @@ import Input from '../Form/Input'
 import M from "materialize-css";
 import 'materialize-css/dist/css/materialize.min.css';
 
-export default function Search() {
+export default function Search(props) {
     const history = useHistory()
 
     const searchContainer = useRef(null)
@@ -25,6 +25,14 @@ export default function Search() {
     useEffect(async () => {
         const request = await api('/api/optional')
         setOptional(request.data)
+
+        console.log(props.parentProps.location.pathname)
+        await api.post('/api/advertisement/filter', props.parentProps.location.state)
+            .then(req => {
+                props.searchQuery(req.data)
+                console.log(req.data)
+            }).catch(err => err)
+
     }, [])
 
     useEffect(() => {
@@ -33,18 +41,32 @@ export default function Search() {
     }, [optional])
 
     async function handleSubmit(data) {
-        const minPrice = data.minPrice.replace(/[ -.?!~R$,\s\.]+/, "")
-        console.log(minPrice)
-        console.log({ 
-            ...data, 
 
+        const getDataForm = {
+            ...data,
             searchType: searchType,
-            optional: elemSelect.current.M_FormSelect.getSelectedValues() })
+            minPrice: Number(data.minPrice.replace('R$', '').replace('.', '').replace(',', '')),
+            maxPrice: Number(data.maxPrice.replace('R$', '').replace('.', '').replace(',', '')),
+            minYear: Number(data.minYear),
+            maxYear: Number(data.maxYear),
+            maxKm: Number(data.maxKm),
+            optional: elemSelect.current.M_FormSelect.getSelectedValues()
+        }
 
-        history.push('/api/advertisement/filter', { 
-            ...data, 
-            searchType: searchType,
-            optional: elemSelect.current.M_FormSelect.getSelectedValues() })
+        if(props.parentProps.location.pathname != '/api/advertisement/filter') {
+            history.push('/api/advertisement/filter', getDataForm)
+
+            return
+        }
+
+
+        console.log(getDataForm)
+
+        await api.post('/api/advertisement/filter', getDataForm)
+            .then(req => {
+                props.searchQuery(req.data)
+                console.log(req.data)
+            }).catch(err => err)
     }
 
     return (
@@ -101,9 +123,9 @@ export default function Search() {
                                     />
                                     <Input
                                         inputsearch="search-input"
-                                        type="text"
-                                        name="potencia"
-                                        placeholder="Potencia"
+                                        type="number"
+                                        name="maxKm"
+                                        placeholder="Quilometragem"
                                     />
 
                                 </div>

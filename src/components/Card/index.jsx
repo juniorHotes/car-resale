@@ -35,8 +35,8 @@ export default function Card(props) {
     }
 
     return (
-        <div className="card-container">
-            <Link to={`/details?id=${id}`} className={props.className} onClick={() => window.location.href = "#top"}>
+        <div className={`card-container ${props.className}`}>
+            <Link to={`/details?id=${id}`} onClick={() => window.location.href = "#top"}>
                 <div className="row">
                     <div className="col s12">
                         <div className="card">

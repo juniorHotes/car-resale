@@ -10,13 +10,14 @@ import Footer from '../../components/Footer'
 import Card from '../../components/Card'
 import Search from '../../components/Search'
 
-export default function Home() {
+export default function Home(props) {
     const [banners, setBanners] = useState([])
 
     useEffect(async () => {
         const request = await api.get('/api/home/banners')
         setBanners(request.data)
     }, [])
+
 
     const settingsBanner = {
         autoplay: true,
@@ -36,21 +37,21 @@ export default function Home() {
         slidesToScroll: 5,
         responsive: [
             {
-                breakpoint: 1300,
+                breakpoint: 1200,
                 settings: {
                     slidesToShow: 4,
                     slidesToScroll: 4,
                 }
             },
             {
-                breakpoint: 965,
+                breakpoint: 865,
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 3
                 }
             },
             {
-                breakpoint: 760,
+                breakpoint: 660,
                 settings: {
                     arrows: false,
                     slidesToShow: 2,
@@ -75,7 +76,7 @@ export default function Home() {
                     </Slider>
                 </header>
 
-                <Search />
+                <Search parentProps={props} location={props.location.pathname}/>
 
                 <section className='section-wrapper'>
                     <div className='title-section'>
@@ -105,6 +106,7 @@ export default function Home() {
                         <Slider {...settingsCard}>
                             {[...Array(6)].map((_, idx) =>
                                 <Card
+                                    className="card-small"
                                     key={idx}
                                     id={idx}
                                     image={''}

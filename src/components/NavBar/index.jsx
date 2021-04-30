@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import './styles.css'
 
 import logoIcon from '../../assets/img/icons/Vazado.png'
 
+import M from "materialize-css";
+import 'materialize-css/dist/css/materialize.min.css';
+
 export default function NavBar() {
     const [logged, setLogged] = useState(false)
+
+    const elemSelect = useRef(null)
+
 
     useEffect(() => {
         const session = sessionStorage.getItem('token')
@@ -15,6 +21,10 @@ export default function NavBar() {
         } else {
             setLogged(false)
         }
+
+        M.FormSelect.init(elemSelect.current);
+        console.log(elemSelect.current)
+
     }, [])
 
     return (
@@ -26,7 +36,12 @@ export default function NavBar() {
                     </Link>
                 </div>
                 <div className='nav-wrapper'>
-                    <ul>
+
+                    <div id="mobile-button">
+                        <a href="#!" className="dropdown-trigger" data-target="dropdown1"><i className="material-icons" >dehaze</i></a>
+                    </div>
+
+                    <ul id="web-list">
                         <li><Link to="/announce">Anunciar</Link></li>
                         <li><Link to="/newuser">Cadastrar-se</Link></li>
                         <li>
