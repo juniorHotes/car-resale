@@ -2,3 +2,8 @@
     position: relative;
     margin-top: 70px;
 }
+
+.results-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}

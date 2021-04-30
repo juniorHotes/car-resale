@@ -33,7 +33,7 @@ export default function Search() {
     }, [optional])
 
     async function handleSubmit(data) {
-        const minPrice = data.minPrice.split(".")
+        const minPrice = data.minPrice.replace(/[ -.?!~R$,\s\.]+/, "")
         console.log(minPrice)
         console.log({ 
             ...data, 
@@ -41,10 +41,10 @@ export default function Search() {
             searchType: searchType,
             optional: elemSelect.current.M_FormSelect.getSelectedValues() })
 
-        // history.push('/api/advertisement/filter', { 
-        //     ...data, 
-        //     searchType: searchType,
-        //     optional: elemSelect.current.M_FormSelect.getSelectedValues() })
+        history.push('/api/advertisement/filter', { 
+            ...data, 
+            searchType: searchType,
+            optional: elemSelect.current.M_FormSelect.getSelectedValues() })
     }
 
     return (

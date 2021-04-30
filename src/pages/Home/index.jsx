@@ -16,7 +16,6 @@ export default function Home() {
     useEffect(async () => {
         const request = await api.get('/api/home/banners')
         setBanners(request.data)
-        console.log(request)
     }, [])
 
     const settingsBanner = {
@@ -39,23 +38,23 @@ export default function Home() {
             {
                 breakpoint: 1300,
                 settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
                 }
             },
             {
                 breakpoint: 965,
                 settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
+                    slidesToShow: 3,
+                    slidesToScroll: 3
                 }
             },
             {
                 breakpoint: 760,
                 settings: {
                     arrows: false,
-                    slidesToShow: 1,
-                    slidesToScroll: 1
+                    slidesToShow: 2,
+                    slidesToScroll: 2
                 }
             }
         ]
@@ -84,9 +83,17 @@ export default function Home() {
                     </div>
 
                     <div className="wrapper-inner grid-3">
-                        <Card className="card-large" title="Título do Anúcio 1s dsds dsd" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                        <Card className="card-large" title="Título do Anúcio 2" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
-                        <Card className="card-large" title="Título do Anúcio 3" price="R$ 10.000,00" yar="2001" info="15.000km, Automático, Gasolina" />
+                        {[...Array(3)].map((_, idx) =>
+                            <Card
+                                key={idx}
+                                id={idx}
+                                image={''}
+                                title={'Título do anúcio ' + idx}
+                                price={2600000}
+                                year={'2010'}
+                                km={46000}
+                            />
+                        )}
                     </div>
                 </section>
 
@@ -96,13 +103,14 @@ export default function Home() {
                     </div>
                     <div className='wrapper-inner'>
                         <Slider {...settingsCard}>
-                            <Card className="card-small" price="R$ 10.000,00" />
-                            <Card className="card-small" price="R$ 10.000,00" />
-                            <Card className="card-small" price="R$ 10.000,00" />
-                            <Card className="card-small" price="R$ 10.000,00" />
-                            <Card className="card-small" price="R$ 10.000,00" />
-                            <Card className="card-small" price="R$ 10.000,00" />
-                            <Card className="card-small" price="R$ 10.000,00" />
+                            {[...Array(6)].map((_, idx) =>
+                                <Card
+                                    key={idx}
+                                    id={idx}
+                                    image={''}
+                                    price={2600000}
+                                />
+                            )}
                         </Slider>
                     </div>
                 </section>

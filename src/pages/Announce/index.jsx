@@ -54,8 +54,13 @@ export default function Announce() {
     }, [optional])
 
     async function handleSubmit(data, { reset }) {
+
         const getDataForm = {
             ...data,
+            Price: Number(data.Price.replace('R$', '').replace('.', '').replace(',', '')),
+            Km: Number(data.Km),
+            Year: Number(data.Year),
+            CityIbge: Number(data.CityIbge),
             Optionals: elemSelect.current.M_FormSelect.getSelectedValues()
         }
 
@@ -100,6 +105,14 @@ export default function Announce() {
             }
 
             const token = sessionStorage.getItem('token')
+
+            if(!token) {
+                setPreload(false)
+                setDialogMsg(['Acesso negado', 'Você não possue token de acesso, tente fazer login novamente'])
+                skyLightRef.current.show()
+
+                return
+            }
 
             const options = {
                 headers: {
@@ -190,7 +203,7 @@ export default function Announce() {
 
                                 <Input
                                     label="Km*"
-                                    type="text"
+                                    type="number"
                                     name="Km"
                                     placeholder="Ex: 123456"
                                     disabled={preload}
@@ -206,7 +219,7 @@ export default function Announce() {
 
                                 <Input
                                     label="Ano*"
-                                    type="text"
+                                    type="number"
                                     name="Year"
                                     placeholder="Ex: 2021"
                                     disabled={preload}
@@ -231,7 +244,7 @@ export default function Announce() {
 
                                 <Input
                                     label="Número do IBGE*"
-                                    type="text"
+                                    type="number"
                                     name="CityIbge"
                                     placeholder=""
                                     disabled={preload}

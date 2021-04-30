@@ -5,36 +5,62 @@ import './styles.css'
 import exemple from '../../assets/img/1-335x186.jpg'
 
 export default function Card(props) {
-    const { title, price, yar, info } = props
+    const { id, title, price, year, km, image } = props
+
+    function moneyFormat(event) {
+        const onlyDigits = String(event)
+            .split("")
+            .filter(s => /\d/.test(s))
+            .join("")
+            .padStart(3, "0")
+        const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
+        return event = maskCurrency(digitsFloat)
+    }
+    
+    function maskCurrency(valor, locale = 'pt-BR', currency = 'BRL') {
+        return new Intl.NumberFormat(locale, {
+            style: 'currency',
+            currency
+        }).format(valor)
+    }
+
+    function kmFormat(event) {
+        const onlyDigits = String(event)
+            .split("")
+            .filter(s => /\d/.test(s))
+            .join("")
+            .padStart(3, "0")
+        const digitsFloat = onlyDigits.slice(0, -3) + "." + onlyDigits.slice(-3)
+        return event = digitsFloat
+    }
+
     return (
-        <Link to="details" className={props.className} onClick={() => window.location.href = "#top"}>
-            <div className="card-container">
-                <header className="card-header">
-                    <div>
-                        <img src={exemple} alt="" />
-                    </div>
-                </header>
-                <div className="card-wrapper">
-                    <section className="card-section">
-
-                        {title &&
-                            <div>
-                                <h4>{title}</h4>
+        <div className="card-container">
+            <Link to={`/details?id=${id}`} className={props.className} onClick={() => window.location.href = "#top"}>
+                <div className="row">
+                    <div className="col s12">
+                        <div className="card">
+                            <div className="card-image">
+                                <img src={image ? "data:image/png;base64," + image : exemple} />
                             </div>
-                        }
-                        <span className="car-price">{price}</span>
-                    </section>
-                    <div className="card-footer">
-                        {yar &&
-                            <span className="card-car-yar">{yar}</span>
-                        }
-
-                        {info &&
-                            <div className="card-info">{info}</div>
-                        }
+                            <div className="card-content">
+                                {title &&
+                                    <span className="card-title">{title}</span>
+                                }
+                                <div className="card-footer">
+                                    <span className="car-price" >{moneyFormat(price)}</span>
+                                    {year &&
+                                        <span className="card-car-yar">{year}</span>
+                                    }
+                                    {km &&
+                                        <div className="card-km">{kmFormat(km)} Km</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </div>
     )
 }
