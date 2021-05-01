@@ -13,20 +13,22 @@
     --secundary-bg-color: #2b2b2b;
     --title-primary-color: #2C3E50;
     --title-secundary-color: #FFF;
+    --max-width: 1366px;
+    --title-font-size: 2rem;
 }
 
 .container {
     width: 100%;
-    max-width: 1466px;
+    max-width: var(--max-width);
     min-height: 100vh;
 }
 
 .wrapper {
-    max-width: 1466px;
+    max-width: var(--max-width);
 }
 
 h1, h2, h3 {
-    font-size: 3.6rem;
+    font-size: var(--title-font-size);
     color: var(--title-primary-color)
 }
 
@@ -35,13 +37,43 @@ label {
 }
 
 
+/* ========== SECTION WRAPPER ========== */
 .section-wrapper {
     width: 100%;
+    height: 100%;
     padding: 0 20px;
+    overflow: hidden;
+}
+
+.title-section h1 {
+    display: block;
+    margin-bottom: 40px;
+    font-size: var(--title-font-size)!important;
+}
+
+/* ========== FORM CONTENT ========== */
+.form-content {
+    width: 95%;
+    max-width: 500px;
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.form-title h3 {
+    font-size: 2.6rem;
+}
+
+#footer-form {
+    display: flex;
+    margin-top: 35px;
+    padding: 10px;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    flex-direction: column;
 }
 
 .wrapper-inner {
-    width: 95%;
+    width: 90%;
     margin-bottom: 80px;
 }
 

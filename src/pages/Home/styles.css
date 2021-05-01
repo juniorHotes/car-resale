@@ -1,9 +1,3 @@
-.section-wrapper {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
 .banner-wrapper {
     width: 100%;
     min-height: 100px;
@@ -15,12 +9,6 @@
 
 .banner-wrapper img {
     width: 100%;
-}
-
-.title-section h1 {
-    display: block;
-    margin-bottom: 40px;
-    font-size: 3rem!important;
 }
 
 /* BANNER SLIDER */
@@ -43,10 +31,6 @@
     top: 47%;
 }
 
-.banner-wrapper .slick-dots li button:before {
-    font-size: 20px;
-}
-
 .banner-wrapper .slick-dots {
     bottom: -45px;
 }
@@ -54,28 +38,28 @@
 /* CAR SLIDER */
 .section-wrapper .slick-prev:before, 
 .section-wrapper .slick-next:before {
-    font-size: 60px;
+    font-size: 50px;
     color: var(--primary-color);
 }
 
 .section-wrapper .slick-next {
-    right: 15px;
+    right: 8px;
 }
 
 .section-wrapper .slick-prev {
-    left: -25px;
+    left: -20px;
     z-index: 2;
 }
 
 .section-wrapper .slick-next, 
 .section-wrapper .slick-prev {
-    top: 47%;
+    top: 41%;
 }
 
 .section-wrapper .slick-dots li button:before {
-    font-size: 20px;
+    font-size: 12px;
 }
 
 .section-wrapper .slick-dots {
-    bottom: -45px;
+    bottom: -10px;
 }

@@ -1,78 +1,27 @@
-.nav-container {
-    background-color: var(--secundary-bg-color);
-    box-shadow: 0px 0px 10px 0px rgba(28, 67, 122, .3);
-    margin-top: -2px;
-    padding: 0px 0;
-    height: 100%;
+nav, 
+.sidenav {
+    background-color: var(--secundary-bg-color)!important;
 }
 
-.nav-container a {
-    text-decoration: none;
-    color: var(--title-secundary-color)
-}
-
-.nav__wrapper {
+nav .brand-logo {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    margin-top: 12px;
 }
 
-.logo-wrapper {
-    margin: 20px 0 0 0;
-    align-self: center;
-    z-index: 10;
+nav .nav-wrapper {
+    z-index: 50;
 }
 
-.nav-wrapper {
-    margin: 0;
-    z-index: 10;
-    line-height: 120px;
-}
-
-.nav-container ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    display: inline-flex;
-}
-
-.nav-container ul li {
-    padding: 0 20px;
-}
-
-.nav-container ul li a {
-    font-size: 1.5rem;
-}
-
-.nav-container ul li a:hover {
-    color: var(--primary-color);
+nav ul a:hover,
+.sidenav li > a:hover {
+    color: var(--primary-color)!important;
     transition: .5s;
 }
 
-#mobile-button {
-    display: none;
-    margin: 30px;
+.sidenav li>a {
+    color: var(--title-secundary-color)!important;
 }
 
-#mobile-button i {
-    font-size: 4rem;
-}
-
-@media screen and (max-width:708px) {
-    #mobile-button {
-        display: block;
-    }
-
-    #web-list {
-        display: none;
-    }
-
-}
-
-@media screen and (max-width:470px) {
-    .logo-wrapper img {
-        width: 150px;
-        transition: .5s;
-    }
+.sidenav div {
+    padding-top: 20px;
 }

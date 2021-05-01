@@ -137,6 +137,7 @@ export default function Search(props) {
                                             name="minYear"
                                             placeholder="Ano mínimo"
                                             min="1950"
+                                            defaultValue="2000"
                                             onChange={(e) => {
                                                 const currentYear = new Date().getUTCFullYear()
                                                 if (e.target.value.length > 3 && e.target.value < 1950)
@@ -152,6 +153,7 @@ export default function Search(props) {
                                             name="maxYear"
                                             placeholder="Ano máximo"
                                             max={new Date().getUTCFullYear()}
+                                            defaultValue={new Date().getUTCFullYear()}
                                             onChange={(e) => {
                                                 const currentYear = new Date().getUTCFullYear()
                                                 if (e.target.value.length > 3 && e.target.value > currentYear)

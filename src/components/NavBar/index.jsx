@@ -10,8 +10,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 export default function NavBar() {
     const [logged, setLogged] = useState(false)
 
-    const elemSelect = useRef(null)
-
+    const sidenav = useRef(null)
 
     useEffect(() => {
         const session = sessionStorage.getItem('token')
@@ -22,39 +21,79 @@ export default function NavBar() {
             setLogged(false)
         }
 
-        M.FormSelect.init(elemSelect.current);
-        console.log(elemSelect.current)
+        M.Sidenav.init(sidenav.current);
 
     }, [])
 
     return (
-        <nav className='nav-container'>
-            <div className='wrapper nav__wrapper'>
-                <div className='logo-wrapper'>
-                    <Link to="/">
-                        <img width="200px" src={logoIcon} alt="logo" />
-                    </Link>
-                </div>
-                <div className='nav-wrapper'>
+        <>
+            <div class="navbar-fixed">
+                <nav>
+                    <div className="wrapper">
+                        <div className="nav-wrapper">
 
-                    <div id="mobile-button">
-                        <a href="#!" className="dropdown-trigger" data-target="dropdown1"><i className="material-icons" >dehaze</i></a>
-                    </div>
-
-                    <ul id="web-list">
-                        <li><Link to="/announce">Anunciar</Link></li>
-                        <li><Link to="/newuser">Cadastrar-se</Link></li>
-                        <li>
-                            <Link
-                                to={logged ? '' : '/login'}
-                                onClick={() => logged && sessionStorage.removeItem('token')}
+                            <Link to="/"
+                                className="brand-logo"
+                                onClick={() => window.location.href = "#top"}
                             >
-                                {logged ? 'Sair' : 'Entrar'}
+                                <img width="110px" src={logoIcon} alt="logo" />
                             </Link>
-                        </li>
-                    </ul>
-                </div>
+
+                            <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+                                <i className="material-icons">menu</i>
+                            </a>
+
+                            {/* Nave para Web */}
+                            <ul className="right hide-on-med-and-down">
+                                <li>
+                                    <Link to="/announce" onClick={() => window.location.href = "#top"}>Anunciar</Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to={logged ? '/my_ads' : '/new_user'}
+                                        onClick={() => window.location.href = "#top"}
+                                    >
+                                        {logged ? 'Meus Anúncios' : 'Cadastrar-se'}
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to={logged ? '' : '/login'}
+                                        onClick={() => {
+                                            window.location.href = "#top"
+                                            setLogged(false)
+                                            return logged && sessionStorage.removeItem('token')
+                                        }}
+                                    >
+                                        {logged ? 'Sair' : 'Entrar'}
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
             </div>
-        </nav>
+
+            {/* Nave para dispositivos moveis */}
+            <ul className="sidenav" id="mobile-demo" ref={sidenav}>
+                <div>
+                    <li>
+                        <Link to="/announce">Anunciar</Link>
+                    </li>
+                    <li>
+                        <Link to="/newuser">Cadastrar-se</Link>
+                    </li>
+                    <li>
+                        <Link
+                            to={logged ? '' : '/login'}
+                            onClick={() => logged && sessionStorage.removeItem('token')}
+                        >
+                            {logged ? 'Sair' : 'Entrar'}
+                        </Link>
+                    </li>
+
+                </div>
+            </ul>
+        </>
     )
 }

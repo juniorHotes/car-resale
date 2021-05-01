@@ -4,8 +4,7 @@ import './styles.css'
 
 import exemple from '../../assets/img/1-335x186.jpg'
 
-export default function Card(props) {
-    const { id, title, price, year, km, image } = props
+export default function Card({ className, id, title, price, year, km, image }) {
 
     function moneyFormat(event) {
         const onlyDigits = String(event)
@@ -16,7 +15,7 @@ export default function Card(props) {
         const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
         return event = maskCurrency(digitsFloat)
     }
-    
+
     function maskCurrency(valor, locale = 'pt-BR', currency = 'BRL') {
         return new Intl.NumberFormat(locale, {
             style: 'currency',
@@ -35,7 +34,7 @@ export default function Card(props) {
     }
 
     return (
-        <div className={`card-container ${props.className}`}>
+        <div className={`card-container ${className}`}>
             <Link to={`/details?id=${id}`} onClick={() => window.location.href = "#top"}>
                 <div className="row">
                     <div className="col s12">
@@ -44,11 +43,14 @@ export default function Card(props) {
                                 <img src={image ? "data:image/png;base64," + image : exemple} />
                             </div>
                             <div className="card-content">
+
                                 {title &&
                                     <span className="card-title">{title}</span>
                                 }
+
                                 <div className="card-footer">
                                     <span className="car-price" >{moneyFormat(price)}</span>
+                                    
                                     {year &&
                                         <span className="card-car-yar">{year}</span>
                                     }

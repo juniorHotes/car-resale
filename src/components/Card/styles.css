@@ -7,6 +7,16 @@
     transition: .5s;
 }
 
+.row .col.s12 {
+    width: 110%;
+    max-width: 335px;
+}
+
+.card-container.card-small .row .col.s12 {
+    width: 110%;
+    max-width: 237px;
+}
+
 .card-container a {
     color: unset;
 }

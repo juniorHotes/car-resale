@@ -40,7 +40,7 @@ export default function Login() {
                 .then((promise) => {
                     reset()
                     setPreload(false)
-                    setDialogMsg(['Você está logado', ''])
+                    setDialogMsg(['Login feito com suceso', ''])
                     skyLightRef.current.show()
 
 
@@ -69,7 +69,7 @@ export default function Login() {
     return (
         <>
             <SkyLight ref={skyLightRef}
-                afterClose={() => dialogMsg[1] == "" && history.push('/')}
+                afterClose={() => dialogMsg[1] == "" && setTimeout(() => { history.push('/') }, 800)}
                 title={dialogMsg[0]} >
                 {dialogMsg[1]}
             </SkyLight>
