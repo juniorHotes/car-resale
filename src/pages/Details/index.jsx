@@ -28,9 +28,9 @@ export default function Details() {
             <div className='container'>
                 <div className="container-carousel">
                     <div className="carousel" ref={carousel}>
-                        <a className="carousel-item" href="#one!"><img src={exemple1} /></a>
-                        <a className="carousel-item" href="#two!"><img src={exemple2} /></a>
-                        <a className="carousel-item" href="#three!"><img src={exemple3} /></a>
+                        <a className="carousel-item" href="#"><img src={exemple1} /></a>
+                        <a className="carousel-item" href="#"><img src={exemple2} /></a>
+                        <a className="carousel-item" href="#"><img src={exemple3} /></a>
                     </div>
                 </div>
 

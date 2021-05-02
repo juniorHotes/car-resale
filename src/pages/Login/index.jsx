@@ -69,7 +69,7 @@ export default function Login() {
     return (
         <>
             <SkyLight ref={skyLightRef}
-                afterClose={() => dialogMsg[1] == "" && setTimeout(() => { history.push('/') }, 800)}
+                afterClose={() => dialogMsg[1] == "" && setTimeout(() => { history.push('/') }, 500)}
                 title={dialogMsg[0]} >
                 {dialogMsg[1]}
             </SkyLight>

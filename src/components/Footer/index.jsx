@@ -9,14 +9,6 @@ export default function Footer() {
     return (
         <div className='footer-container'>
             <div className='wrapper footer-wrapper'>
-                <div className='menu-footer-container'>
-                    <ul>
-                        <li><Link to='' >Politicas</Link></li>
-                        <li><Link to='' >Fale Conosco</Link></li>
-                        <li><Link to='' >Sobre Nós</Link></li>
-                        <li><Link to='' >FAQ</Link></li>
-                    </ul>
-                </div>
 
                 <div>
                     <div className='footer-icon-wrapper'>

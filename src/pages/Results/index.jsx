@@ -10,10 +10,11 @@ import Card from '../../components/Card'
 export default function Results(props) {
     const [data, setdata] = useState([])
 
+    // O resultado da pesquisa vem do componente Search
     function setSearchQuery(d) {
         setdata(d)
     }
-    
+
     return (
         <>
             <NavBar />
@@ -28,19 +29,22 @@ export default function Results(props) {
                     <div className='title-section'>
                         <h1>Resultados</h1>
                     </div>
+                    
+                    {data.length == 0 ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2> : null}
 
                     <div className="results-container">
-                        {data.map(item =>
-                            <Card
-                                key={item.id}
-                                id={item.id}
-                                image={item.image}
-                                title={item.title}
-                                price={item.price}
-                                year={item.year}
-                                km={item.km}
-                            />
-                        )}
+                        {
+                            data.map(item =>
+                                <Card
+                                    key={item.id}
+                                    id={item.id}
+                                    image={item.image}
+                                    title={item.title}
+                                    price={item.price}
+                                    year={item.year}
+                                    km={item.km}
+                                />
+                            )}
                     </div>
 
                 </section>

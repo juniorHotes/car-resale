@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import './styles.css'
+import SkyLight from 'react-skylight'
 
 import logoIcon from '../../assets/img/icons/Vazado.png'
 
@@ -8,7 +9,11 @@ import M from "materialize-css";
 import 'materialize-css/dist/css/materialize.min.css';
 
 export default function NavBar() {
+    const history = useHistory()
+    const skyLightRef = useRef(null);
+
     const [logged, setLogged] = useState(false)
+    const [dialogMsg, setDialogMsg] = useState(['', ''])
 
     const sidenav = useRef(null)
 
@@ -27,6 +32,18 @@ export default function NavBar() {
 
     return (
         <>
+            <SkyLight ref={skyLightRef}
+                afterClose={() =>
+                    setTimeout(() => {
+                        setLogged(false)
+                        history.push('/')
+                    }, 500)
+                }
+
+                title={dialogMsg[0]} >
+                {dialogMsg[1]}
+            </SkyLight>
+
             <div class="navbar-fixed">
                 <nav>
                     <div className="wrapper">
@@ -58,11 +75,15 @@ export default function NavBar() {
                                 </li>
                                 <li>
                                     <Link
-                                        to={logged ? '' : '/login'}
+                                        to={logged ? '#' : '/login'}
                                         onClick={() => {
                                             window.location.href = "#top"
-                                            setLogged(false)
-                                            return logged && sessionStorage.removeItem('token')
+                                            if (logged) {
+                                                sessionStorage.removeItem('token')
+                                                setDialogMsg(['Você não está mais logado', ''])
+
+                                                skyLightRef.current.show()
+                                            }
                                         }}
                                     >
                                         {logged ? 'Sair' : 'Entrar'}
@@ -78,20 +99,32 @@ export default function NavBar() {
             <ul className="sidenav" id="mobile-demo" ref={sidenav}>
                 <div>
                     <li>
-                        <Link to="/announce">Anunciar</Link>
-                    </li>
-                    <li>
-                        <Link to="/newuser">Cadastrar-se</Link>
+                        <Link to="/announce" onClick={() => window.location.href = "#top"}>Anunciar</Link>
                     </li>
                     <li>
                         <Link
-                            to={logged ? '' : '/login'}
-                            onClick={() => logged && sessionStorage.removeItem('token')}
+                            to={logged ? '/my_ads' : '/new_user'}
+                            onClick={() => window.location.href = "#top"}
+                        >
+                            {logged ? 'Meus Anúncios' : 'Cadastrar-se'}
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to={logged ? '#' : '/login'}
+                            onClick={() => {
+                                window.location.href = "#top"
+                                if (logged) {
+                                    sessionStorage.removeItem('token')
+                                    setDialogMsg(['Você não está mais logado', ''])
+
+                                    skyLightRef.current.show()
+                                }
+                            }}
                         >
                             {logged ? 'Sair' : 'Entrar'}
                         </Link>
                     </li>
-
                 </div>
             </ul>
         </>

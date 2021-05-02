@@ -7,3 +7,21 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+
+@media screen and (max-width: 1080px) {
+    .results-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }    
+}
+
+@media screen and (max-width: 750px) {
+    .results-container {
+        grid-template-columns: 1fr 1fr;
+    }    
+}
+
+@media screen and (max-width: 580px) {
+    .results-container {
+        grid-template-columns: unset;
+    }    
+}
