@@ -26,11 +26,9 @@ export default function Search(props) {
         const request = await api('/api/optional')
         setOptional(request.data)
 
-        console.log(props.parentProps.location.pathname)
         await api.post('/api/advertisement/filter', props.parentProps.location.state)
             .then(req => {
                 props.searchQuery(req.data)
-                console.log(req.data)
             }).catch(err => err)
 
     }, [])

@@ -4,7 +4,6 @@
 }
 
 .carousel {
-    overflow: unset!important;
     height: 200%!important;
     perspective: 700px!important;
     bottom: 165px;
@@ -23,6 +22,11 @@
 
 .info-container > div:nth-child(1) {
     width: 65%;
+}
+
+.info-container > div:nth-child(2) {
+    width: 35%;
+    min-width: 370px;
 }
 
 .card-optional {

@@ -1,5 +1,6 @@
 import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import RouteAuth from './RouteAuth'
 
 import Home from './pages/Home';
 import Details from './pages/Details';
@@ -11,14 +12,14 @@ import MyAds from './pages/MyAds';
 
 export default function Routes() {
     return (
-        <BrowserRouter>
-            <Route path="/" exact component={Home} />
-            <Route path="/details" component={Details} />
-            <Route path="/new_user" component={NewUser} />
-            <Route path="/login" component={Login} />
-            <Route path="/announce" component={Announce} />
-            <Route path="/my_ads" component={MyAds} />
-            <Route path="/api/advertisement/filter" component={Results} />
-        </BrowserRouter>
+        <Switch>
+            <RouteAuth path="/" exact component={Home} />
+            <RouteAuth path="/details" component={Details} />
+            <RouteAuth path="/new_user" component={NewUser} />
+            <RouteAuth path="/login" component={Login} />
+            <RouteAuth path="/announce" component={Announce} isPrivate />
+            <RouteAuth path="/my_ads" component={MyAds} isPrivate />
+            <RouteAuth path="/api/advertisement/filter" component={Results} />
+        </Switch>
     );
 }
