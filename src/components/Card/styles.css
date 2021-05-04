@@ -12,14 +12,28 @@
     max-width: 335px;
 }
 
-.card .card-image img {
+.card-container .card .card-image {
     max-height: 186px;
+    height: 186px;
+    contain: content;
+}
+
+.card-container .card .card-image img {
+    height: 100%;
     object-fit: cover;
+    object-position: center;
+    transition: .6s ease-in-out;
 }
 
 .card-container.card-small .row .col.s12 {
     width: 110%;
     max-width: 237px;
+}
+
+.card-container.card-small .card .card-image {
+    max-height: 132px;
+    height: 132px;
+    contain: content;
 }
 
 .card-container a {
@@ -87,7 +101,6 @@
 }
 
 .card-small .card .card-image img {
-    max-height: 132px;
     object-fit: cover;
 }
 

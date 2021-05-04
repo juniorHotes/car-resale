@@ -23,14 +23,14 @@ export default function Search(props) {
     const [optional, setOptional] = useState([])
 
     useEffect(async () => {
-        const request = await api('/api/optional')
-        setOptional(request.data)
+        const request = (await api('/api/optional')).data
+        setOptional(request)
 
         console.log(props.parentProps.location.state)
 
-        if(props.parentProps.location.state === undefined) return
+        const data = props.parentProps.location.state ? props.parentProps.location.state : { filter: "", searchType: "basic"}
 
-        await api.post('/api/advertisement/filter', props.parentProps.location.state)
+        await api.post('/api/advertisement/filter', data)
             .then(req => {
                 props.searchQuery(req.data)
             }).catch(err => err)
@@ -55,14 +55,11 @@ export default function Search(props) {
             optional: elemSelect.current.M_FormSelect.getSelectedValues()
         }
 
-        if (props.parentProps.location.pathname != '/api/advertisement/filter') {
-            history.push('/api/advertisement/filter', getDataForm)
+        if (props.parentProps.location.pathname != '/search_ad') {
+            history.push('/search_ad', getDataForm)
 
             return
         }
-
-
-        console.log(getDataForm)
 
         await api.post('/api/advertisement/filter', getDataForm)
             .then(req => {

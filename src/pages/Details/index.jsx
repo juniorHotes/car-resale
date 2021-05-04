@@ -2,15 +2,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import './styles.css'
 import api from '../../services/api'
 import useMoneyFormat from '../../hooks/useMoneyFormat'
+import useKmFormat from '../../hooks/useKmFormat'
 
 import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import profileIcon from '../../assets/img/icons/default_user.svg'
 import whatsapp from '../../assets/img/icons/whatsapp.svg'
 
-import exemple1 from '../../assets/img/exemple_details-1.jpg'
-import exemple2 from '../../assets/img/exemple_details-2.jpg'
-import exemple3 from '../../assets/img/exemple_details-3.jpg'
+import imageNotFound from '../../assets/img/image_not_found.svg'
 
 // Import Materialize
 import M from "materialize-css";
@@ -19,22 +18,30 @@ import 'materialize-css/dist/css/materialize.min.css';
 export default function Details(props) {
     const carousel = useRef(null)
     const moneyFormat = useMoneyFormat
+    const kmFormat = useKmFormat
+
     const [advertisement, setAdvertisement] = useState([])
 
     useEffect(async () => {
-        M.Carousel.init(carousel.current);
-
         const reqAdvertisement = (await api.get(`/api/advertisement/${props.match.params.id}`)).data
         setAdvertisement(reqAdvertisement)
-        console.log(reqAdvertisement)
-
     }, [])
 
     useEffect(async () => {
-        if(carousel == null) return
-        M.Carousel.init(carousel.current);
-    }, [carousel])
+        if (carousel == null) return
 
+        M.Carousel.init(carousel.current);
+    }, [advertisement])
+
+    function getImages(index) {
+        if (advertisement.images) {
+            if (advertisement.images[index]) {
+                return `data:image/png;base64,${advertisement.images[index]}`
+            } else {
+                return imageNotFound
+            }
+        }
+    }
 
     return (
         <>
@@ -42,21 +49,35 @@ export default function Details(props) {
 
             <div className='container'>
                 <div className="container-carousel">
-                    {advertisement.images &&
-                        <div className="carousel" ref={carousel}>
-                            {advertisement.images && advertisement.images.map((image, idx) =>
-                                <a key={idx} className="carousel-item" href="#">
-                                    <img src={`data:image/png;base64,${image}`} />
-                                </a>
-                            )}
-                        </div>
-                    }
+                    <div className="carousel" ref={carousel}>
+                        
+                        <a key={0} className="carousel-item" href="#">
+                            <img src={getImages(0)} />
+                        </a>
+                        <a key={1} className="carousel-item" href="#">
+                            <img src={getImages(1)} />
+                        </a>
+                        <a key={2} className="carousel-item" href="#">
+                            <img src={getImages(2)} />
+                        </a>
+
+                        {advertisement.images && advertisement.images.map((image, idx) => {
+                            if (idx > 2) {
+                                return (
+                                    <a key={idx} className="carousel-item" href="#">
+                                        <img src={`data:image/png;base64,${image}`} />
+                                    </a>
+                                )
+                            }
+                        }
+                        )}
+                    </div>
                 </div>
 
                 <section className="info-container">
                     <div>
                         <div className="info-header">
-                            <h2>{advertisement.title}</h2>
+                            <h2>{advertisement.title && advertisement.title.toUpperCase()}</h2>
                         </div>
 
                         <div className="infor-wrapper">
@@ -74,7 +95,7 @@ export default function Details(props) {
                             </div>
                             <div className="info">
                                 <span>Km</span>
-                                <h3>{advertisement.km}</h3>
+                                <h3>{kmFormat(advertisement.km)}</h3>
                             </div>
                             <div className="info">
                                 <span>Potencia</span>

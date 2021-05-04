@@ -19,7 +19,7 @@ export default function Routes() {
             <RouteAuth path="/login" component={Login} />
             <RouteAuth path="/announce" component={Announce} isPrivate />
             <RouteAuth path="/my_ads" component={MyAds} isPrivate />
-            <RouteAuth path="/api/advertisement/filter" component={Results} />
+            <RouteAuth path="/search_ad" component={Results} />
         </Switch>
     );
 }

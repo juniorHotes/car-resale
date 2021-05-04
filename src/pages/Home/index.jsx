@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
 import './styles.css'
 import api from '../../services/api'
 
@@ -15,21 +14,17 @@ export default function Home(props) {
     const [highligths, setHighLigths] = useState([])
     const [lastAds, setLastAds] = useState([])
 
-
     useEffect(async () => {
         const reqBanners = (await api.get('/api/home/banners')).data
         const reqHighligths = (await api.get('/api/home/highligths')).data
         const reqLastAds = (await api.get('/api/home/lastAds')).data
-        console.log(reqBanners)
-        console.log(reqHighligths)
-        console.log(reqLastAds)
 
         setBanners(reqBanners)
         setHighLigths(reqHighligths)
         setLastAds(reqLastAds)
     }, [])
 
-
+    // Slick banner settings
     const settingsBanner = {
         autoplay: true,
         arrows: true,
@@ -40,6 +35,7 @@ export default function Home(props) {
         slidesToScroll: 1
     };
 
+    // Slick carousel settings
     const settingsCard = {
         dots: true,
         infinite: true,
@@ -100,7 +96,7 @@ export default function Home(props) {
                                 return <Card
                                     key={item.id}
                                     id={item.id}
-                                    image={''}
+                                    image={item.images[0]}
                                     title={item.title}
                                     price={item.price}
                                     year={item.year}
@@ -124,7 +120,7 @@ export default function Home(props) {
                                         className="card-small"
                                         key={item.id}
                                         id={item.id}
-                                        image={''}
+                                        image={item.images[0]}
                                         price={item.price}
                                     />
                                 }
