@@ -44,7 +44,7 @@ export default function NavBar() {
                 {dialogMsg[1]}
             </SkyLight>
 
-            <div class="navbar-fixed">
+            <div className="navbar-fixed">
                 <nav>
                     <div className="wrapper">
                         <div className="nav-wrapper">

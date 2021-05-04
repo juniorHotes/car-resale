@@ -1,12 +1,25 @@
 
 function moneyFormat(event) {
-    const onlyDigits = event.target.value
-        .split("")
-        .filter(s => /\d/.test(s))
-        .join("")
-        .padStart(3, "0")
-    const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
-    event.target.value = maskCurrency(digitsFloat)
+    if(event == undefined) return 
+    
+    if (event.target != undefined) {
+        const onlyDigits = event.target.value
+            .split("")
+            .filter(s => /\d/.test(s))
+            .join("")
+            .padStart(3, "0")
+        const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
+        event.target.value = maskCurrency(digitsFloat)
+
+    } else {
+        const onlyDigits = String(event)
+            .split("")
+            .filter(s => /\d/.test(s))
+            .join("")
+            .padStart(3, "0")
+        const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
+        return event = maskCurrency(digitsFloat)
+    }
 }
 
 function maskCurrency(valor, locale = 'pt-BR', currency = 'BRL') {

@@ -12,6 +12,11 @@
     max-width: 335px;
 }
 
+.card .card-image img {
+    max-height: 186px;
+    object-fit: cover;
+}
+
 .card-container.card-small .row .col.s12 {
     width: 110%;
     max-width: 237px;
@@ -79,6 +84,11 @@
 
 .card-small .car-price {
     font-size: 1.5rem!important;
+}
+
+.card-small .card .card-image img {
+    max-height: 132px;
+    object-fit: cover;
 }
 
 

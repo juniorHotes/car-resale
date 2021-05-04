@@ -26,6 +26,10 @@ export default function Search(props) {
         const request = await api('/api/optional')
         setOptional(request.data)
 
+        console.log(props.parentProps.location.state)
+
+        if(props.parentProps.location.state === undefined) return
+
         await api.post('/api/advertisement/filter', props.parentProps.location.state)
             .then(req => {
                 props.searchQuery(req.data)
@@ -51,7 +55,7 @@ export default function Search(props) {
             optional: elemSelect.current.M_FormSelect.getSelectedValues()
         }
 
-        if(props.parentProps.location.pathname != '/api/advertisement/filter') {
+        if (props.parentProps.location.pathname != '/api/advertisement/filter') {
             history.push('/api/advertisement/filter', getDataForm)
 
             return
@@ -184,7 +188,14 @@ export default function Search(props) {
                                         </select>
                                     </div>
                                 </div>
-                                <button onClick={() => setSearchType('complete')} type="submit" id="btn-advaced-search" className="btn btn-big">Pesquisar</button>
+                                <button
+                                    onClick={() => setSearchType('complete')}
+                                    type="submit"
+                                    id="btn-advaced-search"
+                                    className="btn btn-big"
+                                >
+                                    Pesquisar
+                                </button>
                             </div>
                         </div>
                     </Form>

@@ -12,10 +12,21 @@ import Search from '../../components/Search'
 
 export default function Home(props) {
     const [banners, setBanners] = useState([])
+    const [highligths, setHighLigths] = useState([])
+    const [lastAds, setLastAds] = useState([])
+
 
     useEffect(async () => {
-        const request = await api.get('/api/home/banners')
-        setBanners(request.data)
+        const reqBanners = (await api.get('/api/home/banners')).data
+        const reqHighligths = (await api.get('/api/home/highligths')).data
+        const reqLastAds = (await api.get('/api/home/lastAds')).data
+        console.log(reqBanners)
+        console.log(reqHighligths)
+        console.log(reqLastAds)
+
+        setBanners(reqBanners)
+        setHighLigths(reqHighligths)
+        setLastAds(reqLastAds)
     }, [])
 
 
@@ -68,15 +79,15 @@ export default function Home(props) {
             <div className='container'>
                 <header className='banner-wrapper'>
                     <Slider {...settingsBanner}>
-                        {banners.map(banner =>
-                            <div>
-                                <img src={banner} alt="Banner" />
+                        {banners.map((banner, idx) =>
+                            <div key={idx}>
+                                <img src={`data:image/png;base64,${banner}`} alt="Banner" />
                             </div>)
                         }
                     </Slider>
                 </header>
 
-                <Search parentProps={props} location={props.location.pathname}/>
+                <Search parentProps={props} location={props.location.pathname} />
 
                 <section className='section-wrapper'>
                     <div className='title-section'>
@@ -84,16 +95,19 @@ export default function Home(props) {
                     </div>
 
                     <div className="wrapper-inner grid-3">
-                        {[...Array(3)].map((_, idx) =>
-                            <Card
-                                key={idx}
-                                id={idx}
-                                image={''}
-                                title={'Título do anúcio ' + idx}
-                                price={2600000}
-                                year={'2010'}
-                                km={46000}
-                            />
+                        {highligths.map((item, idx) => {
+                            if (idx < 3) {
+                                return <Card
+                                    key={item.id}
+                                    id={item.id}
+                                    image={''}
+                                    title={item.title}
+                                    price={item.price}
+                                    year={item.year}
+                                    km={46000}
+                                />
+                            }
+                        }
                         )}
                     </div>
                 </section>
@@ -104,14 +118,17 @@ export default function Home(props) {
                     </div>
                     <div className='wrapper-inner'>
                         <Slider {...settingsCard}>
-                            {[...Array(6)].map((_, idx) =>
-                                <Card
-                                    className="card-small"
-                                    key={idx}
-                                    id={idx}
-                                    image={''}
-                                    price={2600000}
-                                />
+                            {lastAds.map((item, idx) => {
+                                if (idx < 12) {
+                                    return <Card
+                                        className="card-small"
+                                        key={item.id}
+                                        id={item.id}
+                                        image={''}
+                                        price={item.price}
+                                    />
+                                }
+                            }
                             )}
                         </Slider>
                     </div>

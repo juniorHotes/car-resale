@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './styles.css'
+import api from '../../services/api'
+import useMoneyFormat from '../../hooks/useMoneyFormat'
 
 import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
@@ -14,12 +16,25 @@ import exemple3 from '../../assets/img/exemple_details-3.jpg'
 import M from "materialize-css";
 import 'materialize-css/dist/css/materialize.min.css';
 
-export default function Details() {
+export default function Details(props) {
     const carousel = useRef(null)
+    const moneyFormat = useMoneyFormat
+    const [advertisement, setAdvertisement] = useState([])
 
-    useEffect(() => {
+    useEffect(async () => {
         M.Carousel.init(carousel.current);
-    })
+
+        const reqAdvertisement = (await api.get(`/api/advertisement/${props.match.params.id}`)).data
+        setAdvertisement(reqAdvertisement)
+        console.log(reqAdvertisement)
+
+    }, [])
+
+    useEffect(async () => {
+        if(carousel == null) return
+        M.Carousel.init(carousel.current);
+    }, [carousel])
+
 
     return (
         <>
@@ -27,39 +42,43 @@ export default function Details() {
 
             <div className='container'>
                 <div className="container-carousel">
-                    <div className="carousel" ref={carousel}>
-                        <a className="carousel-item" href="#"><img src={exemple1} /></a>
-                        <a className="carousel-item" href="#"><img src={exemple2} /></a>
-                        <a className="carousel-item" href="#"><img src={exemple3} /></a>
-                    </div>
+                    {advertisement.images &&
+                        <div className="carousel" ref={carousel}>
+                            {advertisement.images && advertisement.images.map((image, idx) =>
+                                <a key={idx} className="carousel-item" href="#">
+                                    <img src={`data:image/png;base64,${image}`} />
+                                </a>
+                            )}
+                        </div>
+                    }
                 </div>
 
                 <section className="info-container">
                     <div>
                         <div className="info-header">
-                            <h2>MITSUBISHI PAJERO TR4</h2>
+                            <h2>{advertisement.title}</h2>
                         </div>
 
                         <div className="infor-wrapper">
                             <div className="info">
                                 <span>Marca</span>
-                                <h3>Ford</h3>
+                                <h3>{advertisement.brand}</h3>
                             </div>
                             <div className="info">
                                 <span>Modelo</span>
-                                <h3>KA</h3>
+                                <h3>{advertisement.model}</h3>
                             </div>
                             <div className="info">
                                 <span>Ano</span>
-                                <h3>2004/2016</h3>
+                                <h3>{advertisement.year}</h3>
                             </div>
                             <div className="info">
                                 <span>Km</span>
-                                <h3>24.000,00km</h3>
+                                <h3>{advertisement.km}</h3>
                             </div>
                             <div className="info">
                                 <span>Potencia</span>
-                                <h3>1.0</h3>
+                                <h3>{advertisement.potence}</h3>
                             </div>
 
                         </div>
@@ -99,15 +118,13 @@ export default function Details() {
                         <div className="card-optional">
                             <div className="sheet-wrapper">
                                 <div className="car-price">
-                                    <h3>R$ 10.000,00</h3>
+                                    <h3>{moneyFormat(advertisement.price)}</h3>
                                 </div>
                                 <div className="sheet-list-wrapper">
                                     <ul className="sheet-item">
-                                        <li>Opcional 1</li>
-                                        <li>Opcional 2</li>
-                                        <li>Opcional 3</li>
-                                        <li>Opcional 4</li>
-                                        <li>Opcional 5</li>
+                                        {advertisement.optionals && advertisement.optionals.map(item =>
+                                            <li key={item.id}>{item.name}</li>
+                                        )}
                                     </ul>
                                 </div>
                             </div>

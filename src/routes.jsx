@@ -14,7 +14,7 @@ export default function Routes() {
     return (
         <Switch>
             <RouteAuth path="/" exact component={Home} />
-            <RouteAuth path="/details" component={Details} />
+            <RouteAuth path="/details/:id" component={Details} />
             <RouteAuth path="/new_user" component={NewUser} />
             <RouteAuth path="/login" component={Login} />
             <RouteAuth path="/announce" component={Announce} isPrivate />
