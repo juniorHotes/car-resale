@@ -7,7 +7,7 @@
     transition: .5s;
 }
 
-.row .col.s12 {
+.card-container .row .col.s12 {
     width: 110%;
     max-width: 335px;
 }
@@ -127,7 +127,7 @@
         font-size: 1rem!important;
     }
 
-    .row .col.s12 {
+    .card-container .row .col.s12 {
         width: 100%;
     }
 }

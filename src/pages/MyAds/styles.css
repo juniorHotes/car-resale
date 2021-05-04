@@ -1,0 +1,7 @@
+#card-myads .row .col.m7 {
+    width: 100%!important;
+}
+
+#card-myads .card.horizontal .card-stacked {
+    flex-direction: row;
+}

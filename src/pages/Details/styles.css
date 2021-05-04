@@ -3,20 +3,20 @@
     height: 335px;
 }
 
-.carousel {
+.container-carousel .carousel {
     height: 200%!important;
     perspective: 700px!important;
     bottom: 165px;
 }
 
-.carousel .carousel-item {
+.container-carousel .carousel .carousel-item {
     width: 435px!important;
     height: 325px!important;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, .5);
     display: flex;
 }
 
-.carousel .carousel-item>img {
+.container-carousel .carousel .carousel-item>img {
     object-fit: cover;
 }
 
