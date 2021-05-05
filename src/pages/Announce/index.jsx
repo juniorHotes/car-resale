@@ -108,7 +108,7 @@ export default function Announce() {
 
             if(!token) {
                 setPreload(false)
-                setDialogMsg(['Acesso negado', 'Você não possue token de acesso, tente fazer login novamente'])
+                setDialogMsg(['Acesso negado', 'Você não possue permissão de acesso, tente fazer login novamente'])
                 skyLightRef.current.show()
 
                 return

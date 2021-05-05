@@ -1,7 +1,25 @@
-#card-myads .row .col.m7 {
-    width: 100%!important;
+.tabs-content.carousel.carousel-slider {
+    height: 850px!important;
+    min-height: 850px!important;
 }
 
 #card-myads .card.horizontal .card-stacked {
     flex-direction: row;
+}
+
+#card-myads .tabs .tab a {
+    color: var(--title-primary-color);
+    font-weight: bold;
+    opacity: .5;
+}
+
+#card-myads .tabs .tab a:hover, 
+.tabs .tab a.active {
+    opacity: 1!important;
+}
+
+@media only screen and (min-width: 601px) {
+    .row .col.m7 {
+        width: 100%;
+    }
 }

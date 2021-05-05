@@ -1,0 +1,28 @@
+.card #_card-action:last-child {
+    border-radius: 0 0 2px 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#_card-action a {
+    color: gray;
+}
+
+#_card-action a[data-tooltip="Editar"]:hover {
+    color: #4fc943;
+}
+
+#_card-action a[data-tooltip="Inativar"]:hover {
+    color: #2f9bce;
+}
+
+#_card-action a[data-tooltip="Deletar"]:hover {
+    color: #ff5f5f;
+}
+
+.card.horizontal .card-image {
+    max-height: 186px;
+    max-width: 335px;
+    contain: content;
+}
