@@ -1,6 +1,7 @@
 .tabs-content.carousel.carousel-slider {
-    height: 850px!important;
-    min-height: 850px!important;
+    height: 650px!important;
+    min-height: 650px!important;
+    overflow-y: scroll;
 }
 
 #card-myads .card.horizontal .card-stacked {

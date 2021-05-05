@@ -9,7 +9,6 @@ import './styles.css'
 import Input from '../Form/Input'
 
 import M from "materialize-css";
-import 'materialize-css/dist/css/materialize.min.css';
 
 export default function Search(props) {
     const history = useHistory()

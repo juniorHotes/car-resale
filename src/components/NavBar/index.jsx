@@ -6,7 +6,6 @@ import SkyLight from 'react-skylight'
 import logoIcon from '../../assets/img/icons/Vazado.png'
 
 import M from "materialize-css";
-import 'materialize-css/dist/css/materialize.min.css';
 
 export default function NavBar() {
     const history = useHistory()

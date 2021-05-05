@@ -13,7 +13,6 @@ import imageNotFound from '../../assets/img/image_not_found.svg'
 
 // Import Materialize
 import M from "materialize-css";
-import 'materialize-css/dist/css/materialize.min.css';
 
 export default function Details(props) {
     const carousel = useRef(null)

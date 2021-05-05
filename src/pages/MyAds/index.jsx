@@ -12,7 +12,6 @@ import imageNotFound from '../../assets/img/image_not_found.svg'
 
 // Import Materialize
 import M from "materialize-css";
-import 'materialize-css/dist/css/materialize.min.css';
 
 export default function MyAds(props) {
     const tabRef = useRef(null)
@@ -44,7 +43,6 @@ export default function MyAds(props) {
 
     useEffect(() => {
         M.Tabs.init(tabRef.current, { swipeable: true });
-        console.log(tabRef)
     }, [])
 
     return (
@@ -62,11 +60,12 @@ export default function MyAds(props) {
                     <div className='title-section'>
                         <h1>Meus Anúncios</h1>
                     </div>
-                    <div class="row" id="card-myads">
-                        <div class="col s12">
+                    <div className="row" id="card-myads">
+
+                        <div className="col s12">
                             <ul ref={tabRef} className="tabs">
                                 <li className="tab col s3 active">
-                                    <a href="#swipe-1">ATIVOS (0)</a>
+                                    <a href="#swipe-1">ATIVOS ({myAds.length})</a>
                                 </li>
                                 <li className="tab col s3">
                                     <a href="#swipe-2">INATIVOS (0)</a>
@@ -80,6 +79,8 @@ export default function MyAds(props) {
                         <div id="swipe-1" className="col s12">
                             {myAds.map(ads =>
                                 <CardHorizontal
+                                    key={ads.id}
+                                    id={ads.id}
                                     image={ads.image}
                                     title={ads.title}
                                     brand={ads.brand}
@@ -111,14 +112,14 @@ export default function MyAds(props) {
                         </div>
                     </div>
 
-                    <ul class="pagination">
-                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                        <li class="active"><a href="#!">1</a></li>
-                        <li class="waves-effect"><a href="#!">2</a></li>
-                        <li class="waves-effect"><a href="#!">3</a></li>
-                        <li class="waves-effect"><a href="#!">4</a></li>
-                        <li class="waves-effect"><a href="#!">5</a></li>
-                        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                    <ul className="pagination">
+                        <li className="disabled"><a href="#!"><i className="material-icons">chevron_left</i></a></li>
+                        <li className="active"><a href="#!">1</a></li>
+                        <li className="waves-effect"><a href="#!">2</a></li>
+                        <li className="waves-effect"><a href="#!">3</a></li>
+                        <li className="waves-effect"><a href="#!">4</a></li>
+                        <li className="waves-effect"><a href="#!">5</a></li>
+                        <li className="waves-effect"><a href="#!"><i className="material-icons">chevron_right</i></a></li>
                     </ul>
                 </section>
 

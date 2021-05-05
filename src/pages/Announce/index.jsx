@@ -12,7 +12,6 @@ import Input from '../../components/Form/Input'
 import InputTextarea from '../../components/Form/InputTextarea'
 
 import M from "materialize-css";
-import 'materialize-css/dist/css/materialize.min.css';
 
 export default function Announce() {
     const formRef = useRef(null);
