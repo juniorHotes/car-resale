@@ -19,6 +19,7 @@ export default function CardHorizontal({ id, image, title, brand, model, price }
                     <h6>Marca: {brand}</h6>
                     <h6>Modelo: {model}</h6>
                     <h6>Preço: {moneyFormat(price)}</h6>
+                    <span>Criado em 05/05/2021</span>
                 </div>
                 <div className="card-action" id="_card-action">
                     <a href={id}
