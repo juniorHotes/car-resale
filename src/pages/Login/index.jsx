@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
-import SkyLight from 'react-skylight'
+// import SkyLight from 'react-skylight'
+import ModalContext from '../../hooks/context'
 
 import './styles.css'
 
@@ -14,7 +15,10 @@ import Input from '../../components/Form/Input'
 export default function Login() {
     const history = useHistory()
     const formRef = useRef(null);
-    const skyLightRef = useRef(null);
+    // const skyLightRef = useRef(null);
+
+    const modalContext = useContext(ModalContext)
+
 
     const [preload, setPreload] = useState(false)
     const [dialogMsg, setDialogMsg] = useState(['', ''])
@@ -41,7 +45,7 @@ export default function Login() {
                     reset()
                     setPreload(false)
                     setDialogMsg(['Login feito com suceso', ''])
-                    skyLightRef.current.show()
+                    // skyLightRef.current.show()
 
 
                     const { token } = promise.data
@@ -52,7 +56,7 @@ export default function Login() {
                 }).catch(err => {
                     setPreload(false)
                     setDialogMsg(['Erro ao fazer login', 'Erro ao entrar em contato com o servidor'])
-                    skyLightRef.current.show()
+                    // skyLightRef.current.show()
                 })
 
         } catch (err) {
@@ -68,11 +72,11 @@ export default function Login() {
 
     return (
         <>
-            <SkyLight ref={skyLightRef}
+            {/* <SkyLight ref={skyLightRef}
                 afterClose={() => dialogMsg[1] == "" && setTimeout(() => { history.push('/') }, 500)}
                 title={dialogMsg[0]} >
                 {dialogMsg[1]}
-            </SkyLight>
+            </SkyLight> */}
 
             <NavBar />
             <div className='container'>

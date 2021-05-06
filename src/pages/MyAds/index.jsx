@@ -1,4 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
+import ModalContext from '../../hooks/context'
+import { Link, useHistory } from 'react-router-dom'
+
 
 import './styles.css'
 import api from '../../services/api'
@@ -16,11 +19,15 @@ import M from "materialize-css";
 export default function MyAds(props) {
     const tabRef = useRef(null)
     const skyLightRef = useRef(null);
+    const history = useHistory()
 
     const [dialogMsg, setDialogMsg] = useState(['', ''])
     const [myAds, setMyAds] = useState([])
 
+    const modalContext = useContext(ModalContext)
+
     useEffect(async () => {
+        console.log(modalContext)
         const token = sessionStorage.getItem('token')
 
         if (!token) {
@@ -55,7 +62,11 @@ export default function MyAds(props) {
             <NavBar />
 
             <div className='container'>
-
+                <button onClick={() => { 
+                    modalContext.onCloseModal(() => setTimeout(() => { history.push('/') }, 500)) 
+                    return modalContext.openModal("abriu", "sdfsdf") 
+                }}
+                >toggle</button>
                 <section className='section-wrapper'>
                     <div className='title-section'>
                         <h1>Meus Anúncios</h1>
@@ -95,7 +106,7 @@ export default function MyAds(props) {
 
                         </div>
                         <div id="swipe-3" className="col s12">
-                            
+
                         </div>
                     </div>
 
