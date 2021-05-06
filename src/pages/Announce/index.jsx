@@ -161,7 +161,7 @@ export default function Announce() {
                         <Form onSubmit={handleSubmit} ref={formRef}>
                             <div>
 
-                                <div className="row">
+                                <div className="row" id="input-title-wrap">
                                     <Input
                                         label="Título*"
                                         type="text"
@@ -172,7 +172,7 @@ export default function Announce() {
                                     />
                                 </div>
 
-                                <div className="row">
+                                <div className="row" id="textarea-wrap">
                                     <InputTextarea
                                         label="Descrição*"
                                         name="Description"

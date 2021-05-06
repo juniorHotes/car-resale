@@ -46,7 +46,7 @@
 }
 
 .card .card-content {
-    padding: 12px;
+    padding: 12px!important;
 }
 
 .car-price {

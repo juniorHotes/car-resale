@@ -238,12 +238,10 @@ export default function NewUser() {
                             />
 
                             <Input
-                                label="Codigo IBGE "
-                                type="number"
+                                type="hidden"
                                 name="ibgenumber"
                                 defaultValue={ibgenumber}
                                 placeholder=""
-                                disabled={preload}
                             />
                         </div>
 

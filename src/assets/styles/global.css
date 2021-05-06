@@ -79,7 +79,6 @@ label {
 
 .btn {
     background-color: var(--secundary-bg-color);
-    width: -webkit-fill-available;
 }
 
 .btn-100 {

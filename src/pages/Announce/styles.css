@@ -1,3 +1,12 @@
 .announce-container .input-field {
     margin: 4rem 0!important;
 }
+
+#input-title-wrap,
+#textarea-wrap {
+    margin-bottom: -20px!important;
+}
+
+#textarea-wrap .input-block {
+    margin-bottom: 10px!important;
+}

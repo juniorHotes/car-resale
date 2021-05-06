@@ -86,29 +86,16 @@ export default function MyAds(props) {
                                     brand={ads.brand}
                                     model={ads.model}
                                     price={ads.price}
+                                    register={ads.register}
+                                    validThrue={ads.validThrue}
                                 />
                             )}
                         </div>
                         <div id="swipe-2" className="col s12">
-                            <CardHorizontal
-                                title={'Carro zero km'}
-                                brand={'Citroen'}
-                                model={'gol'}
-                            />
 
                         </div>
                         <div id="swipe-3" className="col s12">
-                            <CardHorizontal
-                                title={'Carro zero km'}
-                                brand={'Citroen'}
-                                model={'gol'}
-                            />
-                            <CardHorizontal
-                                title={'Carro zero km'}
-                                brand={'Citroen'}
-                                model={'gol'}
-                            />
-
+                            
                         </div>
                     </div>
 

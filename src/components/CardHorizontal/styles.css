@@ -1,12 +1,39 @@
+.card.horizontal {
+    color: var(--title-primary-color)
+}
+
 .card #_card-action:last-child {
     border-radius: 0 0 2px 2px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-around;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .card.horizontal .card-image {
     max-height: 186px;
     max-width: 335px;
     contain: content;
+}
+
+.card.horizontal .card-stacked .card-content {
+    flex-grow: 1;
+    display: flex;
+}
+
+.card.horizontal .card-stacked .card-content > div {
+    flex-grow: 1;
+}
+
+.card.horizontal .card-stacked .card-content div:last-child {
+    text-align: end;
+    opacity: .7;
+    margin-right: 16px;
+}
+
+#_card-action {
+    border-top: 0!important;
 }
