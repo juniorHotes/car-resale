@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './styles.css'
 
@@ -6,9 +6,16 @@ import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import Search from '../../components/Search'
 import Card from '../../components/Card'
+import PreloadCircle from '../../components/PreloadCircle'
 
 export default function Results(props) {
     const [data, setdata] = useState([])
+    const [preload, setPreload] = useState(true)
+
+    useEffect(() => {
+        if (data.length != 0)
+            setPreload(false)
+    }, [data])
 
     // O resultado da pesquisa vem do componente Search
     function setSearchQuery(d) {
@@ -29,8 +36,14 @@ export default function Results(props) {
                     <div className='title-section'>
                         <h1>Resultados</h1>
                     </div>
-                    
-                    {data.length == 0 ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2> : null}
+
+                    <PreloadCircle preload={preload} />
+
+                    {
+                        preload ? null : data.length == 0
+                            ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2>
+                            : null
+                    }
 
                     <div className="results-container">
                         {

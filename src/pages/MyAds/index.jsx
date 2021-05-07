@@ -7,6 +7,7 @@ import api from '../../services/api'
 import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import CardHorizontal from '../../components/CardHorizontal'
+import PreloadCircle from '../../components/PreloadCircle'
 
 import imageNotFound from '../../assets/img/image_not_found.svg'
 
@@ -15,10 +16,10 @@ import M from "materialize-css";
 
 export default function MyAds(props) {
     const tabRef = useRef(null)
+    const { openModal } = useContext(ModalContext)
 
     const [myAds, setMyAds] = useState([])
-
-    const { openModal } = useContext(ModalContext)
+    const [preload, setPreload] = useState(true)
 
     useEffect(async () => {
         const token = sessionStorage.getItem('token')
@@ -34,7 +35,14 @@ export default function MyAds(props) {
             },
         };
 
-        const reqAds = (await api.get('/api/advertisement', options)).data
+        const reqAds = await api.get('/api/advertisement', options)
+            .then(request => {
+                setPreload(false)
+                return request.data
+            }).catch(err => {
+                openModal("Erro", "Erro ao carregar anúcios")
+            })
+
         setMyAds(reqAds)
     }, [])
 
@@ -67,6 +75,8 @@ export default function MyAds(props) {
                                 </li>
                             </ul>
                         </div>
+                        
+                        <PreloadCircle preload={preload} />
 
                         <div id="swipe-1" className="col s12">
                             {myAds.map(ads =>

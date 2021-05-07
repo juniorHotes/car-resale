@@ -3,7 +3,6 @@ import { Link, useHistory } from 'react-router-dom'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
-// import SkyLight from 'react-skylight'
 import { ModalContext } from '../../App'
 
 import './styles.css'

@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 import './styles.css'
 import useMoneyFormat from '../../hooks/useMoneyFormat'
@@ -32,21 +33,27 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
 
                 </div>
                 <div className="card-action" id="_card-action">
-                    <a href={id}
+                    <Link to={{
+                        pathname: '/announce',
+                        state: {
+                            edit: true,
+                            announceID: id
+                        }
+                    }}
                         className="btn"
                     >Editart
                         <i className="material-icons left">edit</i>
-                    </a>
-                    <a href={id}
+                    </Link>
+                    <Link to={id}
                         className="btn"
                     >Renovar
                         <i className="material-icons left">event_available</i>
-                    </a>
-                    <a href={id}
+                    </Link>
+                    <Link to={id}
                         className="btn"
                     >Inativar
                         <i className="material-icons left">event_busy</i>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

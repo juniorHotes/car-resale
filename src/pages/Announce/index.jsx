@@ -15,15 +15,28 @@ import M from "materialize-css";
 
 export default function Announce() {
     const formRef = useRef(null);
+    const elemSelect = useRef(null)
     const { openModal } = useContext(ModalContext)
 
-    const [preload, setPreload] = useState(false)
+    const [progress, setProgress] = useState(false)
 
-    const elemSelect = useRef(null)
     const [optional, setOptional] = useState([])
 
     const [selectedFile, setSelectedFile] = useState([]);
 
+    useEffect(async () => {
+        const request = await api('/api/optional')
+        setOptional(request.data)
+    }, [])
+    
+    useEffect(() => {
+        M.CharacterCounter.init(formRef.current.getFieldRef('Title'))
+        M.CharacterCounter.init(formRef.current.getFieldRef('Description'))
+        M.FormSelect.init(elemSelect.current);
+        elemSelect.current.M_FormSelect.input.placeholder = "Selecione um ou mais opcionais"
+        
+    }, [optional])
+    
     const changeHandler = (event) => {
         if (event.target.files.length > 10) {
             event.target.value = ""
@@ -35,19 +48,6 @@ export default function Announce() {
             setSelectedFile(event.target.files);
         }
     };
-
-    useEffect(async () => {
-        const request = await api('/api/optional')
-        setOptional(request.data)
-    }, [])
-
-    useEffect(() => {
-        M.CharacterCounter.init(formRef.current.getFieldRef('Title'))
-        M.CharacterCounter.init(formRef.current.getFieldRef('Description'))
-        M.FormSelect.init(elemSelect.current);
-        elemSelect.current.M_FormSelect.input.placeholder = "Selecione um ou mais opcionais"
-
-    }, [optional])
 
     async function handleSubmit(data, { reset }) {
 
@@ -87,7 +87,7 @@ export default function Announce() {
                 abortEarly: false
             })
 
-            setPreload(true)
+            setProgress(true)
 
             const formData = new FormData();
 
@@ -101,7 +101,7 @@ export default function Announce() {
             const token = sessionStorage.getItem('token')
 
             if(!token) {
-                setPreload(false)
+                setProgress(false)
                 openModal('Acesso negado', 'Você não possue permissão de acesso, tente fazer login novamente')
                 return
             }
@@ -116,10 +116,10 @@ export default function Announce() {
             await api.post('/api/advertisement', formData, options)
                 .then(() => {
                     reset()
-                    setPreload(false)
+                    setProgress(false)
                     openModal('Cadastro realizado com sucesso')
                 }).catch(err => {
-                    setPreload(false)
+                    setProgress(false)
                     openModal('Erro inesperado', 'Erro ao entrar em contato com o servidor')
                 })
 
@@ -153,7 +153,7 @@ export default function Announce() {
                                         type="text"
                                         name="Title"
                                         placeholder="Ex: Jetta Impecável"
-                                        disabled={preload}
+                                        disabled={progress}
                                         data-length="50"
                                     />
                                 </div>
@@ -165,7 +165,7 @@ export default function Announce() {
                                         id="description"
                                         className="materialize-textarea"
                                         placeholder="Adicione uma breve descrição"
-                                        disabled={preload}
+                                        disabled={progress}
                                         data-length="520">
                                     </InputTextarea>
                                 </div>
@@ -175,7 +175,7 @@ export default function Announce() {
                                     type="text"
                                     name="Brand"
                                     placeholder="Ex: VW"
-                                    disabled={preload}
+                                    disabled={progress}
                                 />
 
                                 <Input
@@ -183,7 +183,7 @@ export default function Announce() {
                                     type="text"
                                     name="Model"
                                     placeholder="Ex: Jetta"
-                                    disabled={preload}
+                                    disabled={progress}
                                 />
 
                                 <Input
@@ -191,7 +191,7 @@ export default function Announce() {
                                     type="number"
                                     name="Km"
                                     placeholder="Ex: 123456"
-                                    disabled={preload}
+                                    disabled={progress}
                                 />
 
                                 <Input
@@ -199,7 +199,7 @@ export default function Announce() {
                                     type="text"
                                     name="Potence"
                                     placeholder="Ex: 2.0"
-                                    disabled={preload}
+                                    disabled={progress}
                                 />
 
                                 <Input
@@ -207,7 +207,7 @@ export default function Announce() {
                                     type="number"
                                     name="Year"
                                     placeholder="Ex: 2021"
-                                    disabled={preload}
+                                    disabled={progress}
                                 />
 
                                 <Input
@@ -216,7 +216,7 @@ export default function Announce() {
                                     name="Price"
                                     placeholder=""
                                     onChange={useMoneyFormat}
-                                    disabled={preload}
+                                    disabled={progress}
                                 />
 
                                 <Input
@@ -224,7 +224,7 @@ export default function Announce() {
                                     type="text"
                                     name="CityName"
                                     placeholder=""
-                                    disabled={preload}
+                                    disabled={progress}
                                 />
 
                                 <Input
@@ -232,11 +232,11 @@ export default function Announce() {
                                     type="number"
                                     name="CityIbge"
                                     placeholder=""
-                                    disabled={preload}
+                                    disabled={progress}
                                 />
 
                                 <div className="input-field col s12">
-                                    <select disabled={preload} multiple ref={elemSelect} defaultValue={[]}>
+                                    <select disabled={progress} multiple ref={elemSelect} defaultValue={[]}>
                                         {optional.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
                                     </select>
                                     <label style={{ left: "unset", top: "-37px" }} >Opcionais</label>
@@ -247,20 +247,20 @@ export default function Announce() {
                                 <div className="file-field input-field">
                                     <div className="btn">
                                         <span>Adicionar Imagens</span>
-                                        <input disabled={preload} onChange={changeHandler} accept="image/*" type="file" name="file-image" className="file" multiple />
+                                        <input disabled={progress} onChange={changeHandler} accept="image/*" type="file" name="file-image" className="file" multiple />
                                     </div>
                                     <div className="file-path-wrapper">
-                                        <input disabled={preload} onChange={changeHandler} name="imageName" className="file-path validate" type="text" placeholder="Selecione no máximo 10 imagens" />
+                                        <input disabled={progress} onChange={changeHandler} name="imageName" className="file-path validate" type="text" placeholder="Selecione no máximo 10 imagens" />
                                     </div>
                                 </div>
 
-                                <div className="preload">
-                                    {preload &&
+                                <div className="progress">
+                                    {progress &&
                                         <div className="progress">
                                             <div className="indeterminate"></div>
                                         </div>
                                     }
-                                    <button disabled={preload}
+                                    <button disabled={progress}
                                         className="btn btn-large btn-100"
                                         type="submit"
                                     >

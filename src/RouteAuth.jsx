@@ -11,7 +11,7 @@ function RouteAuth({ redirectTo, isPrivate, component: Component, ...rest }) {
 }
 
 RouteAuth.propTypes = {
-    redirectTo: PropTypes.string,
+    redirectTo: PropTypes.object,
     isPrivate: PropTypes.bool,
     component: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
 };

@@ -22,6 +22,7 @@ export default function Search(props) {
     const [optional, setOptional] = useState([])
 
     useEffect(async () => {
+
         const request = (await api('/api/optional')).data
         setOptional(request)
 
@@ -63,7 +64,6 @@ export default function Search(props) {
         await api.post('/api/advertisement/filter', getDataForm)
             .then(req => {
                 props.searchQuery(req.data)
-                console.log(req.data)
             }).catch(err => err)
     }
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './styles.css'
+
 import api from '../../services/api'
 
 import Slider from "react-slick";
@@ -10,6 +11,7 @@ import Card from '../../components/Card'
 import Search from '../../components/Search'
 
 export default function Home(props) {
+
     const [banners, setBanners] = useState([])
     const [highligths, setHighLigths] = useState([])
     const [lastAds, setLastAds] = useState([])
