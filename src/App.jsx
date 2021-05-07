@@ -1,42 +1,36 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, createContext } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes'
 import 'normalize.css'
 import 'materialize-css/dist/css/materialize.min.css';
 import './assets/styles/global.css'
 import SkyLight from 'react-skylight'
-import ModalContext from './hooks/context'
 
+export const ModalContext = createContext()
 
 const App = () => {
     const skyLightRef = useRef(null);
+    const [skyLightActions, setSkyLightActions] = useState({ title: "", children: null, afterClose: () => { } })
 
-    const [dialogMsg, setDialogMsg] = useState(['', ''])
-    // const [onClose, setOnClose] = useState()
-
-    function openModal(title, mensage) {
-        setDialogMsg([title, mensage])
+    function openModal(title, children, afterClose) {
+        setSkyLightActions({ title, children, afterClose })
         skyLightRef.current.show()
-    }
-
-    function onCloseModal(func) {
-        
     }
 
     return (
         <BrowserRouter>
-            <ModalContext.Provider value={{ openModal, onCloseModal }}>
+            <ModalContext.Provider value={{ openModal }}>
                 <ModalContext.Consumer>
                     {() => {
-                        console.log(dialogMsg)
                         return (
                             <>
                                 <Routes />
-                                <SkyLight 
+                                <SkyLight
                                     ref={skyLightRef}
-                                    afterClose={() => onCloseModal()}
-                                    title={dialogMsg[0]} >
-                                    {dialogMsg[1]}
+                                    afterClose={skyLightActions.afterClose}
+                                    title={skyLightActions.title}
+                                >
+                                    {skyLightActions.children}
                                 </SkyLight>
                             </>
                         )

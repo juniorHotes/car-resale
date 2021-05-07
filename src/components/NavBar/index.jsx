@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { ModalContext } from '../../App'
 import './styles.css'
-import SkyLight from 'react-skylight'
 
 import logoIcon from '../../assets/img/icons/Vazado.png'
 
@@ -9,12 +9,10 @@ import M from "materialize-css";
 
 export default function NavBar() {
     const history = useHistory()
-    const skyLightRef = useRef(null);
+    const sidenav = useRef(null)
+    const { openModal } = useContext(ModalContext)
 
     const [logged, setLogged] = useState(false)
-    const [dialogMsg, setDialogMsg] = useState(['', ''])
-
-    const sidenav = useRef(null)
 
     useEffect(() => {
         const session = sessionStorage.getItem('token')
@@ -31,18 +29,6 @@ export default function NavBar() {
 
     return (
         <>
-            <SkyLight ref={skyLightRef}
-                afterClose={() =>
-                    setTimeout(() => {
-                        setLogged(false)
-                        history.push('/')
-                    }, 500)
-                }
-
-                title={dialogMsg[0]} >
-                {dialogMsg[1]}
-            </SkyLight>
-
             <div className="navbar-fixed">
                 <nav>
                     <div className="wrapper">
@@ -79,9 +65,7 @@ export default function NavBar() {
                                             window.location.href = "#top"
                                             if (logged) {
                                                 sessionStorage.removeItem('token')
-                                                setDialogMsg(['Você não está mais logado', ''])
-
-                                                skyLightRef.current.show()
+                                                openModal('Você não está mais logado', '', () => setTimeout(() => { history.push('/') }, 500))
                                             }
                                         }}
                                     >
@@ -115,9 +99,7 @@ export default function NavBar() {
                                 window.location.href = "#top"
                                 if (logged) {
                                     sessionStorage.removeItem('token')
-                                    setDialogMsg(['Você não está mais logado', ''])
-
-                                    skyLightRef.current.show()
+                                    openModal('Você não está mais logado', '', () => setTimeout(() => { history.push('/') }, 500))
                                 }
                             }}
                         >

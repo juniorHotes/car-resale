@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
-import ModalContext from '../../hooks/context'
-import { Link, useHistory } from 'react-router-dom'
-
+import { ModalContext } from '../../App'
 
 import './styles.css'
 import api from '../../services/api'
@@ -9,7 +7,6 @@ import api from '../../services/api'
 import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import CardHorizontal from '../../components/CardHorizontal'
-import SkyLight from 'react-skylight'
 
 import imageNotFound from '../../assets/img/image_not_found.svg'
 
@@ -18,22 +15,16 @@ import M from "materialize-css";
 
 export default function MyAds(props) {
     const tabRef = useRef(null)
-    const skyLightRef = useRef(null);
-    const history = useHistory()
 
-    const [dialogMsg, setDialogMsg] = useState(['', ''])
     const [myAds, setMyAds] = useState([])
 
-    const modalContext = useContext(ModalContext)
+    const { openModal } = useContext(ModalContext)
 
     useEffect(async () => {
-        console.log(modalContext)
         const token = sessionStorage.getItem('token')
 
         if (!token) {
-            setDialogMsg(['Acesso negado', 'Você não possue permissão de acesso, tente fazer login novamente'])
-            skyLightRef.current.show()
-
+            openModal('Acesso negado', 'Você não possue permissão de acesso, tente fazer login novamente')
             return
         }
 
@@ -54,19 +45,9 @@ export default function MyAds(props) {
 
     return (
         <>
-            <SkyLight ref={skyLightRef}
-                title={dialogMsg[0]} >
-                {dialogMsg[1]}
-            </SkyLight>
-
             <NavBar />
 
             <div className='container'>
-                <button onClick={() => { 
-                    modalContext.onCloseModal(() => setTimeout(() => { history.push('/') }, 500)) 
-                    return modalContext.openModal("abriu", "sdfsdf") 
-                }}
-                >toggle</button>
                 <section className='section-wrapper'>
                     <div className='title-section'>
                         <h1>Meus Anúncios</h1>

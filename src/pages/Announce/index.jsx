@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useContext } from 'react'
 import './styles.css'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
-import SkyLight from 'react-skylight'
 import useMoneyFormat from '../../hooks/useMoneyFormat'
+import { ModalContext } from '../../App'
 
 import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
@@ -15,10 +15,9 @@ import M from "materialize-css";
 
 export default function Announce() {
     const formRef = useRef(null);
-    const skyLightRef = useRef(null);
+    const { openModal } = useContext(ModalContext)
 
     const [preload, setPreload] = useState(false)
-    const [dialogMsg, setDialogMsg] = useState(['', ''])
 
     const elemSelect = useRef(null)
     const [optional, setOptional] = useState([])
@@ -29,8 +28,7 @@ export default function Announce() {
         if (event.target.files.length > 10) {
             event.target.value = ""
 
-            setDialogMsg(['Limite de imagens excedido!', 'Você pode enviar até 10 imagens'])
-            skyLightRef.current.show()
+            openModal('Limite de imagens excedido!', 'Você pode enviar até 10 imagens')
 
             return
         } else {
@@ -44,7 +42,6 @@ export default function Announce() {
     }, [])
 
     useEffect(() => {
-
         M.CharacterCounter.init(formRef.current.getFieldRef('Title'))
         M.CharacterCounter.init(formRef.current.getFieldRef('Description'))
         M.FormSelect.init(elemSelect.current);
@@ -64,9 +61,7 @@ export default function Announce() {
         }
 
         if (selectedFile.length == 0) {
-            setDialogMsg(['Selecione pelo menos uma imagem!', 'Você pode enviar até 10 imagens'])
-            skyLightRef.current.show()
-
+            openModal('Selecione pelo menos uma imagem!', 'Você pode enviar até 10 imagens')
             return
         }
 
@@ -107,9 +102,7 @@ export default function Announce() {
 
             if(!token) {
                 setPreload(false)
-                setDialogMsg(['Acesso negado', 'Você não possue permissão de acesso, tente fazer login novamente'])
-                skyLightRef.current.show()
-
+                openModal('Acesso negado', 'Você não possue permissão de acesso, tente fazer login novamente')
                 return
             }
 
@@ -124,12 +117,10 @@ export default function Announce() {
                 .then(() => {
                     reset()
                     setPreload(false)
-                    setDialogMsg(['Cadastro realizado com sucesso', ''])
-                    skyLightRef.current.show()
+                    openModal('Cadastro realizado com sucesso')
                 }).catch(err => {
                     setPreload(false)
-                    setDialogMsg(['Erro inesperado', 'Erro ao entrar em contato com o servidor'])
-                    skyLightRef.current.show()
+                    openModal('Erro inesperado', 'Erro ao entrar em contato com o servidor')
                 })
 
         } catch (err) {
@@ -145,11 +136,6 @@ export default function Announce() {
 
     return (
         <>
-            <SkyLight ref={skyLightRef}
-                title={dialogMsg[0]} >
-                {dialogMsg[1]}
-            </SkyLight>
-
             <NavBar />
             <div className='container'>
                 <div className="announce-container form-content">

@@ -17,7 +17,10 @@ RouteAuth.propTypes = {
 };
 
 RouteAuth.defaultProps = {
-    redirectTo: '/login',
+    redirectTo: {
+        pathname: "/login",
+        state: { blocked: true }
+    },
     isPrivate: false,
 };
 

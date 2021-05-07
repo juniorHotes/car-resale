@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
-import SkyLight from 'react-skylight'
+import { ModalContext } from '../../App'
 
 import './styles.css'
 
@@ -12,10 +12,9 @@ import Input from '../../components/Form/Input'
 
 export default function NewUser() {
     const formRef = useRef(null);
-    const skyLightRef = useRef(null);
+    const { openModal } = useContext(ModalContext)
 
     const [preload, setPreload] = useState(false)
-    const [dialogMsg, setDialogMsg] = useState(['', ''])
 
     const [uf, setUF] = useState('')
     const [city, setCity] = useState('')
@@ -97,12 +96,10 @@ export default function NewUser() {
                     reset()
                     setPhone('')
                     setPreload(false)
-                    setDialogMsg(['Cadastrado com sucesso', ''])
-                    skyLightRef.current.show()
+                    openModal('Cadastrado com sucesso')
                 }).catch(err => {
                     setPreload(false)
-                    setDialogMsg(['Erro ao fazer cadastro', 'Erro na requisição'])
-                    skyLightRef.current.show()
+                    openModal('Erro ao fazer cadastro', 'Erro na requisição')
                 })
 
         } catch (err) {
@@ -136,11 +133,6 @@ export default function NewUser() {
 
     return (
         <>
-            <SkyLight ref={skyLightRef}
-                title={dialogMsg[0]} >
-                {dialogMsg[1]}
-            </SkyLight>
-
             <NavBar />
             <div className='container'>
                 <div className="form-content">

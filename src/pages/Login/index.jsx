@@ -1,10 +1,10 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
 // import SkyLight from 'react-skylight'
-import ModalContext from '../../hooks/context'
+import { ModalContext } from '../../App'
 
 import './styles.css'
 
@@ -12,16 +12,18 @@ import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import Input from '../../components/Form/Input'
 
-export default function Login() {
+export default function Login({ location }) {
     const history = useHistory()
     const formRef = useRef(null);
-    // const skyLightRef = useRef(null);
 
-    const modalContext = useContext(ModalContext)
-
-
+    const { openModal } = useContext(ModalContext)
     const [preload, setPreload] = useState(false)
-    const [dialogMsg, setDialogMsg] = useState(['', ''])
+
+    useEffect(() => {
+        if(location.state) {
+            openModal("Cadastre-se ou faça login para acessar está sessão")
+        }
+    }, [])
 
     async function handleSubmit(data, { reset }) {
         formRef.current.setErrors({})
@@ -44,9 +46,7 @@ export default function Login() {
                 .then((promise) => {
                     reset()
                     setPreload(false)
-                    setDialogMsg(['Login feito com suceso', ''])
-                    // skyLightRef.current.show()
-
+                    openModal('Login feito com suceso', '', () => setTimeout(() => { history.push('/') }, 500))
 
                     const { token } = promise.data
                     if (token) {
@@ -55,8 +55,7 @@ export default function Login() {
 
                 }).catch(err => {
                     setPreload(false)
-                    setDialogMsg(['Erro ao fazer login', 'Erro ao entrar em contato com o servidor'])
-                    // skyLightRef.current.show()
+                    openModal('Erro ao fazer login', 'Erro ao entrar em contato com o servidor')
                 })
 
         } catch (err) {
@@ -72,12 +71,6 @@ export default function Login() {
 
     return (
         <>
-            {/* <SkyLight ref={skyLightRef}
-                afterClose={() => dialogMsg[1] == "" && setTimeout(() => { history.push('/') }, 500)}
-                title={dialogMsg[0]} >
-                {dialogMsg[1]}
-            </SkyLight> */}
-
             <NavBar />
             <div className='container'>
                 <div className="form-content">
