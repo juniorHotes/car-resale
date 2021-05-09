@@ -113,10 +113,12 @@
 
 .sheet-wrapper {
     width: 100%;
-    min-height: 100%;
+    height: 100%;
+    min-height: 600px;
     margin-top: 30px;
-    padding: 30px;
+    padding: 16px;
     background-color: var(--secundary-bg-color);
+    contain: strict;
 }
 
 .profile-phone-wrapper {
@@ -143,7 +145,7 @@
 
 .sheet-list-wrapper {
     padding: 26px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--title-secundary-color);
 }
 

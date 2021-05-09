@@ -60,7 +60,7 @@ export default function Announce() {
             Optionals: elemSelect.current.M_FormSelect.getSelectedValues()
         }
 
-        if (selectedFile.length == 0) {
+        if (selectedFile.length === 0) {
             openModal('Selecione pelo menos uma imagem!', 'Você pode enviar até 10 imagens')
             return
         }
