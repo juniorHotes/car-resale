@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { ModalContext } from '../../App'
 import './styles.css'
 
-import logoIcon from '../../assets/img/icons/Vazado.png'
+import logoIcon from '../../assets/img/icons/logo-caranga.png'
 
 import M from "materialize-css";
 
