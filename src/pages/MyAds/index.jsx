@@ -8,8 +8,6 @@ import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import CardHorizontal from '../../components/CardHorizontal'
 
-import imageNotFound from '../../assets/img/image_not_found.svg'
-
 // Import Materialize
 import M from "materialize-css";
 
@@ -37,7 +35,6 @@ export default function MyAds(props) {
         const reqAds = (await api.get('/api/advertisement', options)).data
         setMyAds(reqAds)
     }, [])
-
 
     useEffect(() => {
         M.Tabs.init(tabRef.current, { swipeable: true });

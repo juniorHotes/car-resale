@@ -12,6 +12,8 @@ import M from "materialize-css";
 
 export default function Search(props) {
     const history = useHistory()
+    const { state } = props.parentProps.location
+    const { searchQuery } = props
 
     const searchContainer = useRef(null)
     const elemSelect = useRef(null)
@@ -25,13 +27,11 @@ export default function Search(props) {
         const request = (await api('/api/optional')).data
         setOptional(request)
 
-        console.log(props.parentProps.location.state)
-
-        const data = props.parentProps.location.state ? props.parentProps.location.state : { filter: "", searchType: "basic"}
+        const data = state ? state : { filter: "", searchType: "basic" }
 
         await api.post('/api/advertisement/filter', data)
             .then(req => {
-                props.searchQuery(req.data)
+                searchQuery(req.data)
             }).catch(err => err)
 
     }, [])
@@ -54,7 +54,7 @@ export default function Search(props) {
             optional: elemSelect.current.M_FormSelect.getSelectedValues()
         }
 
-        if (props.parentProps.location.pathname != '/search_ad') {
+        if (props.parentProps.location.pathname !== '/search_ad') {
             history.push('/search_ad', getDataForm)
 
             return
@@ -62,7 +62,7 @@ export default function Search(props) {
 
         await api.post('/api/advertisement/filter', getDataForm)
             .then(req => {
-                props.searchQuery(req.data)
+                searchQuery(req.data)
                 console.log(req.data)
             }).catch(err => err)
     }

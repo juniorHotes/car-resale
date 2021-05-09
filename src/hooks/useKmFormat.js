@@ -1,5 +1,5 @@
 function kmFormat(value) {
-    if(value == undefined) return 
+    if(value === undefined) return 
 
     const onlyDigits = String(value)
         .split("")

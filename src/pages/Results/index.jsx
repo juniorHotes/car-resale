@@ -30,7 +30,7 @@ export default function Results(props) {
                         <h1>Resultados</h1>
                     </div>
                     
-                    {data.length == 0 ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2> : null}
+                    {data.length === 0 ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2> : null}
 
                     <div className="results-container">
                         {
