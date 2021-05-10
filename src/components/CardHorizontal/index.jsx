@@ -14,7 +14,7 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
     return (
         <div className="card horizontal">
             <div className="card-image">
-                <img src={image ? `data:image/png;base64,${image}` : imageNotFound} />
+                <img src={image ? `data:image/png;base64,${image}` : imageNotFound} alt="imagem do veículo" />
             </div>
             <div className="card-stacked">
                 <div className="card-content">

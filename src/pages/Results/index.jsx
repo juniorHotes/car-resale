@@ -36,6 +36,7 @@ export default function Results(props) {
                     <div className='title-section'>
                         <h1>Resultados</h1>
                     </div>
+<<<<<<< HEAD
 
                     <PreloadCircle preload={preload} />
 
@@ -44,6 +45,10 @@ export default function Results(props) {
                             ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2>
                             : null
                     }
+=======
+                    
+                    {data.length === 0 ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2> : null}
+>>>>>>> 1de304840d64f928a5d4f50428a4fe24b6a54233
 
                     <div className="results-container">
                         {

@@ -1,8 +1,8 @@
 
 function moneyFormat(event) {
-    if(event == undefined) return 
+    if(event === undefined) return 
     
-    if (event.target != undefined) {
+    if (event.target !== undefined) {
         const onlyDigits = event.target.value
             .split("")
             .filter(s => /\d/.test(s))

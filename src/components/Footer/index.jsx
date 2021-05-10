@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import './styles.css'
 
-import logoIcon from '../../assets/img/icons/Vazado.png'
+import logoIcon from '../../assets/img/icons/logo-caranga.png'
 
 export default function Footer() {
     return (

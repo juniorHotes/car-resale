@@ -30,7 +30,7 @@ export default function Card({ className, id, title, price, year, km, image }) {
                     <div className="col s12">
                         <div className="card" ref={cardRef}>
                             <div className="card-image">
-                                <img ref={imageRef} src={image ? `data:image/png;base64,${image}` : imageNotFound} />
+                                <img ref={imageRef} src={image ? `data:image/png;base64,${image}` : imageNotFound} alt="Imagem do veículo" />
                             </div>
                             <div className="card-content">
 

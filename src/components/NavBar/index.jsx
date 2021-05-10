@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { ModalContext } from '../../App'
 import './styles.css'
 
-import logoIcon from '../../assets/img/icons/Vazado.png'
+import logoIcon from '../../assets/img/icons/logo-caranga.png'
 
 import M from "materialize-css";
 
@@ -41,7 +41,7 @@ export default function NavBar() {
                                 <img width="110px" src={logoIcon} alt="logo" />
                             </Link>
 
-                            <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+                            <a href="" data-target="mobile-demo" className="sidenav-trigger">
                                 <i className="material-icons">menu</i>
                             </a>
 

@@ -27,7 +27,7 @@ export default function NewUser() {
     async function getAddres(cep) {
         formRef.current.setFieldError('cep', '')
 
-        if (cep.length == 8) {
+        if (cep.length === 8) {
             const addres = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(e => e.json()).catch(err => err)
             const cepNotFound = addres.erro
 
@@ -58,7 +58,7 @@ export default function NewUser() {
 
         formRef.current.setErrors({})
 
-        if (data.password != data.passwordrepeat) {
+        if (data.password !== data.passwordrepeat) {
             return formRef.current.setFieldError('passwordrepeat', "A senha é diferente")
         }
 

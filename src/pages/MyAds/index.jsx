@@ -9,8 +9,6 @@ import Footer from '../../components/Footer'
 import CardHorizontal from '../../components/CardHorizontal'
 import PreloadCircle from '../../components/PreloadCircle'
 
-import imageNotFound from '../../assets/img/image_not_found.svg'
-
 // Import Materialize
 import M from "materialize-css";
 
@@ -45,7 +43,6 @@ export default function MyAds(props) {
 
         setMyAds(reqAds)
     }, [])
-
 
     useEffect(() => {
         M.Tabs.init(tabRef.current, { swipeable: true });
