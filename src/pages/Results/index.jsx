@@ -10,16 +10,27 @@ import PreloadCircle from '../../components/PreloadCircle'
 
 export default function Results(props) {
     const [data, setdata] = useState([])
+    const [dataError, setDataError] = useState(false)
+
     const [preload, setPreload] = useState(true)
 
     useEffect(() => {
-        if (data.length != 0)
+        if (dataError)
             setPreload(false)
-    }, [data])
+    }, [dataError])
 
     // O resultado da pesquisa vem do componente Search
-    function setSearchQuery(d) {
-        setdata(d)
+    function setSearchQuery(data) {
+        setdata(data)
+        setPreload(false)
+    }
+
+    function setSearchQueryError(isError) {
+        setDataError(isError)
+    }
+
+    function isSetPreload(p) {
+        setPreload(p)
     }
 
     return (
@@ -29,7 +40,12 @@ export default function Results(props) {
             <div className='container'>
 
                 <div className="search__container">
-                    <Search parentProps={props} searchQuery={setSearchQuery} />
+                    <Search
+                        isPreload={isSetPreload}
+                        parentProps={props}
+                        searchQuery={setSearchQuery}
+                        searchQueryError={setSearchQueryError}
+                    />
                 </div>
 
                 <section className='section-wrapper'>
@@ -38,6 +54,8 @@ export default function Results(props) {
                     </div>
 
                     <PreloadCircle preload={preload} />
+
+                    {dataError ? <h2 style={{ textAlign: 'center' }}>Erro ao buscar resultados</h2> : null}
 
                     {
                         preload ? null : data.length == 0
@@ -57,7 +75,8 @@ export default function Results(props) {
                                     year={item.year}
                                     km={item.km}
                                 />
-                            )}
+                            )
+                        }
                     </div>
 
                 </section>

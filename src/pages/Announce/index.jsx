@@ -18,7 +18,7 @@ export default function Announce() {
     const elemSelect = useRef(null)
     const { openModal } = useContext(ModalContext)
 
-    const [progress, setProgress] = useState(false)
+    const [preload, setPreload] = useState(false)
 
     const [optional, setOptional] = useState([])
 
@@ -87,7 +87,7 @@ export default function Announce() {
                 abortEarly: false
             })
 
-            setProgress(true)
+            setPreload(true)
 
             const formData = new FormData();
 
@@ -101,7 +101,7 @@ export default function Announce() {
             const token = sessionStorage.getItem('token')
 
             if(!token) {
-                setProgress(false)
+                setPreload(false)
                 openModal('Acesso negado', 'Você não possue permissão de acesso, tente fazer login novamente')
                 return
             }
@@ -116,10 +116,10 @@ export default function Announce() {
             await api.post('/api/advertisement', formData, options)
                 .then(() => {
                     reset()
-                    setProgress(false)
+                    setPreload(false)
                     openModal('Cadastro realizado com sucesso')
                 }).catch(err => {
-                    setProgress(false)
+                    setPreload(false)
                     openModal('Erro inesperado', 'Erro ao entrar em contato com o servidor')
                 })
 
@@ -153,7 +153,7 @@ export default function Announce() {
                                         type="text"
                                         name="Title"
                                         placeholder="Ex: Jetta Impecável"
-                                        disabled={progress}
+                                        disabled={preload}
                                         data-length="50"
                                     />
                                 </div>
@@ -165,7 +165,7 @@ export default function Announce() {
                                         id="description"
                                         className="materialize-textarea"
                                         placeholder="Adicione uma breve descrição"
-                                        disabled={progress}
+                                        disabled={preload}
                                         data-length="520">
                                     </InputTextarea>
                                 </div>
@@ -175,7 +175,7 @@ export default function Announce() {
                                     type="text"
                                     name="Brand"
                                     placeholder="Ex: VW"
-                                    disabled={progress}
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -183,7 +183,7 @@ export default function Announce() {
                                     type="text"
                                     name="Model"
                                     placeholder="Ex: Jetta"
-                                    disabled={progress}
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -191,7 +191,7 @@ export default function Announce() {
                                     type="number"
                                     name="Km"
                                     placeholder="Ex: 123456"
-                                    disabled={progress}
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -199,7 +199,7 @@ export default function Announce() {
                                     type="text"
                                     name="Potence"
                                     placeholder="Ex: 2.0"
-                                    disabled={progress}
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -207,7 +207,7 @@ export default function Announce() {
                                     type="number"
                                     name="Year"
                                     placeholder="Ex: 2021"
-                                    disabled={progress}
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -216,7 +216,7 @@ export default function Announce() {
                                     name="Price"
                                     placeholder=""
                                     onChange={useMoneyFormat}
-                                    disabled={progress}
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -224,7 +224,7 @@ export default function Announce() {
                                     type="text"
                                     name="CityName"
                                     placeholder=""
-                                    disabled={progress}
+                                    disabled={preload}
                                 />
 
                                 <Input
@@ -232,11 +232,11 @@ export default function Announce() {
                                     type="number"
                                     name="CityIbge"
                                     placeholder=""
-                                    disabled={progress}
+                                    disabled={preload}
                                 />
 
                                 <div className="input-field col s12">
-                                    <select disabled={progress} multiple ref={elemSelect} defaultValue={[]}>
+                                    <select disabled={preload} multiple ref={elemSelect} defaultValue={[]}>
                                         {optional.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
                                     </select>
                                     <label style={{ left: "unset", top: "-37px" }} >Opcionais</label>
@@ -247,20 +247,20 @@ export default function Announce() {
                                 <div className="file-field input-field">
                                     <div className="btn">
                                         <span>Adicionar Imagens</span>
-                                        <input disabled={progress} onChange={changeHandler} accept="image/*" type="file" name="file-image" className="file" multiple />
+                                        <input disabled={preload} onChange={changeHandler} accept="image/*" type="file" name="file-image" className="file" multiple />
                                     </div>
                                     <div className="file-path-wrapper">
-                                        <input disabled={progress} onChange={changeHandler} name="imageName" className="file-path validate" type="text" placeholder="Selecione no máximo 10 imagens" />
+                                        <input disabled={preload} onChange={changeHandler} name="imageName" className="file-path validate" type="text" placeholder="Selecione no máximo 10 imagens" />
                                     </div>
                                 </div>
 
-                                <div className="progress">
-                                    {progress &&
-                                        <div className="progress">
+                                <div className="preload">
+                                    {preload &&
+                                        <div className="preload">
                                             <div className="indeterminate"></div>
                                         </div>
                                     }
-                                    <button disabled={progress}
+                                    <button disabled={preload}
                                         className="btn btn-large btn-100"
                                         type="submit"
                                     >

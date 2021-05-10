@@ -40,8 +40,7 @@ label {
 /* ========== SECTION WRAPPER ========== */
 .section-wrapper {
     width: 100%;
-    min-height: 100vh;
-    height: 100%;
+    min-height: 400px;
     padding: 0 20px;
     overflow: hidden;
 }

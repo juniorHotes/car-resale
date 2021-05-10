@@ -12,29 +12,51 @@ import M from "materialize-css";
 
 export default function Search(props) {
     const history = useHistory()
+    const moneyFormat = useMoneyFormat
     const { state } = props.parentProps.location
-    const { searchQuery } = props
+    const { searchQuery, searchQueryError, isPreload } = props
 
     const searchContainer = useRef(null)
     const elemSelect = useRef(null)
 
-    const [changeText, setFilter] = useState(false)
+    const [changeText, setChangeText] = useState(false)
     const [searchType, setSearchType] = useState('basic')
 
     const [optional, setOptional] = useState([])
+
+    const [filter, setFilter] = useState('')
+    const [brand, setbrand] = useState('')
+    const [model, setModel] = useState('')
+    const [maxKm, setMaxKm] = useState('')
+    const [minYear, setMinYear] = useState(state && state.minYear)
+    const [maxYear, setMaxYear] = useState(state && state.maxYear)
+    const [minPrice, setMinPrice] = useState('')
+    const [maxPrice, setMaxPrice] = useState('')
 
     useEffect(async () => {
 
         const request = (await api('/api/optional')).data
         setOptional(request)
 
-        const data = state ? state : { filter: "", searchType: "basic" }
+        // Está chamada funciona apenas da página de resultados
+        if (state) {
+           
+            const data = state ? state : { filter: "", searchType: "basic" }
 
-        await api.post('/api/advertisement/filter', data)
-            .then(req => {
-                searchQuery(req.data)
-            }).catch(err => err)
+            if(data.searchType === 'complete') {
+                setbrand(data.brand)
+                setModel(data.model)
+                setMaxKm(data.maxKm)
+                setMinYear(data.minYear)
+                setMaxYear(data.maxYear)
+                setMinPrice(moneyFormat(data.minPrice))
+                setMaxPrice(moneyFormat(data.maxPrice))
+            }  else {
+                setFilter(data.filter)                
+            }
 
+            await apiRequest(data)
+        }
     }, [])
 
     useEffect(() => {
@@ -43,6 +65,11 @@ export default function Search(props) {
     }, [optional])
 
     async function handleSubmit(data) {
+
+        if (state) {
+            isPreload(true)
+            searchQueryError(false)
+        }
 
         const getDataForm = {
             ...data,
@@ -61,10 +88,16 @@ export default function Search(props) {
             return
         }
 
-        await api.post('/api/advertisement/filter', getDataForm)
+        await apiRequest(getDataForm)
+    }
+
+    async function apiRequest(data) {
+        await api.post('/api/advertisement/filter', data)
             .then(req => {
-                props.searchQuery(req.data)
-            }).catch(err => err)
+                searchQuery(req.data)
+            }).catch(err => {
+                searchQueryError(true)
+            })
     }
 
     return (
@@ -80,6 +113,7 @@ export default function Search(props) {
                                     type="text"
                                     name="filter"
                                     placeholder="Pesquise por marca, modelo ou preço"
+                                    defaultValue={filter}
                                 />
 
                                 <input
@@ -92,10 +126,11 @@ export default function Search(props) {
                             </div>
 
                         </div>
+
                         <div className="advanced-button-wrapper">
                             <a className="btn-flat"
                                 onClick={() => {
-                                    setFilter(!changeText)
+                                    setChangeText(!changeText)
                                     return searchContainer.current.classList.toggle('drop_down')
                                 }}
                             >
@@ -104,6 +139,7 @@ export default function Search(props) {
                                 <i className="material-icons arrow_drop_down">arrow_drop_down</i>
                             </a>
                         </div>
+
                         <div className="advaced-search-wrapper">
                             <div id="form-complete">
                                 <div id="advaced-search-g1">
@@ -112,18 +148,21 @@ export default function Search(props) {
                                         type="text"
                                         name="brand"
                                         placeholder="Marca"
+                                        defaultValue={brand}
                                     />
                                     <Input
                                         inputsearch="search-input"
                                         type="text"
                                         name="model"
                                         placeholder="Modelo"
+                                        defaultValue={model}
                                     />
                                     <Input
                                         inputsearch="search-input"
                                         type="number"
                                         name="maxKm"
                                         placeholder="Quilometragem"
+                                        defaultValue={maxKm === 0 ? '' : maxKm}
                                     />
 
                                 </div>
@@ -135,7 +174,11 @@ export default function Search(props) {
                                             name="minYear"
                                             placeholder="Ano mínimo"
                                             min="1950"
-                                            defaultValue="2000"
+                                            defaultValue={minYear || '2000'}
+                                            onBlur={(e) => {
+                                                if (e.target.value < 1950)
+                                                    return e.target.value = 1950
+                                            }}
                                             onChange={(e) => {
                                                 const currentYear = new Date().getUTCFullYear()
                                                 if (e.target.value.length > 3 && e.target.value < 1950)
@@ -151,7 +194,12 @@ export default function Search(props) {
                                             name="maxYear"
                                             placeholder="Ano máximo"
                                             max={new Date().getUTCFullYear()}
-                                            defaultValue={new Date().getUTCFullYear()}
+                                            defaultValue={maxYear || new Date().getUTCFullYear()}
+                                            onBlur={(e) => {
+                                                const currentYear = new Date().getUTCFullYear()
+                                                if (e.target.value.length < 4 && e.target.value < currentYear)
+                                                    return e.target.value = currentYear
+                                            }}
                                             onChange={(e) => {
                                                 const currentYear = new Date().getUTCFullYear()
                                                 if (e.target.value.length > 3 && e.target.value > currentYear)
@@ -167,6 +215,7 @@ export default function Search(props) {
                                             name="minPrice"
                                             placeholder="Preço mínimo"
                                             onChange={useMoneyFormat}
+                                            defaultValue={minPrice === '' ? '' : minPrice}
                                         />
                                         <Input
                                             inputsearch="search-input"
@@ -174,12 +223,13 @@ export default function Search(props) {
                                             name="maxPrice"
                                             placeholder="Preço máximo"
                                             onChange={useMoneyFormat}
+                                            defaultValue={maxPrice === '' ? '' : maxPrice}
                                         />
                                     </div>
                                 </div>
                                 <div id="advaced-search-g3">
                                     <div className="input-field col s12">
-                                        <select multiple ref={elemSelect} defaultValue={[]}>
+                                        <select multiple ref={elemSelect} defaultValue={['selected', '']}>
                                             {optional.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
                                         </select>
                                     </div>
