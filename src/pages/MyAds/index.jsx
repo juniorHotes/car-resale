@@ -12,7 +12,7 @@ import PreloadCircle from '../../components/PreloadCircle'
 // Import Materialize
 import M from "materialize-css";
 
-export default function MyAds(props) {
+export default function MyAds() {
     const tabRef = useRef(null)
     const { openModal } = useContext(ModalContext)
 
@@ -22,6 +22,15 @@ export default function MyAds(props) {
     const [myAdsHighlight, setMyAdsHighlight] = useState([])
 
     const [preload, setPreload] = useState(true)
+    const [reload, setReload] = useState(false)
+
+    function handlePreload() {
+        setPreload(true)
+    }
+
+    function handleReload() {
+        setReload(!reload)
+    }
 
     useEffect(async () => {
         const token = sessionStorage.getItem('token')
@@ -46,13 +55,15 @@ export default function MyAds(props) {
             })
 
         setMyAds(reqAds)
-    }, [])
+    }, [reload])
 
     useEffect(() => {
         M.Tabs.init(tabRef.current, { swipeable: true });
     }, [])
 
     useEffect(() => {
+        if(myAds.length === 0) return
+
         setMyAdsActive(myAdsIsActive())
         setMyAdsInactive(myAdsIsInactive())
         setMyAdsHighlight(myAdsIsHighlight())
@@ -111,6 +122,9 @@ export default function MyAds(props) {
                                     price={ads.price}
                                     register={ads.register}
                                     validThrue={ads.validThrue}
+                                    reload={handleReload}
+                                    isActive={true}
+                                    isPreload={handlePreload}
                                 />
                             )}
                         </div>
@@ -127,6 +141,9 @@ export default function MyAds(props) {
                                     price={ads.price}
                                     register={ads.register}
                                     validThrue={ads.validThrue}
+                                    reload={handleReload}
+                                    isActive={false}
+                                    isPreload={handlePreload}
                                 />
                             )}
                         </div>
@@ -143,6 +160,8 @@ export default function MyAds(props) {
                                     price={ads.price}
                                     register={ads.register}
                                     validThrue={ads.validThrue}
+                                    reload={handleReload}
+                                    isPreload={handlePreload}
                                 />
                             )}
                         </div>

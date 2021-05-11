@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import api from '../../services/api'
+import { ModalContext } from '../../App'
 
 import './styles.css'
 import useMoneyFormat from '../../hooks/useMoneyFormat'
@@ -7,9 +9,78 @@ import useDateFormat from '../../hooks/useDateFormat'
 
 import imageNotFound from '../../assets/img/image_not_found.svg'
 
-export default function CardHorizontal({ id, image, title, brand, model, price, register, validThrue }) {
+export default function CardHorizontal({ id, image, title, brand, model, price, register, validThrue, reload, isActive, isPreload }) {
+    const { openModal } = useContext(ModalContext)
+
     const moneyFormat = useMoneyFormat
     const dateFormat = useDateFormat
+
+    async function handleRenew() {
+        isPreload(true)
+
+        const auth = await Authorization()
+
+        if(!auth) return 
+
+        await api.put(`/api/advertisement/${id}/renew`, { validThrue: '' }, auth)
+            .then(() => {
+                isPreload(false)
+                openModal('Publicação renovada com sucesso!', '', () => reload())
+            }).catch(err => {
+                isPreload(false)
+                openModal('Erro', 'Erro inesperado, tente de novo mais tarde')
+            })
+    }
+
+    async function handleActive() {
+        isPreload(true)
+
+        const auth = await Authorization()
+
+        if(!auth) return 
+
+        await api.put(`/api/advertisement/${id}/active`, { active: true }, auth)
+            .then(() => {
+                isPreload(false)
+                openModal('Publicação ativada com sucesso!', '', () => reload())
+            }).catch(err => {
+                isPreload(false)
+                openModal('Erro', 'Erro inesperado, tente de novo mais tarde')
+            })
+    }
+
+    async function handleInactive() {
+        isPreload(true)
+
+        const auth = await Authorization()
+
+        if(!auth) return 
+
+        await api.delete(`/api/advertisement1/${id}`, auth)
+            .then(() => {
+                isPreload(false)
+                openModal('Inativado com sucesso!', '', () => reload())
+            }).catch(err => {
+                openModal('Erro', 'Erro inesperado, tente de novo mais tarde', '', () => isPreload(false))
+            })
+    }
+
+    async function Authorization() {
+        const token = sessionStorage.getItem('token')
+
+        if (!token) {
+            openModal('Acesso negado', 'Você não possue permissão de acesso, tente fazer login novamente')
+            return false
+        } else {
+            const options = {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                },
+            };
+
+            return options
+        }
+    }
 
     return (
         <div className="card horizontal">
@@ -41,19 +112,35 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
                         }
                     }}
                         className="btn"
-                    >Editart
-                        <i className="material-icons left">edit</i>
+                    ><i className="material-icons left">edit</i>
+                        Editar
                     </Link>
-                    <Link to={id}
-                        className="btn"
-                    >Renovar
-                        <i className="material-icons left">event_available</i>
-                    </Link>
-                    <Link to={id}
-                        className="btn"
-                    >Inativar
-                        <i className="material-icons left">event_busy</i>
-                    </Link>
+
+                    {isActive
+                        ? (
+                            <>
+                                <button
+                                    onClick={handleRenew}
+                                    className="btn"
+                                ><i className="material-icons left">event_available</i>
+                                    Renovar
+                                </button>
+
+                                <button
+                                    onClick={handleInactive}
+                                    className="btn"
+                                ><i className="material-icons left">event_busy</i>
+                                    Inativar
+                                </button>
+                            </>
+                        )
+                        : <button
+                            onClick={handleActive}
+                            className="btn"
+                        ><i className="material-icons left">beenhere</i>
+                            Ativar
+                        </button>
+                    }
                 </div>
             </div>
         </div>
