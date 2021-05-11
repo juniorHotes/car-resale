@@ -63,3 +63,9 @@
 .section-wrapper .slick-dots {
     bottom: -10px;
 }
+
+@media screen and (max-width: 808px){
+    .banner-wrapper {
+        min-height: 0;
+    }  
+}

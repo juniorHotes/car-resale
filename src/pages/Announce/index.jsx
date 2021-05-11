@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import './styles.css'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
@@ -14,6 +15,7 @@ import InputTextarea from '../../components/Form/InputTextarea'
 import M from "materialize-css";
 
 export default function Announce() {
+    const history = useHistory()
     const formRef = useRef(null);
     const elemSelect = useRef(null)
     const { openModal } = useContext(ModalContext)
@@ -24,19 +26,41 @@ export default function Announce() {
 
     const [selectedFile, setSelectedFile] = useState([]);
 
+    const [city, setCity] = useState('')
+    const [ibgenumber, setIbgenumber] = useState('')
+
     useEffect(async () => {
         const request = await api('/api/optional')
         setOptional(request.data)
     }, [])
-    
+
     useEffect(() => {
         M.CharacterCounter.init(formRef.current.getFieldRef('Title'))
         M.CharacterCounter.init(formRef.current.getFieldRef('Description'))
         M.FormSelect.init(elemSelect.current);
         elemSelect.current.M_FormSelect.input.placeholder = "Selecione um ou mais opcionais"
-        
+
     }, [optional])
-    
+
+    async function getAddres(cep) {
+        formRef.current.setFieldError('cep', '')
+
+        if (cep.length === 8) {
+            const addres = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(e => e.json()).catch(err => err)
+            const cepNotFound = addres.erro
+
+            if (cepNotFound) {
+                return formRef.current.setFieldError("cep", "CEP não encontrado")
+            }
+
+            setCity(addres.localidade)
+            setIbgenumber(addres.ibge)
+        } else {
+            setCity('')
+            setIbgenumber('')
+        }
+    }
+
     const changeHandler = (event) => {
         if (event.target.files.length > 10) {
             event.target.value = ""
@@ -65,7 +89,6 @@ export default function Announce() {
             return
         }
 
-        console.log(getDataForm)
         formRef.current.setErrors({})
 
         try {
@@ -75,12 +98,12 @@ export default function Announce() {
                 Description: Yup.string().required("Campo obrigatório").max(520, "Limite de caracteres excedido"),
                 Brand: Yup.string().required("Campo obrigatório"),
                 Model: Yup.string().required("Campo obrigatório"),
-                Km: Yup.string().required("Campo obrigatório"),
+                Km: Yup.number().required("Campo obrigatório"),
                 Potence: Yup.string().required("Campo obrigatório"),
-                Price: Yup.string().required("Campo obrigatório"),
-                Year: Yup.string().required("Campo obrigatório"),
+                Price: Yup.number().required("Campo obrigatório"),
+                Year: Yup.number().required("Campo obrigatório"),
+                cep: Yup.string().required("Campo obrigatório"),
                 CityName: Yup.string().required("Campo obrigatório"),
-                CityIbge: Yup.string().required("Campo obrigatório"),
             })
 
             await schema.validate(getDataForm, {
@@ -91,7 +114,6 @@ export default function Announce() {
 
             const formData = new FormData();
 
-
             formData.append("json", JSON.stringify(getDataForm));
 
             for (let i = 0; i < selectedFile.length; i++) {
@@ -100,7 +122,7 @@ export default function Announce() {
 
             const token = sessionStorage.getItem('token')
 
-            if(!token) {
+            if (!token) {
                 setPreload(false)
                 openModal('Acesso negado', 'Você não possue permissão de acesso, tente fazer login novamente')
                 return
@@ -117,7 +139,9 @@ export default function Announce() {
                 .then(() => {
                     reset()
                     setPreload(false)
-                    openModal('Cadastro realizado com sucesso')
+                    openModal('Cadastro realizado com sucesso', '', () => setTimeout(() => {
+                        history.push('/my_ads')
+                    }, 500))
                 }).catch(err => {
                     setPreload(false)
                     openModal('Erro inesperado', 'Erro ao entrar em contato com o servidor')
@@ -220,18 +244,28 @@ export default function Announce() {
                                 />
 
                                 <Input
-                                    label="Cidade*"
-                                    type="text"
-                                    name="CityName"
-                                    placeholder=""
+                                    onChange={(e) => getAddres(e.target.value)}
+                                    label="CEP*"
+                                    type="number"
+                                    name="cep"
+                                    placeholder="Ex: 12345678"
                                     disabled={preload}
                                 />
 
                                 <Input
-                                    label="Número do IBGE*"
-                                    type="number"
+                                    label="Cidade*"
+                                    type="text"
+                                    name="CityName"
+                                    placeholder=""
+                                    defaultValue={city}
+                                    disabled={preload}
+                                />
+
+                                <Input
+                                    type="hidden"
                                     name="CityIbge"
                                     placeholder=""
+                                    defaultValue={ibgenumber}
                                     disabled={preload}
                                 />
 

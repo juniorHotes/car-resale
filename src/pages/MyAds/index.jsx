@@ -53,117 +53,24 @@ export default function MyAds(props) {
     }, [])
 
     useEffect(() => {
-
-        setTimeout(() => {
-            setMyAdsActive(myAdsIsActive())
-            setMyAdsInactive(myAdsIsInactive())
-            setMyAdsHighlight(myAdsIsHighlight())
-    
-            console.log(["Ativos", myAdsActive])
-            console.log(["Inativos", myAdsInactive])
-            console.log(["Destacados", myAdsHighlight])
-            
-        }, 3000);
-
+        setMyAdsActive(myAdsIsActive())
+        setMyAdsInactive(myAdsIsInactive())
+        setMyAdsHighlight(myAdsIsHighlight())
     }, [myAds])
 
-    const fakeData = [
-        {
-            "id": "b9eb5176-db15-4e15-b7c9-af34fbfb06ed",
-            "brand": "Chevrolet",
-            "model": "Prisma",
-            "image": null,
-            "km": 68000,
-            "potence": "1.6",
-            "price": 41900.00,
-            "subtitle": "",
-            "title": "Prisma 2015 Manual",
-            "year": 2015,
-            "active": true,
-            "highlight": true,
-            "validThrue": "2021-06-02T00:00:00",
-            "register": "2021-05-05T00:00:00"
-        },
-        {
-            "id": "bf8b53f2-b3ec-4155-b679-e89f7e0b4d3e",
-            "brand": "Chevrolet",
-            "model": "Prisma",
-            "image": null,
-            "km": 70000,
-            "potence": "1.0",
-            "price": 40900.00,
-            "subtitle": "",
-            "title": "Prisma 2015 Manual 3",
-            "year": 2012,
-            "active": true,
-            "highlight": false,
-            "validThrue": "2021-06-04T00:00:00",
-            "register": "2021-05-05T00:00:00"
-        },
-        {
-            "id": "bf8b53f2-b3ec-4155-b679-e89f7e0b4d3e",
-            "brand": "Chevrolet",
-            "model": "Prisma",
-            "image": null,
-            "km": 70000,
-            "potence": "1.0",
-            "price": 40900.00,
-            "subtitle": "",
-            "title": "Prisma 2015 Manual 3",
-            "year": 2012,
-            "active": true,
-            "highlight": false,
-            "validThrue": "2021-06-04T00:00:00",
-            "register": "2021-05-05T00:00:00"
-        },
-        {
-            "id": "3bd5ad25-6a75-4f8e-b7a2-7e4331d0b186",
-            "brand": "Chevrolet",
-            "model": "Prisma",
-            "image": null,
-            "km": 68000,
-            "potence": "1.6",
-            "price": 41900.00,
-            "subtitle": "",
-            "title": "Prisma 2015 Manual",
-            "year": 2015,
-            "active": false,
-            "highlight": false,
-            "validThrue": "2021-06-06T00:00:00",
-            "register": "2021-05-05T00:00:00"
-        },
-        {
-            "id": "3bd5ad25-6a75-4f8e-b7a2-7e4331d0b186",
-            "brand": "Chevrolet",
-            "model": "Prisma",
-            "image": null,
-            "km": 68000,
-            "potence": "1.6",
-            "price": 41900.00,
-            "subtitle": "",
-            "title": "Prisma 2015 Manual",
-            "year": 2015,
-            "active": false,
-            "highlight": false,
-            "validThrue": "2021-06-06T00:00:00",
-            "register": "2021-05-05T00:00:00"
-        }
-
-    ]
-
     function myAdsIsActive() {
-        return fakeData.filter(item => item.active === true)
+        return myAds.filter(item => item.active === true)
     }
 
     function myAdsIsInactive() {
-        return fakeData.filter(item => item.active === false)
+        return myAds.filter(item => item.active === false)
     }
 
     function myAdsIsHighlight() {
-        return fakeData.filter(item => item.highlight === true)
+        return myAds.filter(item => item.highlight === true)
     }
 
-    const keyGenerator = () => (Math.random()*0xFFFFFF<<0).toString(16)
+    const keyGenerator = () => (Math.random() * 0xFFFFFF << 0).toString(16)
 
     return (
         <>
