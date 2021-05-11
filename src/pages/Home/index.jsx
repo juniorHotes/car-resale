@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './styles.css'
+
 import api from '../../services/api'
 
 import Slider from "react-slick";
@@ -8,6 +9,7 @@ import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import Card from '../../components/Card'
 import Search from '../../components/Search'
+import PreloadCircle from '../../components/PreloadCircle'
 
 export default function Home(props) {
     const [banners, setBanners] = useState([])
@@ -74,6 +76,10 @@ export default function Home(props) {
 
             <div className='container'>
                 <header className='banner-wrapper'>
+                    {
+                        banners.length === 0 && <PreloadCircle preload={true} />
+                    }
+
                     <Slider {...settingsBanner}>
                         {banners.map((banner, idx) =>
                             <div key={idx}>
@@ -91,6 +97,10 @@ export default function Home(props) {
                     </div>
 
                     <div className="wrapper-inner grid-3">
+                        {
+                            highligths.length === 0 && <PreloadCircle preload={true} />
+                        }
+
                         {highligths.map((item, idx) => {
                             if (idx < 3) {
                                 return <Card
@@ -113,6 +123,10 @@ export default function Home(props) {
                         <h1>Últimos Anúncios Realizados</h1>
                     </div>
                     <div className='wrapper-inner'>
+                        {
+                            lastAds.length === 0 && <PreloadCircle preload={true} />
+                        }
+
                         <Slider {...settingsCard}>
                             {lastAds.map((item, idx) => {
                                 if (idx < 12) {

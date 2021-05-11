@@ -8,6 +8,7 @@ import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import profileIcon from '../../assets/img/icons/default_user.svg'
 import whatsapp from '../../assets/img/icons/whatsapp.svg'
+import PreloadCircle from '../../components/PreloadCircle'
 
 import imageNotFound from '../../assets/img/image_not_found.svg'
 
@@ -47,6 +48,8 @@ export default function Details(props) {
             <NavBar />
 
             <div className='container'>
+                { advertisement.length === 0 && <PreloadCircle preload={true} /> }
+
                 <div className="container-carousel">
                     <div className="carousel" ref={carousel}>
                         

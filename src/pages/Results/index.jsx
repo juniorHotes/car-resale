@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './styles.css'
 
@@ -6,13 +6,31 @@ import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import Search from '../../components/Search'
 import Card from '../../components/Card'
+import PreloadCircle from '../../components/PreloadCircle'
 
 export default function Results(props) {
     const [data, setdata] = useState([])
+    const [dataError, setDataError] = useState(false)
+
+    const [preload, setPreload] = useState(true)
+
+    useEffect(() => {
+        if (dataError)
+            setPreload(false)
+    }, [dataError])
 
     // O resultado da pesquisa vem do componente Search
-    function setSearchQuery(d) {
-        setdata(d)
+    function setSearchQuery(data) {
+        setdata(data)
+        setPreload(false)
+    }
+
+    function setSearchQueryError(isError) {
+        setDataError(isError)
+    }
+
+    function isSetPreload(p) {
+        setPreload(p)
     }
 
     return (
@@ -22,15 +40,28 @@ export default function Results(props) {
             <div className='container'>
 
                 <div className="search__container">
-                    <Search parentProps={props} searchQuery={setSearchQuery} />
+                    <Search
+                        isPreload={isSetPreload}
+                        parentProps={props}
+                        searchQuery={setSearchQuery}
+                        searchQueryError={setSearchQueryError}
+                    />
                 </div>
 
                 <section className='section-wrapper'>
                     <div className='title-section'>
                         <h1>Resultados</h1>
                     </div>
-                    
-                    {data.length === 0 ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2> : null}
+
+                    <PreloadCircle preload={preload} />
+
+                    {dataError ? <h2 style={{ textAlign: 'center' }}>Erro ao buscar resultados</h2> : null}
+
+                    {
+                        preload ? null : data.length == 0
+                            ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2>
+                            : null
+                    }
 
                     <div className="results-container">
                         {
@@ -44,7 +75,8 @@ export default function Results(props) {
                                     year={item.year}
                                     km={item.km}
                                 />
-                            )}
+                            )
+                        }
                     </div>
 
                 </section>

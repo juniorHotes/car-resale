@@ -15,15 +15,28 @@ import M from "materialize-css";
 
 export default function Announce() {
     const formRef = useRef(null);
+    const elemSelect = useRef(null)
     const { openModal } = useContext(ModalContext)
 
     const [preload, setPreload] = useState(false)
 
-    const elemSelect = useRef(null)
     const [optional, setOptional] = useState([])
 
     const [selectedFile, setSelectedFile] = useState([]);
 
+    useEffect(async () => {
+        const request = await api('/api/optional')
+        setOptional(request.data)
+    }, [])
+    
+    useEffect(() => {
+        M.CharacterCounter.init(formRef.current.getFieldRef('Title'))
+        M.CharacterCounter.init(formRef.current.getFieldRef('Description'))
+        M.FormSelect.init(elemSelect.current);
+        elemSelect.current.M_FormSelect.input.placeholder = "Selecione um ou mais opcionais"
+        
+    }, [optional])
+    
     const changeHandler = (event) => {
         if (event.target.files.length > 10) {
             event.target.value = ""
@@ -35,19 +48,6 @@ export default function Announce() {
             setSelectedFile(event.target.files);
         }
     };
-
-    useEffect(async () => {
-        const request = await api('/api/optional')
-        setOptional(request.data)
-    }, [])
-
-    useEffect(() => {
-        M.CharacterCounter.init(formRef.current.getFieldRef('Title'))
-        M.CharacterCounter.init(formRef.current.getFieldRef('Description'))
-        M.FormSelect.init(elemSelect.current);
-        elemSelect.current.M_FormSelect.input.placeholder = "Selecione um ou mais opcionais"
-
-    }, [optional])
 
     async function handleSubmit(data, { reset }) {
 
@@ -256,7 +256,7 @@ export default function Announce() {
 
                                 <div className="preload">
                                     {preload &&
-                                        <div className="progress">
+                                        <div className="preload">
                                             <div className="indeterminate"></div>
                                         </div>
                                     }
