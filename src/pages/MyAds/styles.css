@@ -19,6 +19,15 @@
     opacity: 1!important;
 }
 
+@media screen and (max-width: 1045px) {
+    .tabs-content.carousel.carousel-slider div.carousel-item {
+        height: unset;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px
+    }
+}
+
 @media only screen and (min-width: 601px) {
     .row .col.m7 {
         width: 100%;

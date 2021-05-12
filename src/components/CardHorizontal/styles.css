@@ -37,3 +37,49 @@
 #_card-action {
     border-top: 0!important;
 }
+
+@media screen and (max-width: 1045px) {
+    .card.horizontal {
+        display: unset!important;
+    }
+    
+    .card.horizontal .card-image {
+        width: 100%!important;
+        max-width: 100%!important;
+        height: unset!important;
+        max-height: 100%!important;
+
+    }
+
+    .card.horizontal .card-image img {
+        width: 100%!important;
+    }
+
+    .card.horizontal .card-stacked .card-content {
+        display: block;
+    }
+
+    .card.horizontal .card-stacked .card-content div:last-child {
+        text-align: start;
+    }
+
+    .card.horizontal .card-stacked {
+        display: unset!important;
+    }
+
+    .card #_card-action:last-child {
+        position: unset!important;
+        justify-content: space-between;
+        right: 0;
+        bottom: 0;
+    }
+
+    .card.horizontal .card-action {
+        padding: 12px!important;
+    }
+
+    .card.horizontal .card-action a.btn {
+        margin: 0;
+    }
+
+}

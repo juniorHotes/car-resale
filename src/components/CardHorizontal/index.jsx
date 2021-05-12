@@ -9,6 +9,9 @@ import useDateFormat from '../../hooks/useDateFormat'
 
 import imageNotFound from '../../assets/img/image_not_found.svg'
 
+// Import Materialize
+import M from "materialize-css";
+
 export default function CardHorizontal({ id, image, title, brand, model, price, register, validThrue, reload, isActive, isPreload }) {
     const { openModal } = useContext(ModalContext)
 
@@ -20,7 +23,7 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
 
         const auth = await Authorization()
 
-        if(!auth) return 
+        if (!auth) return
 
         await api.put(`/api/advertisement/${id}/renew`, { validThrue: '' }, auth)
             .then(() => {
@@ -37,7 +40,7 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
 
         const auth = await Authorization()
 
-        if(!auth) return 
+        if (!auth) return
 
         await api.put(`/api/advertisement/${id}/active`, { active: true }, auth)
             .then(() => {
@@ -54,7 +57,7 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
 
         const auth = await Authorization()
 
-        if(!auth) return 
+        if (!auth) return
 
         await api.delete(`/api/advertisement/${id}`, auth)
             .then(() => {
@@ -83,6 +86,14 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
         }
     }
 
+    useEffect(() => {
+        var elems = document.querySelectorAll('.fixed-action-btn');
+        M.FloatingActionButton.init(elems, {
+            direction: 'left',
+            hoverEnabled: false
+        });
+    }, [])
+
     return (
         <div className="card horizontal">
             <div className="card-image">
@@ -104,7 +115,24 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
                     </div>
 
                 </div>
+
                 <div className="card-action" id="_card-action">
+
+                    <div className="fixed-action-btn">
+                        <a className="btn-floating btn-large red">
+                            <i className="large material-icons">mode_edit</i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a className="btn-floating red"></a>
+                            </li>
+                            <li><a className="btn-floating green"></a>
+                            </li>
+                            <li><a className="btn-floating blue"></a>
+                            </li>
+                        </ul>
+                    </div>
+
                     <Link to={{
                         pathname: '/announce',
                         state: {
