@@ -24,10 +24,6 @@ export default function MyAds() {
     const [preload, setPreload] = useState(true)
     const [reload, setReload] = useState(false)
 
-    function handlePreload() {
-        setPreload(true)
-    }
-
     function handleReload() {
         setReload(!reload)
     }
@@ -124,7 +120,7 @@ export default function MyAds() {
                                     validThrue={ads.validThrue}
                                     reload={handleReload}
                                     isActive={true}
-                                    isPreload={handlePreload}
+                                    isPreload={setPreload}
                                 />
                             )}
                         </div>
@@ -143,7 +139,7 @@ export default function MyAds() {
                                     validThrue={ads.validThrue}
                                     reload={handleReload}
                                     isActive={false}
-                                    isPreload={handlePreload}
+                                    isPreload={setPreload}
                                 />
                             )}
                         </div>
@@ -161,7 +157,7 @@ export default function MyAds() {
                                     register={ads.register}
                                     validThrue={ads.validThrue}
                                     reload={handleReload}
-                                    isPreload={handlePreload}
+                                    isPreload={setPreload}
                                 />
                             )}
                         </div>
