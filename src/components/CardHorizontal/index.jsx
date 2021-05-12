@@ -25,10 +25,10 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
         await api.put(`/api/advertisement/${id}/renew`, { validThrue: '' }, auth)
             .then(() => {
                 isPreload(false)
-                openModal('Publicação renovada com sucesso!', '', () => reload())
+                openModal('Anúncio renovado com sucesso!', '', () => reload())
             }).catch(err => {
-                isPreload(false)
                 openModal('Erro', 'Erro inesperado, tente de novo mais tarde')
+                isPreload(false)
             })
     }
 
@@ -42,10 +42,10 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
         await api.put(`/api/advertisement/${id}/active`, { active: true }, auth)
             .then(() => {
                 isPreload(false)
-                openModal('Publicação ativada com sucesso!', '', () => reload())
+                openModal('Anúncio ativado com sucesso!', '', () => reload())
             }).catch(err => {
-                isPreload(false)
                 openModal('Erro', 'Erro inesperado, tente de novo mais tarde')
+                isPreload(false)
             })
     }
 
@@ -56,12 +56,13 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
 
         if(!auth) return 
 
-        await api.delete(`/api/advertisement1/${id}`, auth)
+        await api.delete(`/api/advertisement/${id}`, auth)
             .then(() => {
                 isPreload(false)
-                openModal('Inativado com sucesso!', '', () => reload())
+                openModal('Anúncio Inativado com sucesso!', '', () => reload())
             }).catch(err => {
-                openModal('Erro', 'Erro inesperado, tente de novo mais tarde', '', () => isPreload(false))
+                openModal('Erro', 'Erro inesperado, tente de novo mais tarde')
+                isPreload(false)
             })
     }
 
