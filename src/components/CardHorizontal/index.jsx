@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../../services/api'
 import { ModalContext } from '../../App'
@@ -14,6 +14,8 @@ import M from "materialize-css";
 
 export default function CardHorizontal({ id, image, title, brand, model, price, register, validThrue, reload, isActive, isPreload }) {
     const { openModal } = useContext(ModalContext)
+
+    const FloatingActionButtonRef = useRef(null)
 
     const moneyFormat = useMoneyFormat
     const dateFormat = useDateFormat
@@ -86,12 +88,30 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
         }
     }
 
-    useEffect(() => {
-        var elems = document.querySelectorAll('.fixed-action-btn');
-        M.FloatingActionButton.init(elems, {
+    useEffect(() => {       
+        M.FloatingActionButton.init(FloatingActionButtonRef.current, {
             direction: 'left',
             hoverEnabled: false
         });
+
+        if(window.innerWidth < 950) {
+            FloatingActionButtonRef.current.classList.remove('direction-left')
+            FloatingActionButtonRef.current.classList.add('direction-bottom')
+        } else {
+            FloatingActionButtonRef.current.classList.remove('direction-bottom')
+            FloatingActionButtonRef.current.classList.add('direction-left')
+        }
+
+        window.addEventListener('resize', (e) => {
+            if(e.target.innerWidth < 950) {
+                FloatingActionButtonRef.current.classList.remove('direction-left')
+                FloatingActionButtonRef.current.classList.add('direction-bottom')
+            } else {
+                FloatingActionButtonRef.current.classList.remove('direction-bottom')
+                FloatingActionButtonRef.current.classList.add('direction-left')
+            }
+        })    
+
     }, [])
 
     return (
@@ -116,61 +136,61 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
 
                 </div>
 
-                <div className="card-action" id="_card-action">
+                <div className="fixed-action-btn" style={{ position: 'absolute' }} ref={FloatingActionButtonRef}>
+                    <a className="btn btn-floating btn-large">
+                        <i className="large material-icons">menu</i>
+                    </a>
+                    <ul>
+                        <li>
+                            <Link to={{
+                                pathname: '/announce',
+                                state: {
+                                    edit: true,
+                                    announceID: id
+                                }
+                            }}
+                                className="btn-floating green"
+                            >
+                                <i className="material-icons left">edit</i>
+                                Editar
+                            </Link>
+                        </li>
 
-                    <div className="fixed-action-btn">
-                        <a className="btn-floating btn-large red">
-                            <i className="large material-icons">mode_edit</i>
-                        </a>
-                        <ul>
-                            <li>
-                                <a className="btn-floating red"></a>
+                        {isActive
+                            ? (
+                                <>
+                                    <li>
+                                        <a
+                                            onClick={handleRenew}
+                                            className="btn-floating blue"
+                                        >
+                                            <i className="material-icons left">event_available</i>
+                                            Renovar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            onClick={handleInactive}
+                                            className="btn-floating red"
+                                        >
+                                            <i className="material-icons left">event_busy</i>
+                                            Inativar
+                                        </a>
+                                    </li>
+                                </>
+                            )
+                            : <li>
+                                <a
+                                    onClick={handleActive}
+                                    className="btn-floating blue"
+                                ><i className="material-icons left">beenhere</i>
+                                    Ativar
+                                </a>
                             </li>
-                            <li><a className="btn-floating green"></a>
-                            </li>
-                            <li><a className="btn-floating blue"></a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <Link to={{
-                        pathname: '/announce',
-                        state: {
-                            edit: true,
-                            announceID: id
                         }
-                    }}
-                        className="btn"
-                    ><i className="material-icons left">edit</i>
-                        Editar
-                    </Link>
-
-                    {isActive
-                        ? (
-                            <>
-                                <button
-                                    onClick={handleRenew}
-                                    className="btn"
-                                ><i className="material-icons left">event_available</i>
-                                    Renovar
-                                </button>
-
-                                <button
-                                    onClick={handleInactive}
-                                    className="btn"
-                                ><i className="material-icons left">event_busy</i>
-                                    Inativar
-                                </button>
-                            </>
-                        )
-                        : <button
-                            onClick={handleActive}
-                            className="btn"
-                        ><i className="material-icons left">beenhere</i>
-                            Ativar
-                        </button>
-                    }
+                    </ul>
                 </div>
+
             </div>
         </div>
     )

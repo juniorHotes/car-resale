@@ -19,7 +19,7 @@
     opacity: 1!important;
 }
 
-@media screen and (max-width: 1045px) {
+@media screen and (max-width: 950px) {
     .tabs-content.carousel.carousel-slider div.carousel-item {
         height: unset;
         display: grid;
@@ -27,6 +27,13 @@
         gap: 22px
     }
 }
+
+@media screen and (max-width: 600px) {
+    .tabs-content.carousel.carousel-slider div.carousel-item {
+        grid-template-columns: unset;
+    }
+}
+
 
 @media only screen and (min-width: 601px) {
     .row .col.m7 {
