@@ -45,7 +45,7 @@ export default function Login({ location }) {
                 .then((promise) => {
                     reset()
                     setPreload(false)
-                    openModal('Login feito com sucesso', '', () => setTimeout(() => { history.push('/') }, 500))
+                    openModal('Login feito com sucesso', '', () => setTimeout(() => { history.push('/my_ads') }, 500))
 
                     const { token } = promise.data
                     if (token) {
@@ -109,7 +109,7 @@ export default function Login({ location }) {
                     </Form>
                     <div id="footer-form">
                         <p>Não tem cadastro? </p>
-                        <Link to="newuser">Faça seu cadastro aqui</Link>
+                        <Link to="new_user">Faça seu cadastro aqui</Link>
                     </div>
 
                 </div>

@@ -32,7 +32,7 @@
 
 .card-container.card-small .card .card-image {
     max-height: 132px;
-    height: 132px;
+    height: auto;
     contain: content;
 }
 
@@ -105,14 +105,14 @@
 }
 
 
-@media screen and (max-width:850px) {
+@media screen and (max-width:950px) {
     .grid-3 {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
 }
 
-@media screen and (max-width:580px) {
+@media screen and (max-width:650px) {
     .card-container {
         display: flex;
     }

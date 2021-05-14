@@ -88,29 +88,41 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
         }
     }
 
-    useEffect(() => {       
+    useEffect(() => {
         M.FloatingActionButton.init(FloatingActionButtonRef.current, {
             direction: 'left',
             hoverEnabled: false
         });
 
-        if(window.innerWidth < 950) {
+        if (window.innerWidth < 950) {
+
+            if(!FloatingActionButtonRef.current) return 
+            
             FloatingActionButtonRef.current.classList.remove('direction-left')
             FloatingActionButtonRef.current.classList.add('direction-bottom')
         } else {
+
+            if(!FloatingActionButtonRef.current) return 
+
             FloatingActionButtonRef.current.classList.remove('direction-bottom')
             FloatingActionButtonRef.current.classList.add('direction-left')
         }
 
         window.addEventListener('resize', (e) => {
-            if(e.target.innerWidth < 950) {
+            if (window.innerWidth < 950) {
+
+                if(!FloatingActionButtonRef.current) return 
+    
                 FloatingActionButtonRef.current.classList.remove('direction-left')
                 FloatingActionButtonRef.current.classList.add('direction-bottom')
             } else {
+
+                if(!FloatingActionButtonRef.current) return 
+    
                 FloatingActionButtonRef.current.classList.remove('direction-bottom')
                 FloatingActionButtonRef.current.classList.add('direction-left')
             }
-        })    
+        })
 
     }, [])
 

@@ -118,7 +118,6 @@
     margin-top: 30px;
     padding: 16px;
     background-color: var(--secundary-bg-color);
-    contain: strict;
 }
 
 .profile-phone-wrapper {
@@ -190,4 +189,8 @@
         grid-template-columns: unset;
     }
 
+    .container-carousel .carousel .carousel-item {
+        width: 305px!important;
+        height: 228px!important;
+    } 
 }

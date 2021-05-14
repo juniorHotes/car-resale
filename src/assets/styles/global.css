@@ -99,3 +99,24 @@ label {
 .skylight-dialog h2 {
     font-size: 2.2rem!important;
 }
+
+@media screen and (max-width: 990px) {
+    .wrapper-inner {
+        width: 100%;
+    }
+
+    .skylight-dialog {
+        width: 90%!important;
+        left: 30%!important;
+    }
+}
+
+@media screen and (max-width: 790px) {
+    .wrapper-inner {
+        width: 100%;
+    }
+
+    .skylight-dialog h2 {
+        font-size: 1.8rem!important;
+    }
+}
