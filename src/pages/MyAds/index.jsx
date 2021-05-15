@@ -58,7 +58,7 @@ export default function MyAds() {
     }, [])
 
     useEffect(() => {
-        if(myAds.length === 0) return
+        if(myAds === undefined || myAds.length === 0) return
 
         setMyAdsActive(myAdsIsActive())
         setMyAdsInactive(myAdsIsInactive())

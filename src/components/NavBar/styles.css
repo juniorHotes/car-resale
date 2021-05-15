@@ -26,8 +26,6 @@ nav ul a:hover,
     padding-top: 20px;
 }
 
-.modal-comfirm {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.modal-confirm {
+    align-self: flex-end;
 }

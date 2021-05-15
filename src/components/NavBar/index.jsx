@@ -10,9 +10,13 @@ import M from "materialize-css";
 export default function NavBar() {
     const history = useHistory()
     const sidenav = useRef(null)
-    const { openModal, skyLightRef } = useContext(ModalContext)
+    const { openModal, onCloseModal, skyLightRef } = useContext(ModalContext)
 
     const [logged, setLogged] = useState(false)
+
+    useEffect(() => {
+        M.Sidenav.init(sidenav.current);
+    }, [])
 
     useEffect(() => {
         const session = sessionStorage.getItem('token')
@@ -22,19 +26,19 @@ export default function NavBar() {
         } else {
             setLogged(false)
         }
+    }, [logged])
 
-        M.Sidenav.init(sidenav.current);
-
-    }, [])
-
-
-    const logoutElem = (
-        <div className="modal-comfirm">
+    const logoutConfirm = (
+        <div className="modal-confirm">
             <button
-                className="btn"
+                className="btn btn-large"
                 onClick={() => {
-                    setLogged(false)
-                    sessionStorage.removeItem('token')
+                    onCloseModal(() => {
+                        sessionStorage.removeItem('token')
+                        setLogged(false)
+                        history.push('/')
+                    })
+
                     skyLightRef.current.hide()
                 }
                 }
@@ -76,14 +80,14 @@ export default function NavBar() {
                                         {logged ? 'Meus Anúncios' : 'Cadastrar-se'}
                                     </Link>
                                 </li>
-                                
+
                                 <li>
                                     <Link
                                         to={logged ? '#' : '/login'}
                                         onClick={() => {
                                             window.location.href = "#top"
                                             if (logged) {
-                                                openModal('Você deseja realmente sair?', logoutElem)
+                                                openModal('Você deseja realmente sair?', logoutConfirm)
                                             }
                                         }}
                                     >
@@ -103,6 +107,7 @@ export default function NavBar() {
                     <li>
                         <Link to="/announce" onClick={() => window.location.href = "#top"}>Anunciar</Link>
                     </li>
+
                     <li>
                         <Link
                             to={logged ? '/my_ads' : '/new_user'}
@@ -111,14 +116,14 @@ export default function NavBar() {
                             {logged ? 'Meus Anúncios' : 'Cadastrar-se'}
                         </Link>
                     </li>
+
                     <li>
                         <Link
                             to={logged ? '#' : '/login'}
                             onClick={() => {
                                 window.location.href = "#top"
                                 if (logged) {
-                                    sessionStorage.removeItem('token')
-                                    openModal('Você não está mais logado', '', () => setTimeout(() => { history.push('/') }, 500))
+                                    openModal('Você deseja realmente sair?', logoutConfirm)
                                 }
                             }}
                         >

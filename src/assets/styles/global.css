@@ -87,11 +87,8 @@ label {
 
 .skylight-dialog {
     min-height: 260px!important;
-    display: flex;
-    flex-direction: column;
+    display: grid;
     flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
     text-align: center;
     font-size: 1.5rem
 }

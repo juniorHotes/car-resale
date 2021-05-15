@@ -17,9 +17,13 @@ const App = () => {
         skyLightRef.current.show()
     }
 
+    function onCloseModal(afterClose) {
+        setSkyLightActions({ afterClose })
+    }
+
     return (
         <BrowserRouter>
-            <ModalContext.Provider value={{ openModal, skyLightRef }}>
+            <ModalContext.Provider value={{ openModal, onCloseModal, skyLightRef }}>
                 <ModalContext.Consumer>
                     {() => {
                         return (
