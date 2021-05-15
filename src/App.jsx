@@ -19,7 +19,7 @@ const App = () => {
 
     return (
         <BrowserRouter>
-            <ModalContext.Provider value={{ openModal }}>
+            <ModalContext.Provider value={{ openModal, skyLightRef }}>
                 <ModalContext.Consumer>
                     {() => {
                         return (

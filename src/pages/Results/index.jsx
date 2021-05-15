@@ -58,7 +58,7 @@ export default function Results(props) {
                     {dataError ? <h2 style={{ textAlign: 'center' }}>Erro ao buscar resultados</h2> : null}
 
                     {
-                        preload ? null : data.length == 0
+                        preload ? null : data.length === 0
                             ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2>
                             : null
                     }

@@ -25,3 +25,9 @@ nav ul a:hover,
 .sidenav div {
     padding-top: 20px;
 }
+
+.modal-comfirm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

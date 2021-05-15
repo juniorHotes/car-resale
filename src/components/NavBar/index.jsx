@@ -10,7 +10,7 @@ import M from "materialize-css";
 export default function NavBar() {
     const history = useHistory()
     const sidenav = useRef(null)
-    const { openModal } = useContext(ModalContext)
+    const { openModal, skyLightRef } = useContext(ModalContext)
 
     const [logged, setLogged] = useState(false)
 
@@ -26,6 +26,23 @@ export default function NavBar() {
         M.Sidenav.init(sidenav.current);
 
     }, [])
+
+
+    const logoutElem = (
+        <div className="modal-comfirm">
+            <button
+                className="btn"
+                onClick={() => {
+                    setLogged(false)
+                    sessionStorage.removeItem('token')
+                    skyLightRef.current.hide()
+                }
+                }
+            >
+                Sim
+            </button>
+        </div>
+    )
 
     return (
         <>
@@ -50,6 +67,7 @@ export default function NavBar() {
                                 <li>
                                     <Link to="/announce" onClick={() => window.location.href = "#top"}>Anunciar</Link>
                                 </li>
+
                                 <li>
                                     <Link
                                         to={logged ? '/my_ads' : '/new_user'}
@@ -58,20 +76,21 @@ export default function NavBar() {
                                         {logged ? 'Meus Anúncios' : 'Cadastrar-se'}
                                     </Link>
                                 </li>
+                                
                                 <li>
                                     <Link
                                         to={logged ? '#' : '/login'}
                                         onClick={() => {
                                             window.location.href = "#top"
                                             if (logged) {
-                                                sessionStorage.removeItem('token')
-                                                openModal('Você não está mais logado', '', () => setTimeout(() => { history.push('/') }, 500))
+                                                openModal('Você deseja realmente sair?', logoutElem)
                                             }
                                         }}
                                     >
                                         {logged ? 'Sair' : 'Entrar'}
                                     </Link>
                                 </li>
+
                             </ul>
                         </div>
                     </div>
