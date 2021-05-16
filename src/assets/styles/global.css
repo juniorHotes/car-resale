@@ -27,15 +27,9 @@
     max-width: var(--max-width);
 }
 
-h1, h2, h3 {
-    font-size: var(--title-font-size);
-    color: var(--title-primary-color)
-}
-
 label {
     font-size: 1.2rem!important;
 }
-
 
 /* ========== SECTION WRAPPER ========== */
 .section-wrapper {
@@ -115,5 +109,11 @@ label {
 
     .skylight-dialog h2 {
         font-size: 1.8rem!important;
-    }
+    }    
+}
+
+@media screen and (max-width: 400px) {
+    .form-title h3 {
+        font-size: 2rem;
+    }  
 }

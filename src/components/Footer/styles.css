@@ -72,5 +72,20 @@
         padding: 0 20px;
         text-align: start;
     }
+
+    .footer-icon-wrapper {
+        width: 160px;
+    }
     
+    #tel {
+        font-size: 1.7rem;
+    }
+    
+    #email {
+        font-size: 1.2rem;
+    }
+    
+    #addres {
+        font-size: 1rem;
+    }    
 }
