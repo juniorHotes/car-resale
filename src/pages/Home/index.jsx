@@ -16,14 +16,18 @@ export default function Home(props) {
     const [highligths, setHighLigths] = useState([])
     const [lastAds, setLastAds] = useState([])
 
-    useEffect(async () => {
-        const reqBanners = (await api.get('/api/home/banners')).data
-        const reqHighligths = (await api.get('/api/home/highligths')).data
-        const reqLastAds = (await api.get('/api/home/lastAds')).data
+    useEffect(() => {
+        async function fetchData() {
+            const reqBanners = (await api.get('/api/home/banners')).data
+            const reqHighligths = (await api.get('/api/home/highligths')).data
+            const reqLastAds = (await api.get('/api/home/lastAds')).data
 
-        setBanners(reqBanners)
-        setHighLigths(reqHighligths)
-        setLastAds(reqLastAds)
+            setBanners(reqBanners)
+            setHighLigths(reqHighligths)
+            setLastAds(reqLastAds)
+        }
+
+        fetchData()
     }, [])
 
     // Slick banner settings
@@ -102,8 +106,10 @@ export default function Home(props) {
                         }
 
                         {highligths.map((item, idx) => {
-                            if (idx < 3) {
-                                return <Card
+                            if (idx > 3) return
+
+                            return (
+                                <Card
                                     key={item.id}
                                     id={item.id}
                                     image={item.images[0]}
@@ -112,7 +118,8 @@ export default function Home(props) {
                                     year={item.year}
                                     km={46000}
                                 />
-                            }
+                            )
+
                         }
                         )}
                     </div>
@@ -129,15 +136,18 @@ export default function Home(props) {
 
                         <Slider {...settingsCard}>
                             {lastAds.map((item, idx) => {
-                                if (idx < 12) {
-                                    return <Card
+                                if (idx > 12) return
+                                
+                                return (
+                                    <Card
                                         className="card-small"
                                         key={item.id}
                                         id={item.id}
                                         image={item.images[0]}
                                         price={item.price}
                                     />
-                                }
+                                )
+
                             }
                             )}
                         </Slider>

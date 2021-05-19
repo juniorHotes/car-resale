@@ -33,30 +33,32 @@ export default function Search(props) {
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
 
-    useEffect(async () => {
+    useEffect(() => {
+        async function fetchData() {
+            const request = (await api('/api/optional')).data
+            setOptional(request)
 
-        const request = (await api('/api/optional')).data
-        setOptional(request)
+            // Está chamada funciona apenas da página de resultados
+            if (state) {
 
-        // Está chamada funciona apenas da página de resultados
-        if (state) {
-           
-            const data = state ? state : { filter: "", searchType: "basic" }
+                const data = state ? state : { filter: "", searchType: "basic" }
 
-            if(data.searchType === 'complete') {
-                setbrand(data.brand)
-                setModel(data.model)
-                setMaxKm(data.maxKm)
-                setMinYear(data.minYear)
-                setMaxYear(data.maxYear)
-                setMinPrice(moneyFormat(data.minPrice))
-                setMaxPrice(moneyFormat(data.maxPrice))
-            }  else {
-                setFilter(data.filter)                
+                if (data.searchType === 'complete') {
+                    setbrand(data.brand)
+                    setModel(data.model)
+                    setMaxKm(data.maxKm)
+                    setMinYear(data.minYear)
+                    setMaxYear(data.maxYear)
+                    setMinPrice(moneyFormat(data.minPrice))
+                    setMaxPrice(moneyFormat(data.maxPrice))
+                } else {
+                    setFilter(data.filter)
+                }
+                await apiRequest(data)
             }
-
-            await apiRequest(data)
         }
+
+        fetchData()
     }, [])
 
     useEffect(() => {
@@ -128,7 +130,7 @@ export default function Search(props) {
                         </div>
 
                         <div className="advanced-button-wrapper">
-                            <a className="btn-flat"
+                            <a href="#" className="btn-flat"
                                 onClick={() => {
                                     setChangeText(!changeText)
                                     return searchContainer.current.classList.toggle('drop_down')

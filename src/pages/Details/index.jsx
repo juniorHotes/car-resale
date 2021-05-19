@@ -22,12 +22,15 @@ export default function Details(props) {
 
     const [advertisement, setAdvertisement] = useState([])
 
-    useEffect(async () => {
-        const reqAdvertisement = (await api.get(`/api/advertisement/${props.match.params.id}`)).data
-        setAdvertisement(reqAdvertisement)
+    useEffect(() => {
+        async function fetchData() {
+            const reqAdvertisement = (await api.get(`/api/advertisement/${props.match.params.id}`)).data
+            setAdvertisement(reqAdvertisement)
+        }
+        fetchData()
     }, [])
 
-    useEffect(async () => {
+    useEffect(() => {
         if (carousel == null) return
 
         M.Carousel.init(carousel.current);

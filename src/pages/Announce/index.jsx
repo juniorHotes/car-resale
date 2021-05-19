@@ -29,9 +29,12 @@ export default function Announce() {
     const [city, setCity] = useState('')
     const [ibgenumber, setIbgenumber] = useState('')
 
-    useEffect(async () => {
-        const request = await api('/api/optional')
-        setOptional(request.data)
+    useEffect(() => {
+        async function fetchData() {
+            const request = await api('/api/optional')
+            setOptional(request.data)
+        }
+        fetchData()
     }, [])
 
     useEffect(() => {

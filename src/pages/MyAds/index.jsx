@@ -28,7 +28,7 @@ export default function MyAds() {
         setReload(!reload)
     }
 
-    useEffect(async () => {
+    useEffect(() => {
         const token = sessionStorage.getItem('token')
 
         if (!token) {
@@ -42,28 +42,31 @@ export default function MyAds() {
             },
         };
 
-        const reqAds = await api.get('/api/advertisement', options)
-            .then(request => {
-                setPreload(false)
-                return request.data
-            }).catch(err => {
-                openModal("Erro", "Erro ao carregar anúcios")
-            })
+        async function fetchData() {
+            const reqAds = await api.get('/api/advertisement', options)
+                .then(request => {
+                    setPreload(false)
+                    return request.data
+                }).catch(err => {
+                    openModal("Erro", "Erro ao carregar anúcios")
+                })
 
-        setMyAds(reqAds)
-    }, [reload])
+            setMyAds(reqAds)
+        }
+        fetchData()
+    }, [reload, openModal])
 
     useEffect(() => {
         M.Tabs.init(tabRef.current, { swipeable: true });
     }, [])
 
     useEffect(() => {
-        if(myAds === undefined || myAds.length === 0) return
+        if (myAds === undefined || myAds.length === 0) return
 
         setMyAdsActive(myAdsIsActive())
         setMyAdsInactive(myAdsIsInactive())
         setMyAdsHighlight(myAdsIsHighlight())
-    }, [myAds])
+    }, [myAds, myAdsActive, myAdsHighlight, myAdsInactive])
 
     function myAdsIsActive() {
         return myAds.filter(item => item.active === true)

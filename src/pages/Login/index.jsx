@@ -22,7 +22,7 @@ export default function Login({ location }) {
         if(location.state) {
             openModal("Cadastre-se ou faça login para acessar está sessão")
         }
-    }, [])
+    }, [location.state])
 
     async function handleSubmit(data, { reset }) {
         formRef.current.setErrors({})
