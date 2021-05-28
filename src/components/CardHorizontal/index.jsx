@@ -149,7 +149,7 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
                 </div>
 
                 <div className="fixed-action-btn" style={{ position: 'absolute' }} ref={FloatingActionButtonRef}>
-                    <a href="#" className="btn btn-floating btn-large">
+                    <a href="/" className="btn btn-floating btn-large">
                         <i className="large material-icons">menu</i>
                     </a>
                     <ul>
@@ -172,7 +172,7 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
                             ? (
                                 <>
                                     <li>
-                                        <a  href="#"
+                                        <a  href="/"
                                             onClick={handleRenew}
                                             className="btn-floating blue"
                                         >
@@ -181,7 +181,7 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
                                         </a>
                                     </li>
                                     <li>
-                                        <a  href="#"
+                                        <a  href="/"
                                             onClick={handleInactive}
                                             className="btn-floating red"
                                         >
@@ -192,7 +192,7 @@ export default function CardHorizontal({ id, image, title, brand, model, price, 
                                 </>
                             )
                             : <li>
-                                <a  href="#"
+                                <a  href="/"
                                     onClick={handleActive}
                                     className="btn-floating blue"
                                 ><i className="material-icons left">beenhere</i>

@@ -20,15 +20,16 @@ export default function Details(props) {
     const moneyFormat = useMoneyFormat
     const kmFormat = useKmFormat
 
+    const id = props.match.params.id
+
     const [advertisement, setAdvertisement] = useState([])
 
     useEffect(() => {
-        async function fetchData() {
-            const reqAdvertisement = (await api.get(`/api/advertisement/${props.match.params.id}`)).data
+        (async () => {
+            const reqAdvertisement = (await api.get(`/api/advertisement/${id}`)).data
             setAdvertisement(reqAdvertisement)
-        }
-        fetchData()
-    }, [])
+        })()
+    }, [id])
 
     useEffect(() => {
         if (carousel == null) return
@@ -51,30 +52,28 @@ export default function Details(props) {
             <NavBar />
 
             <div className='container'>
-                { advertisement.length === 0 && <PreloadCircle preload={true} /> }
+                {advertisement.length === 0 && <PreloadCircle preload={true} />}
 
                 <div className="container-carousel">
                     <div className="carousel" ref={carousel}>
-                        
-                        <a key={0} className="carousel-item" href="#">
-                            <img src={getImages(0)} />
+
+                        <a key={0} className="carousel-item" href="/" >
+                            <img src={getImages(0)} alt="" />
                         </a>
-                        <a key={1} className="carousel-item" href="#">
-                            <img src={getImages(1)} />
+                        <a key={1} className="carousel-item" href="/" >
+                            <img src={getImages(1)} alt="" />
                         </a>
-                        <a key={2} className="carousel-item" href="#">
-                            <img src={getImages(2)} />
+                        <a key={2} className="carousel-item" href="/" >
+                            <img src={getImages(2)} alt="" />
                         </a>
 
-                        {advertisement.images && advertisement.images.map((image, idx) => {
-                            if (idx > 2) {
-                                return (
-                                    <a key={idx} className="carousel-item" href="#">
-                                        <img src={`data:image/png;base64,${image}`} />
-                                    </a>
-                                )
-                            }
-                        }
+                        {advertisement.images && advertisement.images.map((image, idx) =>
+                            idx > 2 && (
+                                <a key={idx} className="carousel-item" href="/">
+                                    <img src={`data:image/png;base64,${image}`} alt="" />
+                                </a>
+                            )
+
                         )}
                     </div>
                 </div>
@@ -132,7 +131,7 @@ export default function Details(props) {
                                             <div className="profile-phone">
                                                 <span>(98) 91234-5678</span>
                                             </div>
-                                            <img width="50" src={whatsapp} title="Whatsapp" rel="Whatsapp" />
+                                            <img width="50" src={whatsapp} title="Whatsapp" rel="Whatsapp" alt="" />
                                         </div>
                                     </a>
 

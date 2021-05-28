@@ -130,7 +130,7 @@ export default function Search(props) {
                         </div>
 
                         <div className="advanced-button-wrapper">
-                            <a href="#" className="btn-flat"
+                            <a href="/" className="btn-flat"
                                 onClick={() => {
                                     setChangeText(!changeText)
                                     return searchContainer.current.classList.toggle('drop_down')

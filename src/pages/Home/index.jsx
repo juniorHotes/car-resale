@@ -17,7 +17,7 @@ export default function Home(props) {
     const [lastAds, setLastAds] = useState([])
 
     useEffect(() => {
-        async function fetchData() {
+        (async () => {
             const reqBanners = (await api.get('/api/home/banners')).data
             const reqHighligths = (await api.get('/api/home/highligths')).data
             const reqLastAds = (await api.get('/api/home/lastAds')).data
@@ -25,9 +25,7 @@ export default function Home(props) {
             setBanners(reqBanners)
             setHighLigths(reqHighligths)
             setLastAds(reqLastAds)
-        }
-
-        fetchData()
+        })()
     }, [])
 
     // Slick banner settings
@@ -80,10 +78,6 @@ export default function Home(props) {
 
             <div className='container'>
                 <header className='banner-wrapper'>
-                    {
-                        banners.length === 0 && <PreloadCircle preload={true} />
-                    }
-
                     <Slider {...settingsBanner}>
                         {banners.map((banner, idx) =>
                             <div key={idx}>
@@ -105,10 +99,8 @@ export default function Home(props) {
                             highligths.length === 0 && <PreloadCircle preload={true} />
                         }
 
-                        {highligths.map((item, idx) => {
-                            if (idx > 3) return
-
-                            return (
+                        {highligths.map((item, idx) =>
+                            idx > 3 && (
                                 <Card
                                     key={item.id}
                                     id={item.id}
@@ -119,8 +111,6 @@ export default function Home(props) {
                                     km={46000}
                                 />
                             )
-
-                        }
                         )}
                     </div>
                 </section>
@@ -135,10 +125,8 @@ export default function Home(props) {
                         }
 
                         <Slider {...settingsCard}>
-                            {lastAds.map((item, idx) => {
-                                if (idx > 12) return
-                                
-                                return (
+                            {lastAds.map((item, idx) =>
+                                idx > 12 && (
                                     <Card
                                         className="card-small"
                                         key={item.id}
@@ -147,8 +135,6 @@ export default function Home(props) {
                                         price={item.price}
                                     />
                                 )
-
-                            }
                             )}
                         </Slider>
                     </div>

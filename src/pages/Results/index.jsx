@@ -19,7 +19,7 @@ export default function Results(props) {
             setPreload(false)
     }, [dataError])
 
-    // O resultado da pesquisa vem do componente Search
+    // O resultado da pesquisa retorna do componente Search
     function setSearchQuery(data) {
         setdata(data)
         setPreload(false)

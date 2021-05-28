@@ -62,7 +62,7 @@ export default function NavBar() {
                                 <img width="110px" src={logoIcon} alt="logo" />
                             </Link>
 
-                            <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+                            <a href="/" data-target="mobile-demo" className="sidenav-trigger">
                                 <i className="material-icons">menu</i>
                             </a>
 

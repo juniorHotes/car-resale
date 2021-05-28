@@ -30,11 +30,10 @@ export default function Announce() {
     const [ibgenumber, setIbgenumber] = useState('')
 
     useEffect(() => {
-        async function fetchData() {
+        (async () => {
             const request = await api('/api/optional')
             setOptional(request.data)
-        }
-        fetchData()
+        })()
     }, [])
 
     useEffect(() => {
@@ -42,7 +41,6 @@ export default function Announce() {
         M.CharacterCounter.init(formRef.current.getFieldRef('Description'))
         M.FormSelect.init(elemSelect.current);
         elemSelect.current.M_FormSelect.input.placeholder = "Selecione um ou mais opcionais"
-
     }, [optional])
 
     async function getAddres(cep) {

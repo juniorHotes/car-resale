@@ -42,7 +42,7 @@ export default function MyAds() {
             },
         };
 
-        async function fetchData() {
+        (async () => {
             const reqAds = await api.get('/api/advertisement', options)
                 .then(request => {
                     setPreload(false)
@@ -52,8 +52,8 @@ export default function MyAds() {
                 })
 
             setMyAds(reqAds)
-        }
-        fetchData()
+        })()
+        // fetchData()
     }, [reload, openModal])
 
     useEffect(() => {
@@ -66,19 +66,13 @@ export default function MyAds() {
         setMyAdsActive(myAdsIsActive())
         setMyAdsInactive(myAdsIsInactive())
         setMyAdsHighlight(myAdsIsHighlight())
-    }, [myAds, myAdsActive, myAdsHighlight, myAdsInactive])
+    }, [myAds])
 
-    function myAdsIsActive() {
-        return myAds.filter(item => item.active === true)
-    }
+    const myAdsIsActive = () => myAds.filter(item => item.active === true)
 
-    function myAdsIsInactive() {
-        return myAds.filter(item => item.active === false)
-    }
+    const myAdsIsInactive = () => myAds.filter(item => item.active === false)
 
-    function myAdsIsHighlight() {
-        return myAds.filter(item => item.highlight === true)
-    }
+    const myAdsIsHighlight = () => myAds.filter(item => item.highlight === true)
 
     const keyGenerator = () => (Math.random() * 0xFFFFFF << 0).toString(16)
 
