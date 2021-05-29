@@ -55,11 +55,11 @@ export default function Results(props) {
 
                     <PreloadCircle preload={preload} />
 
-                    {dataError ? <h2 style={{ textAlign: 'center' }}>Erro ao buscar resultados</h2> : null}
+                    {dataError ? <h5 style={{ textAlign: 'center' }}>Erro ao buscar resultados</h5> : null}
 
                     {
                         preload ? null : data.length === 0
-                            ? <h2 style={{ textAlign: 'center' }}>Não encontramos resultados</h2>
+                            ? <h5 style={{ textAlign: 'center' }}>Não encontramos resultados</h5>
                             : null
                     }
 

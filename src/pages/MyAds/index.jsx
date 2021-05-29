@@ -104,6 +104,8 @@ export default function MyAds() {
                         <PreloadCircle preload={preload} />
 
                         <div id="swipe-1" className="col s12">
+                            {!preload && myAdsActive.length === 0 && <h5>Não há anúncios ativos</h5>}
+
                             {myAdsActive.map(ads =>
                                 <CardHorizontal
                                     key={keyGenerator()}
@@ -123,6 +125,8 @@ export default function MyAds() {
                         </div>
 
                         <div id="swipe-2" className="col s12">
+                            {!preload && myAdsInactive.length === 0 && <h5>Não há anúncios inativos</h5>}
+
                             {myAdsInactive.map(ads =>
                                 <CardHorizontal
                                     key={keyGenerator()}
@@ -142,6 +146,8 @@ export default function MyAds() {
                         </div>
 
                         <div id="swipe-3" className="col s12">
+                            {!preload && myAdsHighlight.length === 0 && <h5>Não há anúncios destacados</h5>}
+
                             {myAdsHighlight.map(ads =>
                                 <CardHorizontal
                                     key={keyGenerator()}

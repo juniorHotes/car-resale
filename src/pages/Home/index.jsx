@@ -19,11 +19,15 @@ export default function Home(props) {
     useEffect(() => {
         (async () => {
             const reqBanners = (await api.get('/api/home/banners')).data
-            const reqHighligths = (await api.get('/api/home/highligths')).data
+            // const reqHighligths = (await api.get('/api/home/highligths')).data
             const reqLastAds = (await api.get('/api/home/lastAds')).data
 
+            console.log(reqBanners)
+            // console.log(reqHighligths)
+            console.log(reqLastAds)
+
             setBanners(reqBanners)
-            setHighLigths(reqHighligths)
+            // setHighLigths(reqHighligths)
             setLastAds(reqLastAds)
         })()
     }, [])
@@ -126,15 +130,13 @@ export default function Home(props) {
 
                         <Slider {...settingsCard}>
                             {lastAds.map((item, idx) =>
-                                idx > 12 && (
-                                    <Card
-                                        className="card-small"
-                                        key={item.id}
-                                        id={item.id}
-                                        image={item.images[0]}
-                                        price={item.price}
-                                    />
-                                )
+                                <Card
+                                    className="card-small"
+                                    key={item.id}
+                                    id={item.id}
+                                    image={item.images[0]}
+                                    price={item.price}
+                                />
                             )}
                         </Slider>
                     </div>

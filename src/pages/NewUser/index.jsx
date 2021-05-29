@@ -1,4 +1,5 @@
 import React, { useRef, useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 import api from '../../services/api'
@@ -11,6 +12,8 @@ import Footer from '../../components/Footer'
 import Input from '../../components/Form/Input'
 
 export default function NewUser() {
+    const history = useHistory()
+
     const formRef = useRef(null);
     const { openModal } = useContext(ModalContext)
 
@@ -96,7 +99,7 @@ export default function NewUser() {
                     reset()
                     setPhone('')
                     setPreload(false)
-                    openModal('Cadastrado com sucesso')
+                    openModal('Cadastrado com sucesso', '', () => setTimeout(() => history.push('/login'), 1000))
                 }).catch(err => {
                     setPreload(false)
                     openModal('Erro ao fazer cadastro', 'Erro na requisição')
