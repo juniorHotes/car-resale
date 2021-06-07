@@ -6,10 +6,8 @@ function useDateFormat(date) {
     const dd = convert(fullDate.getDate())
     const mm = convert(fullDate.getMonth() + 1)
     const yy = fullDate.getFullYear()
-    const hrs = convert(fullDate.getHours())
-    const mts = convert(fullDate.getMinutes())
 
-    return `${dd}/${mm}/${yy} às ${hrs}:${mts}`
+    return `${dd}/${mm}/${yy}`
 }
 
 export default useDateFormat;

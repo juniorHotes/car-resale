@@ -34,9 +34,9 @@ export default function NavBar() {
                 className="btn btn-large"
                 onClick={() => {
                     onCloseModal(() => {
-                        sessionStorage.removeItem('token')
                         setLogged(false)
                         history.push('/')
+                        sessionStorage.removeItem('token')
                     })
 
                     skyLightRef.current.hide()

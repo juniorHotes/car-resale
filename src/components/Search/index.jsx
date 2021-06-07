@@ -34,7 +34,7 @@ export default function Search(props) {
     const [maxPrice, setMaxPrice] = useState('')
 
     useEffect(() => {
-        async function fetchData() {
+        (async () => {
             const request = (await api('/api/optional')).data
             setOptional(request)
 
@@ -56,9 +56,8 @@ export default function Search(props) {
                 }
                 await apiRequest(data)
             }
-        }
-
-        fetchData()
+        })()
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
@@ -119,11 +118,11 @@ export default function Search(props) {
                                 />
 
                                 <input
-                                    onClick={() => setSearchType('basic')}
-                                    className="btn btn-large"
                                     inputsearch="search-button"
                                     type="submit"
                                     value=""
+                                    className="btn btn-large"
+                                    onClick={() => setSearchType('basic')}
                                 />
                             </div>
 
@@ -237,10 +236,14 @@ export default function Search(props) {
                                     </div>
                                 </div>
                                 <button
-                                    onClick={() => setSearchType('complete')}
                                     type="submit"
                                     id="btn-advaced-search"
                                     className="btn btn-big"
+                                    onClick={() => {
+                                        setSearchType('complete')
+                                        setChangeText(!changeText)
+                                        searchContainer.current.classList.toggle('drop_down')
+                                    }}
                                 >
                                     Pesquisar
                                 </button>

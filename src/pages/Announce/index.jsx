@@ -47,7 +47,7 @@ export default function Announce() {
         formRef.current.setFieldError('cep', '')
 
         if (cep.length === 8) {
-            const addres = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(e => e.json()).catch(err => err)
+            const addres = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(e => e.json())
             const cepNotFound = addres.erro
 
             if (cepNotFound) {
@@ -186,8 +186,8 @@ export default function Announce() {
                                 <div className="row" id="textarea-wrap">
                                     <InputTextarea
                                         label="Descrição*"
-                                        name="Description"
                                         id="description"
+                                        name="Description"
                                         className="materialize-textarea"
                                         placeholder="Adicione uma breve descrição"
                                         disabled={preload}
@@ -245,11 +245,11 @@ export default function Announce() {
                                 />
 
                                 <Input
-                                    onChange={(e) => getAddres(e.target.value)}
                                     label="CEP*"
                                     type="number"
                                     name="cep"
                                     placeholder="Ex: 12345678"
+                                    onChange={(e) => getAddres(e.target.value)}
                                     disabled={preload}
                                 />
 
@@ -272,7 +272,9 @@ export default function Announce() {
 
                                 <div className="input-field col s12">
                                     <select disabled={preload} multiple ref={elemSelect} defaultValue={[]}>
-                                        {optional.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
+                                        {optional.map(e =>
+                                            <option key={e.id} value={e.id}>{e.name}</option>)
+                                        }
                                     </select>
                                     <label style={{ left: "unset", top: "-37px" }} >Opcionais</label>
                                 </div>
@@ -282,10 +284,25 @@ export default function Announce() {
                                 <div className="file-field input-field">
                                     <div className="btn">
                                         <span>Adicionar Imagens</span>
-                                        <input disabled={preload} onChange={changeHandler} accept="image/*" type="file" name="file-image" className="file" multiple />
+                                        <input
+                                            type="file"
+                                            name="file-image"
+                                            accept="image/*"
+                                            className="file"
+                                            disabled={preload}
+                                            onChange={changeHandler}
+                                            multiple
+                                        />
                                     </div>
                                     <div className="file-path-wrapper">
-                                        <input disabled={preload} onChange={changeHandler} name="imageName" className="file-path validate" type="text" placeholder="Selecione no máximo 10 imagens" />
+                                        <input
+                                            type="text"
+                                            name="imageName"
+                                            placeholder="Selecione no máximo 10 imagens"
+                                            className="file-path validate"
+                                            disabled={preload}
+                                            onChange={changeHandler}
+                                        />
                                     </div>
                                 </div>
 
@@ -295,6 +312,7 @@ export default function Announce() {
                                             <div className="indeterminate"></div>
                                         </div>
                                     }
+
                                     <button disabled={preload}
                                         className="btn btn-large btn-100"
                                         type="submit"

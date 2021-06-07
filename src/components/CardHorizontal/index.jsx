@@ -12,7 +12,19 @@ import imageNotFound from '../../assets/img/image_not_found.svg'
 // Import Materialize
 import M from "materialize-css";
 
-export default function CardHorizontal({ id, image, title, brand, model, price, register, validThrue, reload, isActive, isPreload }) {
+export default function CardHorizontal({
+    id,
+    image,
+    title,
+    brand,
+    model,
+    price,
+    register,
+    validThrue,
+    reload,
+    isActive,
+    isPreload }) {
+        
     const { openModal } = useContext(ModalContext)
 
     const FloatingActionButtonRef = useRef(null)

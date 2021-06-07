@@ -19,17 +19,16 @@ export default function Home(props) {
     useEffect(() => {
         (async () => {
             const reqBanners = (await api.get('/api/home/banners')).data
-            // const reqHighligths = (await api.get('/api/home/highligths')).data
+            const reqHighligths = (await api.get('/api/home/highligths')).data
             const reqLastAds = (await api.get('/api/home/lastAds')).data
 
-            console.log(reqBanners)
-            // console.log(reqHighligths)
-            console.log(reqLastAds)
+            console.log(reqHighligths)
 
             setBanners(reqBanners)
-            // setHighLigths(reqHighligths)
+            setHighLigths(reqHighligths)
             setLastAds(reqLastAds)
         })()
+        // eslint-disable-next-line
     }, [])
 
     // Slick banner settings
@@ -104,7 +103,7 @@ export default function Home(props) {
                         }
 
                         {highligths.map((item, idx) =>
-                            idx > 3 && (
+                            idx < 3 && (
                                 <Card
                                     key={item.id}
                                     id={item.id}

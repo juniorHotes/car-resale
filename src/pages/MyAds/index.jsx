@@ -53,7 +53,6 @@ export default function MyAds() {
 
             setMyAds(reqAds)
         })()
-        // fetchData()
     }, [reload, openModal])
 
     useEffect(() => {
@@ -66,6 +65,7 @@ export default function MyAds() {
         setMyAdsActive(myAdsIsActive())
         setMyAdsInactive(myAdsIsInactive())
         setMyAdsHighlight(myAdsIsHighlight())
+        // eslint-disable-next-line
     }, [myAds])
 
     const myAdsIsActive = () => myAds.filter(item => item.active === true)
@@ -118,8 +118,8 @@ export default function MyAds() {
                                     register={ads.register}
                                     validThrue={ads.validThrue}
                                     reload={handleReload}
-                                    isActive={true}
                                     isPreload={setPreload}
+                                    isActive={true}
                                 />
                             )}
                         </div>
@@ -139,8 +139,8 @@ export default function MyAds() {
                                     register={ads.register}
                                     validThrue={ads.validThrue}
                                     reload={handleReload}
-                                    isActive={false}
                                     isPreload={setPreload}
+                                    isActive={false}
                                 />
                             )}
                         </div>

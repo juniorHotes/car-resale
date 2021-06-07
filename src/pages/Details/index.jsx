@@ -57,19 +57,19 @@ export default function Details(props) {
                 <div className="container-carousel">
                     <div className="carousel" ref={carousel}>
 
-                        <a key={0} className="carousel-item" href="/" >
+                        <a key={0} className="carousel-item" href="#" >
                             <img src={getImages(0)} alt="" />
                         </a>
-                        <a key={1} className="carousel-item" href="/" >
+                        <a key={1} className="carousel-item" href="#" >
                             <img src={getImages(1)} alt="" />
                         </a>
-                        <a key={2} className="carousel-item" href="/" >
+                        <a key={2} className="carousel-item" href="#" >
                             <img src={getImages(2)} alt="" />
                         </a>
 
                         {advertisement.images && advertisement.images.map((image, idx) =>
                             idx > 2 && (
-                                <a key={idx} className="carousel-item" href="/">
+                                <a key={idx} className="carousel-item" href="#">
                                     <img src={`data:image/png;base64,${image}`} alt="" />
                                 </a>
                             )

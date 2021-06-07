@@ -104,7 +104,7 @@
 
 #advaced-search-g2 {
     display: grid;
-    gap: 85px;
+    gap: 10%;
     grid-template-columns: 1fr 1fr;
 }
 

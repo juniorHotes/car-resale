@@ -31,7 +31,7 @@ export default function NewUser() {
         formRef.current.setFieldError('cep', '')
 
         if (cep.length === 8) {
-            const addres = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(e => e.json()).catch(err => err)
+            const addres = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(e => e.json())
             const cepNotFound = addres.erro
 
             if (cepNotFound) {
@@ -62,7 +62,7 @@ export default function NewUser() {
         formRef.current.setErrors({})
 
         if (data.password !== data.passwordrepeat) {
-            return formRef.current.setFieldError('passwordrepeat', "A senha é diferente")
+            return formRef.current.setFieldError('passwordrepeat', "A senha é diferente da digitada acima")
         }
 
         try {
@@ -84,7 +84,7 @@ export default function NewUser() {
                     .required("Forneça seu CEP para preencher seu endereço"),
 
                 phone: Yup.string()
-                    .min(15, "Revise o número")
+                    .min(15, "Forneça um número de telefone válido")
                     .required("Forneça seu número de telefone para contato"),
             })
 
@@ -179,12 +179,12 @@ export default function NewUser() {
                         />
 
                         <Input
-                            onChange={(e) => getAddres(e.target.value)}
                             label="CEP*"
                             type="number"
                             name="cep"
                             placeholder="Ex: 12345678"
                             disabled={preload}
+                            onChange={(e) => getAddres(e.target.value)}
                         />
 
                         <div className={`hide-input ${showInput}`}>
@@ -241,13 +241,13 @@ export default function NewUser() {
                         </div>
 
                         <Input
-                            onChange={(e) => phoneNumberFormatter(e.target.value)}
                             label="Telefone com DDD*"
                             type="tel"
                             name="phone"
                             value={phone}
                             placeholder="Ex: (00) 12345-6789"
                             disabled={preload}
+                            onChange={(e) => phoneNumberFormatter(e.target.value)}
                         />
 
                         <div className="preload">
