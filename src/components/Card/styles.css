@@ -43,6 +43,7 @@
 .card .card-title {
     font-size: 1.3rem!important;
     font-weight: 400!important;
+    line-height: 20px!important;
 }
 
 .card .card-content {

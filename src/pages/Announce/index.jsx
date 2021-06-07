@@ -308,16 +308,15 @@ export default function Announce() {
 
                                 <div className="preload">
                                     {preload &&
-                                        <div className="preload">
+                                        <div className="progress">
                                             <div className="indeterminate"></div>
                                         </div>
                                     }
-
                                     <button disabled={preload}
                                         className="btn btn-large btn-100"
                                         type="submit"
                                     >
-                                        Anunciar
+                                        Anúnciar
                                     </button>
                                 </div>
                             </div>
